@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hyh.dao.FileDao">
+    <resultMap id="BaseResultMap" type="hyh.entity.UserFile">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="userid" jdbcType="BIGINT" property="userid"/>
+        <result column="filename" jdbcType="VARCHAR" property="filename"/>
+        <result column="path" jdbcType="VARCHAR" property="path"/>
+        <result column="summary" jdbcType="VARCHAR" property="summary"/>
+        <result column="downloads" jdbcType="INTEGER" property="downloads"/>
+        <result column="size" jdbcType="TINYINT" property="size"/>
+        <result column="type" jdbcType="TINYINT" property="type"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, userid, filename, downloads, size, type
+  </sql>
+
+    <select id="getById" resultMap="BaseResultMap">
+        select * from file
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="getByUserid" resultMap="BaseResultMap">
+ select * from file
+        where userid = #{userid,jdbcType=BIGINT}
+    </select>
+
+    <select id="getAll" resultMap="BaseResultMap">
+ select * from file
+        from file
+    </select>
+
+    <delete id="deleteById">
+    delete from file
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+    <delete id="deleteByUserid">
+    delete from file
+    where userid = #{userid,jdbcType=BIGINT}
+  </delete>
+
+    <insert id="add" parameterType="hyh.entity.File" useGeneratedKeys="true" keyProperty="id">
+    insert into file (id, userid, filename, summary,
+      downloads, size, type,path
+      )
+    values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{filename,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR},
+      #{downloads,jdbcType=INTEGER}, #{size,jdbcType=TINYINT}, #{type,jdbcType=TINYINT}, #{path,jdbcType=TINYINT}
+      )
+  </insert>
+
+    <update id="update" parameterType="hyh.entity.File">
+    update file
+    set userid = #{userid,jdbcType=BIGINT},
+      filename = #{filename,jdbcType=VARCHAR},
+      downloads = #{downloads,jdbcType=INTEGER},
+      size = #{size,jdbcType=TINYINT},
+      type = #{type,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
