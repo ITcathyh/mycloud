@@ -128,16 +128,15 @@
                             <dl class="dl-horizontal">
                                 <dt>surplus：</dt>
                                 <dd>
-                                    30
+                                    ${user.surplus}
                                 </dd>
                                 <dt>points：</dt>
-                                <dd>100
-                                </dd>
-                                <dt>total downloads：</dt>
-                                <dd>30
+                                <dd>
+                                    ${user.points}
                                 </dd>
                                 <dt>file count：</dt>
-                                <dd>2
+                                <dd>
+                                    ${filecount}
                                 </dd>
                             </dl>
                         </div>
@@ -156,10 +155,11 @@
                             <dl class="dl-horizontal">
                                 <dt>last IP:</dt>
                                 <dd>
-                                    202.118.6.15
+                                    ${user.ip}
                                 </dd>
                                 <dt>last time</dt>
-                                <dd>2017-12-1 12:21:21
+                                <dd>
+                                    ${user.logintime}
                                 </dd>
                             </dl>
 
