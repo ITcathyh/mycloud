@@ -38,4 +38,19 @@ public class Invitationcode {
 
         System.out.println(i.getSurplus() == 1245);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Invitationcode that = (Invitationcode) o;
+
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
+    }
 }

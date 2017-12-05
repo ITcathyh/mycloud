@@ -80,4 +80,22 @@ public class UserFile {
     public void setPath(String path) {
         this.path = path;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserFile userFile = (UserFile) o;
+
+        if (id != userFile.id) return false;
+        return userid == userFile.userid;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (int) (userid ^ (userid >>> 32));
+        return result;
+    }
 }

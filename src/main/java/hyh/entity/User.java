@@ -1,5 +1,7 @@
 package hyh.entity;
 
+import java.sql.Timestamp;
+
 public class User {
     private long id;
 
@@ -11,11 +13,15 @@ public class User {
 
     private String qq;
 
-    private Long invitationid;
+    private String ip;
+
+    private long invitationid;
 
     private int surplus;
 
     private short points;
+
+    private Timestamp logintime;
 
     public long getId() {
         return id;
@@ -79,5 +85,42 @@ public class User {
 
     public void setPoints(short points) {
         this.points = points;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public void setInvitationid(long invitationid) {
+        this.invitationid = invitationid;
+    }
+
+    public Timestamp getLogintime() {
+        return logintime;
+    }
+
+    public void setLogintime(Timestamp logintime) {
+        this.logintime = logintime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return id == user.id && (name != null ? name.equals(user.name) : user.name == null);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
     }
 }

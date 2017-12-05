@@ -18,6 +18,10 @@ CREATE TABLE user (
   COMMENT '剩余上传空间(单位kn)',
   points       TINYINT              DEFAULT 100
   COMMENT '积分',
+  ip           VARCHAR(15) NOT NULL
+  COMMENT 'IP地址',
+  logintime      TIMESTAMP            DEFAULT current_timestamp
+  COMMENT '上次登录时间',
   PRIMARY KEY (id)
 )
   ENGINE = InnoDB
@@ -50,7 +54,7 @@ CREATE TABLE file (
   COMMENT '类别,0其他，1书籍，2课件，3代码',
   summary   VARCHAR(150) NOT NULL
   COMMENT '简介',
-  path   VARCHAR(50) NOT NULL
+  path      VARCHAR(50)  NOT NULL
   COMMENT '下载链接',
   PRIMARY KEY (id)
 )
