@@ -88,8 +88,7 @@ public class UserFile {
 
         UserFile userFile = (UserFile) o;
 
-        if (id != userFile.id) return false;
-        return userid == userFile.userid;
+        return id == userFile.id && userid == userFile.userid;
     }
 
     @Override
@@ -97,5 +96,14 @@ public class UserFile {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (int) (userid ^ (userid >>> 32));
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "UserFile{" +
+                "id=" + id +
+                ", filename='" + filename + '\'' +
+                ", summary='" + summary + '\'' +
+                '}';
     }
 }

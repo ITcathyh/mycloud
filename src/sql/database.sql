@@ -61,3 +61,5 @@ CREATE TABLE file (
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
+INSERT INTO file(userid, filename, downloads, size, type, summary, path) VALUES (123,"test", 1, 2144, 1, "asdbb", "books/java");
+

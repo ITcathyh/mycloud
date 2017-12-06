@@ -10,9 +10,11 @@
     <result column="invitationid" property="invitationid" jdbcType="BIGINT" />
     <result column="surplus" property="surplus" jdbcType="TINYINT" />
     <result column="points" property="points" jdbcType="TINYINT" />
+    <result column="ip" property="ip" jdbcType="VARCHAR"/>
+    <result column="logintime" property="logintime" jdbcType="TIMESTAMP"/>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, email, password, name, qq, invitationid, surplus, points
+    id, email, password, name, qq, invitationid, surplus, points, logintime, ip
   </sql>
 
   <select id="getById" resultMap="BaseResultMap" >
@@ -50,10 +52,10 @@
   <insert id="add" parameterType="hyh.entity.User"  useGeneratedKeys="true" keyProperty="id">
     insert into user (id, email, password,
       name, qq, invitationid,
-      surplus, points)
+      surplus, points,logintime)
     values (#{id,jdbcType=BIGINT}, #{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{name,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{invitationid,jdbcType=BIGINT},
-      #{surplus,jdbcType=TINYINT}, #{points,jdbcType=TINYINT})
+      #{surplus,jdbcType=TINYINT}, #{points,jdbcType=TINYINT},#{logintime})
   </insert>
 
   <update id="update" parameterType="hyh.entity.User" >
@@ -62,6 +64,13 @@
       qq = #{qq,jdbcType=VARCHAR},
       surplus = #{surplus,jdbcType=TINYINT},
       points = #{points,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateLoginInfor" >
+    update user
+    logintime = #{logintime},
+    ip = #{ip}
     where id = #{id,jdbcType=BIGINT}
   </update>
 

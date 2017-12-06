@@ -27,7 +27,6 @@
 
     <select id="getAll" resultMap="BaseResultMap">
  select * from file
-        from file
     </select>
 
     <delete id="deleteById">
@@ -40,7 +39,7 @@
     where userid = #{userid,jdbcType=BIGINT}
   </delete>
 
-    <insert id="add" parameterType="hyh.entity.File" useGeneratedKeys="true" keyProperty="id">
+    <insert id="add" parameterType="hyh.entity.UserFile" useGeneratedKeys="true" keyProperty="id">
     insert into file (id, userid, filename, summary,
       downloads, size, type,path
       )
@@ -49,7 +48,7 @@
       )
   </insert>
 
-    <update id="update" parameterType="hyh.entity.File">
+    <update id="update" parameterType="hyh.entity.UserFile">
     update file
     set userid = #{userid,jdbcType=BIGINT},
       filename = #{filename,jdbcType=VARCHAR},

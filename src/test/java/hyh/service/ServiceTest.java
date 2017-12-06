@@ -19,22 +19,12 @@ import static org.testng.Assert.*;
 public class ServiceTest extends AbstractTransactionalTestNGSpringContextTests {
     @Autowired
     private UserService userservice;
-    private Logger log = Logger.getLogger(this.getClass());
+    @Autowired
+    private UserFileService userfileservice;
 
 
     @Test
     public void test() {
-        User user = new User();
-
-        user.setQq("123");
-        user.setName("1244");
-        user.setEmail("1");
-        user.setInvitationid((long) 1);
-        user.setPassword("1");
-
-        assertTrue(userservice.add(user) == 1);
-        assertNull(userservice.getById(124));
-        assertTrue(userservice.isExist("1"));
     }
 
 }

@@ -44,6 +44,11 @@ public class UserFileService {
         return dao.getAll();
     }
 
+    public List<UserFile> search(int index, int count, String key){
+        log.info("查找文件");
+        return dao.search(index, count, key);
+    }
+
     public int update(UserFile record) {
         log.info("更新文件");
         return dao.update(record);

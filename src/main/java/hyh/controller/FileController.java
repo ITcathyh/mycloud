@@ -12,6 +12,7 @@ import hyh.util.Zip;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,7 +33,7 @@ public class FileController {
     @Autowired
     private UserFileService userfileservice;
 
-    @RequestMapping("/uploadfile")
+    @RequestMapping("/user/uploadfile")
     @ResponseBody
     public String uploadFile(@RequestParam("file") CommonsMultipartFile uploadfile,
                              HttpServletRequest request, HttpSession session) {
@@ -92,7 +93,6 @@ public class FileController {
             } else {
                 return "error";
             }
-
         } catch (Exception e) {
             Variable.errornum++;
             log.error(e);
@@ -100,43 +100,64 @@ public class FileController {
         }
     }
 
-    @RequestMapping("/download")
-    public String download(@RequestParam("type") String type, @RequestParam("id") long id,
+    @RequestMapping("/download/{id}")
+    @ResponseBody
+    public String download(@PathVariable("id") String fileid,
                            HttpServletResponse response) {
+        long id;
+
+        try{
+            id = Long.valueOf(fileid);
+        }catch (Exception e){
+            return "error";
+        }
+
+        UserFile userfile = userfileservice.getById(id);
+
+        if (userfile == null) {
+            return "notexist";
+        }
+
+        File file = new File(userfile.getPath());
+
+        if (!file.exists()) {
+            return "notexist";
+        }
+
+        InputStream is = null;
+        OutputStream os = null;
+
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("multipart/form-data");
+        response.setHeader("Content-Disposition", "attachment;fileName="
+                + userfile.getFilename());
+
         try {
-            UserFile userfile = userfileservice.getById(id);
-
-            if (userfile == null) {
-                return "notexist";
-            }
-
-            File file = new File(userfile.getPath());
-
-            if (!file.exists()) {
-                return "error";
-            }
-
-            response.setCharacterEncoding("utf-8");
-            response.setContentType("multipart/form-data");
-            response.setHeader("Content-Disposition", "attachment;fileName="
-                    + userfile.getFilename());
-
-            InputStream inputStream = new FileInputStream(file);
-            OutputStream os = response.getOutputStream();
+            is = new FileInputStream(file);
+            os = response.getOutputStream();
             byte[] b = new byte[2048];
             int length;
 
-            while ((length = inputStream.read(b)) > 0) {
+            while ((length = is.read(b)) > 0) {
                 os.write(b, 0, length);
             }
-
-            os.close();
-            inputStream.close();
         } catch (Exception e) {
             Variable.errornum++;
             log.error(e);
+            return "error";
+        } finally {
+            try {
+                if (is != null){
+                    is.close();
+                }
+
+                if (os != null){
+                    os.close();
+                }
+            }catch (Exception e){
+            }
         }
 
-        return null;
+        return "done";
     }
 }

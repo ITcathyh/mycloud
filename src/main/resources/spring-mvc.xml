@@ -37,28 +37,8 @@
 
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/admin**"/>
-            <bean class="hyh.interceptor.AdminInterceptor"/>
-        </mvc:interceptor>
-
-        <mvc:interceptor>
-            <mvc:mapping path="/assist"/>
-            <mvc:mapping path="/applyteacher"/>
-            <mvc:mapping path="/checkadd**"/>
-            <mvc:mapping path="/self-studying"/>
-            <mvc:mapping path="/teacher"/>
-            <mvc:mapping path="/authenticate"/>
-            <mvc:mapping path="/breakfast"/>
-            <bean class="hyh.interceptor.TimeLimitInterceptor"/>
-        </mvc:interceptor>
-
-        <mvc:interceptor>
-            <mvc:mapping path="/applyteacher"/>
-            <mvc:mapping path="/self-studying"/>
-            <mvc:mapping path="/teacher"/>
-            <mvc:mapping path="/breakfast"/>
-            <mvc:mapping path="/authenticate"/>
-            <bean class="hyh.interceptor.CSRFInterceptor"/>
+            <mvc:mapping path="/user/**"/>
+            <bean class="hyh.interceptor.UserActionInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 
