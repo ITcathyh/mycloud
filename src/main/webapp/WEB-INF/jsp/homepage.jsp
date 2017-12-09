@@ -47,7 +47,7 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="/homepage">Homepage</a></li>
+                        <li><a href="/">Homepage</a></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown">Classification
                                 <span class="caret"></span></a>
@@ -63,7 +63,7 @@
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="">
                         </div>
-                        <button class="btn btn-primary">Search</button>
+                        <button class="btn btn-primary" id="search">Search</button>
                         <button id="uploadbutton" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                             Upload
                         </button>
@@ -120,7 +120,6 @@
                             <input type="text" class="form-control" id="searchtext" placeholder="search something"/>
                             <span class="input-group-btn">
 						                <span class="input-group-btn"><button class="btn btn-lg btn-primary"
-                                                                              type="button"
                                                                               id="mainsearch">search</button></span>
                                 </span>
                         </div>
@@ -243,7 +242,7 @@
 
     <div id="footer" class="container navbar navbar-fixed-bottom">
         <div class="container">
-            <p class="text-muted credit" style="font-size:30px">Pwoered by <a
+            <p class="text-muted credit">Pwoered by <a
                     href="https://www.github.com/itcathyh">Itcathyh</a></p>
         </div>
     </div>
@@ -270,24 +269,27 @@
 
     $("#all").click(function () {
         $("#showselect").text("All");
-    })
+    });
 
     $("#books").click(function () {
         $("#showselect").text("Books");
-    })
+    });
 
     $("#courseware").click(function () {
         $("#showselect").text("Courseware");
-    })
+    });
 
     $("#pictures").click(function () {
         $("#showselect").text("Pictures");
-    })
+    });
 
     $("#other").click(function () {
         $("#showselect").text("Other");
-    })
+    });
 
+    $("#mainsearch").click(function () {
+       location.href="/search?text=" + $("#searchtext").val();
+    })
 </script>
 </body>
 </html>

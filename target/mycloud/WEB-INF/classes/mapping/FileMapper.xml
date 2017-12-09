@@ -5,6 +5,7 @@
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="userid" jdbcType="BIGINT" property="userid"/>
         <result column="filename" jdbcType="VARCHAR" property="filename"/>
+        <result column="originname" jdbcType="VARCHAR" property="originname"/>
         <result column="path" jdbcType="VARCHAR" property="path"/>
         <result column="summary" jdbcType="VARCHAR" property="summary"/>
         <result column="downloads" jdbcType="INTEGER" property="downloads"/>
@@ -13,7 +14,7 @@
         <result column="tag" jdbcType="VARCHAR" property="tag"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, userid, filename, downloads, size, type, tag
+    id, userid, filename, originname, downloads, size, type, tag
   </sql>
 
     <select id="getById" resultMap="BaseResultMap">
@@ -47,9 +48,9 @@
   </delete>
 
     <insert id="add" parameterType="hyh.entity.UserFile" useGeneratedKeys="true" keyProperty="id">
-    insert into file (id, userid, filename, summary,
+    insert into file (id, userid, filename, originname, summary,
       downloads, size, type,path, tag )
-    values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{filename,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR},
+    values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{filename,jdbcType=VARCHAR}, #{originname,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR},
       #{downloads,jdbcType=INTEGER}, #{size,jdbcType=TINYINT}, #{type,jdbcType=TINYINT}, #{path,jdbcType=TINYINT}, #{tag}
       )
   </insert>
@@ -58,6 +59,7 @@
     update file
     set userid = #{userid,jdbcType=BIGINT},
       filename = #{filename,jdbcType=VARCHAR},
+      originname = #{filename,jdbcType=VARCHAR},
       downloads = #{downloads,jdbcType=INTEGER},
       size = #{size,jdbcType=TINYINT},
       type = #{type,jdbcType=TINYINT}

@@ -1,11 +1,15 @@
 package hyh.entity;
 
+import hyh.action.FileAction;
+
 public class UserFile {
     private long id;
 
     private long userid;
 
     private String filename;
+
+    private String originname;
 
     private String summary;
 
@@ -91,6 +95,14 @@ public class UserFile {
         this.tag = tag;
     }
 
+    public String getOriginname() {
+        return originname;
+    }
+
+    public void setOriginname(String originname) {
+        this.originname = originname;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -110,16 +122,6 @@ public class UserFile {
 
     @Override
     public String toString() {
-        return "UserFile{" +
-                "id=" + id +
-                ", userid=" + userid +
-                ", filename='" + filename + '\'' +
-                ", summary='" + summary + '\'' +
-                ", path='" + path + '\'' +
-                ", downloads=" + downloads +
-                ", size=" + size +
-                ", type=" + type +
-                ", tag='" + tag + '\'' +
-                '}';
+        return "Size:" + (size / 1024) + "kb | Type:" + FileAction.fileTypeToString(type) + " | Tag:" + tag + " | Downloads:" + downloads;
     }
 }

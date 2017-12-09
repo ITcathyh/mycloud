@@ -63,11 +63,13 @@ function checkLegnth(obj, low, high) {
 function checkUploadFile() {
     var filename = $("#filename").val();
     var filesummary = $("#filesummary").val();
+    var originname = $("#file").val();
 
-    if ($("#file").val() == "") {
+    if (originname == "") {
         showerror("The file must not be empty");
-        return false;
-    } else if (!checkLegnth(filename, 0, 31)) {
+    } else if (originname.length > 50){
+        showerror("The origin filename must be less than 50 bits");
+    }else if (!checkLegnth(filename, 0, 31)) {
         showerror("The filename must be less than 30 bits")
     } else if (!checkLegnth(filesummary, 0, 151)) {
         showerror("The summary must be less than 150 bits")
@@ -87,11 +89,14 @@ var options = {
         if (response == "error") {
             showerror("Unknown error");
         } else if (response == "full") {
-            showerror("Balance is not enougg");
+            showerror("Balance is not enough");
         } else if (response == "lockupload") {
             showerror("Lock the function for a while");
             $("#submitauthentication").addClass("disabled");
         } else if (response == "done") {
+            $("#filename").val("");
+            $("#filetag").val("");
+            $("#filesummary").val("");
             showsuccess("Upload successfully");
         }
     }, error: function (data) {
@@ -105,13 +110,10 @@ $(".file").fileinput({
     showUpload: false,
     showRemove: false,
     language: 'zh',
-    allowedFileTypes: ['image'],
-    allowedPreviewMimeTypes: ['jpg', 'png', 'gif'],
     maxFileSize: 30720
 })
 
 $(document).on("click", "#submitupload", function (e) {
-    console.debug(999999999);
     checkUploadFile();
 });
 

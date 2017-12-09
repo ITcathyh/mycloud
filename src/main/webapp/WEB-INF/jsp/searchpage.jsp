@@ -1,4 +1,5 @@
-<%--
+<%@ page import="hyh.entity.UserFile" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: 黄宇航
   Date: 2017/11/24
@@ -20,8 +21,8 @@
     <link href="css/all-skins.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/ladda-themeless.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/fileinput.min.css" media="all" rel="stylesheet" type="text/css"/>
-    <link href="image/logo.ico" rel="bookmark"  type="img/x-icon"  />
-    <link href="img/logo.ico" rel="shortcut icon" >
+    <link href="image/logo.ico" rel="bookmark" type="img/x-icon"/>
+    <link href="img/logo.ico" rel="shortcut icon">
 </head>
 <body>
 <div id="wapper">
@@ -39,7 +40,7 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="/homepage">Homepage</a></li>
+                        <li><a href="/">Homepage</a></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-search"></i>Classification
                                 <span class="caret"></span></a>
@@ -105,31 +106,56 @@
                                 </div>
                             </div>
 
-                            <div id="searchresult">
+                          <!--  <h1 class="searchh1">
+                                <a href="#" class="b_title" target="_blank">Effective Java</a>
+                                <a rel="noreferrer" href="#" class="a_url" data-surl="1bpAmKCB"
+                                   target="_blank"> <i class="glyphicon glyphicon-share-alt"></i>
+                                </a>
+                            </h1>
 
-                                <p class="aw-title">
-                                </p>
-                                <h1 style="font-size:20px;">
-                                    <a href="#" class="b_title" target="_blank">Effective Java</a>
-                                    <a rel="noreferrer" href="#" class="a_url" data-surl="1bpAmKCB"
-                                       target="_blank"> <i class="glyphicon glyphicon-share-alt"></i>
-                                    </a>
-                                </h1>
-                                <p></p>
-                                <p class="content">
-                                    A book about Java </p>
-                                <p class="aw-text-color-green">
-                                    Time：2017-11-23 | User：PigTom | Size：10M | Type：Book | Downloads：10 </p>
-                            </div>
+                            <p class="content">
+                                A book about Java </p>
+                            <p class="aw-text-color-green">
+                                Time：2017-11-23 | Size：10M | Type：Book | Downloads：10 </p> -->
+                            <%
+                                List<UserFile> userfiles = (List<UserFile>) request.getAttribute("files");
 
+                                System.out.println(userfiles);
+
+                                if (userfiles == null || userfiles.size() == 0) {
+                                    out.println("<h1 class=\"searchh1\">\n" +
+                                            "<a class=\"b_title\">No such resource</a>\n" +
+                                            "</h1>");
+                                    out.println("<p class=\"content\">\n" +
+                                            "Please search something new</p>");
+                                } else {
+                                    UserFile file;
+
+                                    for (int i = 0, len = userfiles.size(); i < len; i++) {
+                                        file = userfiles.get(i);
+
+                                        out.println("<h1 class=\"searchh1\">\n" +
+                                                "<a href='/download/" + file.getId() + "' target=\"_blank\">" + file.getFilename() + "</a>\n" +
+                                                "<a rel=\"noreferrer\" href='/download/" + file.getId() + "' \n" +
+                                                "target=\"_blank\"> <i class=\"glyphicon glyphicon-share-alt\"></i>\n" +
+                                                "</a>\n" +
+                                                "</h1>");
+                                        out.println("<p class=\"content\">\n" + file.getSummary() +
+                                                "</p>");
+                                        out.println("<p class=\"aw-text-color-green\">\n" + file + "</p>");
+                                    }
+                                }
+
+                                userfiles = null;
+                            %>
                             <div class="page-control" id="pageto" data-page="1">
-                                <ul id="pagecreater_1511487547117_8191428779905634"
-                                    class="pagination pull-right" onselectstart="return false;">
-                                    <li class="pagecreater_prev pagecreater_disable" data-click="page"
-                                        data-pg="0"><a>Pre</a></li>
-                                    <li class="active" data-click="page" data-pg="0"><a>1</a></li>
-                                    <li class="pagecreater_next pagecreater_disable" data-click="page"
-                                        data-pg="0"><a>Next</a></li>
+                                <ul class="pagination pull-right">
+                                    <li class="pagecreater_prev pagecreater_disable" id="pre"><a id="preurl"
+                                                                                                          href="/search?${page}">Previous</a>
+                                    </li>
+                                    <li class="active" data-click="page" data-pg="${page}"><a>${page + 1}</a></li>
+                                    <li data-click="page" id="next"><a id="nexturl" href="/search?${page + 1}">Next</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -199,7 +225,7 @@
 
             <div class="modal-footer">
                 </button>
-                <button type="button" class="btn btn-primary  ladda-button" id="submitupload"  data-style="zoom-in">
+                <button type="button" class="btn btn-primary  ladda-button" id="submitupload" data-style="zoom-in">
                     <span class="ladda-label">Submit</span>
                 </button>
             </div>
@@ -216,6 +242,9 @@
 <script type="text/javascript" src="js/mycloud.js"></script>
 <script>
     var username = "${username}";
+    var page = ${page};
+    var text = "${text}";
+    var nextdisabled = ${nextdisabled};
 
     $(document).ready(function () {
         if (username == "0") {
@@ -223,6 +252,16 @@
             $("#userdiv").hide();
         } else {
             $("#logindiv").hide();
+        }
+
+        if (nextdisabled == 1) {
+            $("#next").addClass("disabled");
+            $("#nexturl").attr("href", "javascript:void(0)");
+        }
+
+        if (page == 0) {
+            $("#pre").addClass("disabled");
+            $("#preurl").attr("href", "javascript:void(0)");
         }
     });
 

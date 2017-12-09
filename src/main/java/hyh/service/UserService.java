@@ -25,7 +25,7 @@ public final class UserService {
     }
 
     public User getById(long id){
-        log.info("通过id用户");
+        log.info("通过id查找用户");
         return dao.getById(id);
     }
 

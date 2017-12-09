@@ -27,37 +27,44 @@ public class PageController {
     }
 
     @RequestMapping("/search")
-    public String getToSearchpage(String text, HttpSession session, HttpServletRequest request) {
+    public String getToSearchpage(String text, String type,
+                                  HttpSession session, HttpServletRequest request) {
         List<UserFile> userfiles = null;
         int page = 0;
 
         try {
             page = Integer.valueOf(request.getParameter("page"));
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
-        if (text != null) {
-            userfiles = userfileservice.search(page * MAX_PAGE_PER_SIZE, MAX_PAGE_PER_SIZE, text);
+        if (type != null){
 
-            if (userfiles.size() == 0) {
-                userfiles = null;
-            }
+        } else if (text != null) {
+            userfiles = userfileservice.search(page * MAX_PAGE_PER_SIZE, MAX_PAGE_PER_SIZE + 1, text);
+        }
+
+        if (userfiles == null || userfiles.size() < 13) {
+            request.setAttribute("nextdisabled", 1);
+        } else {
+            request.setAttribute("nextdisabled", 0);
         }
 
         request.setAttribute("files", userfiles);
+        request.setAttribute("page", page);
+        request.setAttribute("text", text);
         setLoginBox(session, request);
 
         return "searchpage";
     }
 
     @RequestMapping("/user")
-    public String getToUserpage(){
+    public String getToUserpage() {
         return "user";
     }
 
     @RequestMapping("/signup")
-    public String getToSignup(HttpSession session){
-        if (session.getAttribute("user") != null){
+    public String getToSignup(HttpSession session) {
+        if (session.getAttribute("user") != null) {
             return "forward:/";
         }
 

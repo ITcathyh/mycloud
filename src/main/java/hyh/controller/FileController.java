@@ -53,26 +53,21 @@ public class FileController {
             return "error";
         }
 
-        String path = FileAction.getFilePath() + type + "/";
-
-        if (!FileAction.uploadFile(path,uploadfile)){
-            return "error";
-        }
+        UserFile userfile = new UserFile();
 
         try {
-            UserFile userfile = new UserFile();
+            String path = FileAction.getFilePath() + type + "/";
             long userid = (long) session.getAttribute("userid");
             int size = (int)uploadfile.getSize();
 
             userfile.setFilename(name);
             userfile.setSize(size);
-            userfile.setType((short) 1);
+            userfile.setType((FileAction.getType(type)));
             userfile.setUserid(userid);
             userfile.setSummary(summary);
             userfile.setTag(tag);
             userfile.setPath(path + uploadfile.getOriginalFilename());
-
-            System.out.println(userfile);
+            userfile.setOriginname(uploadfile.getOriginalFilename());
 
             synchronized (Long.toString(userid)){
                 User user = userservice.getById(userid);
@@ -83,9 +78,8 @@ public class FileController {
                     return "full";
                 }
 
-                FileAction.transferFile(userfile.getPath(), uploadfile);
-
-                if (userfileservice.add(userfile) == 1) {
+                if (FileAction.transferFile(path, uploadfile) &&
+                        userfileservice.add(userfile) == 1) {
                     user.setSurplus(user.getSurplus() - size);
 
                     if (userservice.update(user) == 1) {
@@ -101,8 +95,11 @@ public class FileController {
         } catch (Exception e) {
             Variable.errornum++;
             log.error(e);
-            return "error";
+            e.printStackTrace();
         }
+
+        new File(userfile.getPath()).deleteOnExit();
+        return "error";
     }
 
     @RequestMapping("/download/{id}")
@@ -128,13 +125,13 @@ public class FileController {
             return "notexist";
         }
 
-        InputStream is = null;
-        OutputStream os = null;
-
         response.setCharacterEncoding("utf-8");
         response.setContentType("multipart/form-data");
         response.setHeader("Content-Disposition", "attachment;fileName="
-                + userfile.getFilename());
+                + userfile.getOriginname());
+
+        InputStream is = null;
+        OutputStream os = null;
 
         try {
             is = new FileInputStream(file);
@@ -158,7 +155,7 @@ public class FileController {
                 if (os != null){
                     os.close();
                 }
-            }catch (Exception e){
+            }catch (Exception ignored){
             }
         }
 

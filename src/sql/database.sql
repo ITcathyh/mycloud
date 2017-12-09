@@ -46,6 +46,8 @@ CREATE TABLE file (
   COMMENT '上传者id',
   filename  VARCHAR(30)  NOT NULL
   COMMENT '文件名',
+  originname  VARCHAR(50)  NOT NULL
+  COMMENT '原始文件名',
   downloads INT                   DEFAULT 0
   COMMENT '下载次数',
   size      INT          NOT NULL
@@ -54,16 +56,13 @@ CREATE TABLE file (
   COMMENT '类别,0其他，1书籍，2课件，3代码',
   summary   VARCHAR(150) NOT NULL
   COMMENT '简介',
-  path      VARCHAR(50)  NOT NULL
+  path      VARCHAR(100)  NOT NULL
   COMMENT '下载链接',
   tag       VARCHAR(20) COMMENT '标签',
   PRIMARY KEY (id)
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
-
-ALTER TABLE file
-  ADD COLUMN tag VARCHAR(20);
 
 INSERT INTO file (userid, filename, downloads, size, type, summary, path)
 VALUES (123, "test", 1, 2144, 1, "asdbb", "books/java");
