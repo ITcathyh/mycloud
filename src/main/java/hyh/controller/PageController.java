@@ -50,6 +50,29 @@ public class PageController {
         return "searchpage";
     }
 
+    @RequestMapping("/user")
+    public String getToUserpage(){
+        return "user";
+    }
+
+    @RequestMapping("/signup")
+    public String getToSignup(HttpSession session){
+        if (session.getAttribute("user") != null){
+            return "forward:/";
+        }
+
+        return "signup";
+    }
+
+    @RequestMapping("/login")
+    public String getToLogin(HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            return "login";
+        } else {
+            return "forward:/";
+        }
+    }
+
     private final void setLoginBox(HttpSession session, HttpServletRequest request) {
         Object obj = session.getAttribute("user");
 

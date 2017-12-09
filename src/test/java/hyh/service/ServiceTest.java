@@ -25,6 +25,7 @@ public class ServiceTest extends AbstractTransactionalTestNGSpringContextTests {
 
     @Test
     public void test() {
+        System.out.println(userservice.login("8158253@qq.com", "123456"));
     }
 
 }

@@ -40,6 +40,11 @@
             <mvc:mapping path="/user/**"/>
             <bean class="hyh.interceptor.UserActionInterceptor"/>
         </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="hyh.interceptor.CSRFInterceptor"/>
+        </mvc:interceptor>
     </mvc:interceptors>
 
     <bean id="mappingJacksonHttpMessageConverter"

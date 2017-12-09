@@ -16,15 +16,6 @@ public class LoginController {
     @Autowired
     private UserService userservice;
 
-    @RequestMapping("/login")
-    public String getToLogin(HttpSession session) {
-        if (session.getAttribute("user") == null) {
-            return "login";
-        } else {
-            return "redirect:/admin";
-        }
-    }
-
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
         session.removeAttribute("user");
@@ -37,9 +28,13 @@ public class LoginController {
     public String checkLogin(@RequestParam("email") String email,
                              @RequestParam("password") String password,
                              HttpSession session) {
-        User user = userservice.getByEmailAndPassword(email, password);
+        if (session.getAttribute("user") == null ) {
+            if ( session.getAttribute("loginlock") != null){
+                return "lock";
+            }
 
-        if (session.getAttribute("user") == null) {
+            User user = userservice.login(email, password);
+
             if (user == null) {
                 Object obj = session.getAttribute("errortime");
 
@@ -60,6 +55,7 @@ public class LoginController {
                 return "error";
             } else {
                 session.setAttribute("user", user);
+                session.setAttribute("userid", user.getId());
                 return "done";
             }
         } else {

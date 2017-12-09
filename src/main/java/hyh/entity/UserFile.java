@@ -17,6 +17,8 @@ public class UserFile {
 
     private short type;
 
+    private String tag;
+
     public long getId() {
         return id;
     }
@@ -81,6 +83,14 @@ public class UserFile {
         this.path = path;
     }
 
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -102,8 +112,14 @@ public class UserFile {
     public String toString() {
         return "UserFile{" +
                 "id=" + id +
+                ", userid=" + userid +
                 ", filename='" + filename + '\'' +
                 ", summary='" + summary + '\'' +
+                ", path='" + path + '\'' +
+                ", downloads=" + downloads +
+                ", size=" + size +
+                ", type=" + type +
+                ", tag='" + tag + '\'' +
                 '}';
     }
 }

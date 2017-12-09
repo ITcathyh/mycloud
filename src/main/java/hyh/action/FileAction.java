@@ -4,7 +4,10 @@ import hyh.global.Variable;
 import org.apache.log4j.Logger;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 
 public final class FileAction {
     private static final Logger log = Logger.getLogger("hyh.Action.FileAction");
@@ -15,7 +18,7 @@ public final class FileAction {
     }
 
     public static boolean uploadFile(String path, CommonsMultipartFile uploadfile) {
-        if (!makeFolder(path)){
+        if (!makeFolder(path)) {
             return false;
         }
 
@@ -23,7 +26,7 @@ public final class FileAction {
 
         try {
             uploadfile.transferTo(file);
-        }catch (Exception e){
+        } catch (Exception e) {
             Variable.errornum++;
             log.error(e);
             return false;
@@ -43,5 +46,27 @@ public final class FileAction {
         }
 
         return true;
+    }
+
+    public static boolean transferFile(String path, CommonsMultipartFile uploadfile) {
+        try {
+            uploadfile.transferTo(new File(path));
+        } catch (Exception e) {
+            Variable.errornum++;
+            log.error(e);
+            return false;
+        }
+
+        return true;
+    }
+
+    public static int getType(String type) {
+        if (type.equals("Books")){
+            return 1;
+        } else if (type.equals("Other")){
+            return 3;
+        }
+
+        return 1;
     }
 }

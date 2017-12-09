@@ -29,6 +29,11 @@ public class InvitationcodeService {
         return dao.getById(id);
     }
 
+    public Invitationcode getByCode(String invitationcode){
+        log.info("获取邀请码id、可激活次数");
+        return dao.getByCode(invitationcode);
+    }
+
     public List<Invitationcode> getAll(){
         log.info("获取所有邀请码");
         return dao.getAll();

@@ -13,7 +13,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="cardsystem" target="1.5" />
-      <module name="mycloud" target="1.5" />
+      <module name="mycloud" target="1.7" />
       <module name="pairsystem" target="1.5" />
     </bytecodeTargetLevel>
   </component>

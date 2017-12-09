@@ -13,6 +13,8 @@ public interface InvitationcodeDao {
 
     Invitationcode getById(long id);
 
+    Invitationcode getByCode(String invitationcode);
+
     List<Invitationcode> getAll();
 
     int update(Invitationcode record);

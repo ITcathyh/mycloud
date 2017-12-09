@@ -29,9 +29,9 @@ public final class UserService {
         return dao.getById(id);
     }
 
-    public User getByEmailAndPassword(String email, String password){
+    public User login(String email, String password){
         log.info("通过邮箱密码获取用户");
-        return dao.getByEmailAndPassword(email, password);
+        return dao.login(email, password);
     }
 
     public int update(User record){
@@ -39,9 +39,9 @@ public final class UserService {
         return dao.update(record);
     }
 
-    public boolean isExist(String email){
+    public boolean isExist(String email, String name){
         log.info("判断邮箱是否存在");
-        Integer cot = dao.isExist(email);
+        Integer cot = dao.isExist(email, name);
         return cot != null && cot > 0;
     }
 }

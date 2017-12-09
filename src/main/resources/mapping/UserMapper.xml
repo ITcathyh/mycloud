@@ -37,11 +37,19 @@
     where invitationid = #{invitationid}
   </select>
 
-  <select id="getByEmailAndPassword" resultMap="BaseResultMap" >
+  <select id="login" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
     from user
     where email = #{email} and password = #{password}
+    limit 1
+  </select>
+
+  <select id="isExist" resultMap="BaseResultMap" >
+    select count(*)
+    from user
+    where name = #{name} and email = #{email}
+    limit 1
   </select>
 
   <delete id="deleteById">
@@ -52,17 +60,15 @@
   <insert id="add" parameterType="hyh.entity.User"  useGeneratedKeys="true" keyProperty="id">
     insert into user (id, email, password,
       name, qq, invitationid,
-      surplus, points,logintime)
+     points,logintime, ip)
     values (#{id,jdbcType=BIGINT}, #{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{name,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{invitationid,jdbcType=BIGINT},
-      #{surplus,jdbcType=TINYINT}, #{points,jdbcType=TINYINT},#{logintime})
+       #{points,jdbcType=TINYINT},#{logintime}, #{ip})
   </insert>
 
   <update id="update" parameterType="hyh.entity.User" >
     update user
-    set name = #{name,jdbcType=VARCHAR},
-      qq = #{qq,jdbcType=VARCHAR},
-      surplus = #{surplus,jdbcType=TINYINT},
+    set surplus = #{surplus,jdbcType=TINYINT},
       points = #{points,jdbcType=TINYINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -73,9 +79,4 @@
     ip = #{ip}
     where id = #{id,jdbcType=BIGINT}
   </update>
-
-  <select id="isExist" resultType="Integer">
-    select count(*) from user
-    where email = #{email} limit 1
-  </select>
 </mapper>

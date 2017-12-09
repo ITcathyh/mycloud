@@ -14,13 +14,13 @@ CREATE TABLE user (
   COMMENT 'qq',
   invitationid BIGINT      NOT NULL
   COMMENT '邀请码对应id',
-  surplus      INT                  DEFAULT 30
-  COMMENT '剩余上传空间(单位kn)',
+  surplus      INT                  DEFAULT 32505856
+  COMMENT '剩余上传空间(单位kb)',
   points       TINYINT              DEFAULT 100
   COMMENT '积分',
   ip           VARCHAR(15) NOT NULL
   COMMENT 'IP地址',
-  logintime      TIMESTAMP            DEFAULT current_timestamp
+  logintime    TIMESTAMP            DEFAULT current_timestamp
   COMMENT '上次登录时间',
   PRIMARY KEY (id)
 )
@@ -56,10 +56,15 @@ CREATE TABLE file (
   COMMENT '简介',
   path      VARCHAR(50)  NOT NULL
   COMMENT '下载链接',
+  tag       VARCHAR(20) COMMENT '标签',
   PRIMARY KEY (id)
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
-INSERT INTO file(userid, filename, downloads, size, type, summary, path) VALUES (123,"test", 1, 2144, 1, "asdbb", "books/java");
+ALTER TABLE file
+  ADD COLUMN tag VARCHAR(20);
+
+INSERT INTO file (userid, filename, downloads, size, type, summary, path)
+VALUES (123, "test", 1, 2144, 1, "asdbb", "books/java");
 
