@@ -75,7 +75,7 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right" id="userdiv">
-                        <li><a><strong>${username}</strong></a></li>
+                        <li><a href="/user"><strong>${username}</strong></a></li>
                         <li><a href="/logout">Log out</a></li>
                     </ul>
                 </div>
@@ -288,7 +288,7 @@
     });
 
     $("#mainsearch").click(function () {
-       location.href="/search?text=" + $("#searchtext").val();
+       location.href="/search?text=" + $("#searchtext").val() + "&type=" + $("#showselect").text();
     })
 </script>
 </body>

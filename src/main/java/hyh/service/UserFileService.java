@@ -29,6 +29,12 @@ public class UserFileService {
         return dao.add(record);
     }
 
+    public int getCountByUserid(long userid) {
+        log.info("获取用户文件数量");
+        Integer tmp = dao.getCountByUserid(userid);
+        return tmp == null ? 0 : tmp;
+    }
+
     public UserFile getById(long id) {
         log.info("获取文件");
         return dao.getById(id);
@@ -47,6 +53,11 @@ public class UserFileService {
     public List<UserFile> search(int index, int count, String key){
         log.info("查找文件");
         return dao.search(index, count, key);
+    }
+
+    public List<UserFile> searchByType(short type, int index, int count, String key){
+        log.info("通过类型查找文件");
+        return dao.searchByType(type, index, count, key);
     }
 
     public int update(UserFile record) {

@@ -1,6 +1,7 @@
 package hyh.controller;
 
 import hyh.entity.User;
+import hyh.service.UserFileService;
 import hyh.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
     @Autowired
     private UserService userservice;
+    @Autowired
+    private UserFileService userfileservice;
 
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
@@ -54,6 +57,7 @@ public class LoginController {
 
                 return "error";
             } else {
+                user.setFilecount(userfileservice.getCountByUserid(user.getId()));
                 session.setAttribute("user", user);
                 session.setAttribute("userid", user.getId());
                 return "done";

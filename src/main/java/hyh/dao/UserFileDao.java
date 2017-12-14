@@ -14,6 +14,8 @@ public interface UserFileDao {
 
     int add(UserFile record);
 
+    Integer getCountByUserid(long userid);
+
     UserFile getById(long id);
 
     List<UserFile> getByUserid(long id);
@@ -21,6 +23,8 @@ public interface UserFileDao {
     List<UserFile> getAll();
 
     List<UserFile> search(@Param("index") int index, @Param("count") int count, @Param("key") String key);
+
+    List<UserFile> searchByType(@Param("type") short type, @Param("index") int index, @Param("count") int count, @Param("key") String key);
 
     int update(UserFile record);
 }

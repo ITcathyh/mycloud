@@ -19,6 +19,8 @@ public class User {
 
     private int surplus;
 
+    private int filecount;
+
     private short points;
 
     private Timestamp logintime;
@@ -105,6 +107,14 @@ public class User {
 
     public void setLogintime(Timestamp logintime) {
         this.logintime = logintime;
+    }
+
+    public int getFilecount() {
+        return filecount;
+    }
+
+    public void setFilecount(int filecount) {
+        this.filecount = filecount;
     }
 
     @Override

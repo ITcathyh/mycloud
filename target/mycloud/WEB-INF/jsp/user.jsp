@@ -53,27 +53,27 @@
                          alt="User Image"/>
                 </div>
                 <div class="pull-left info">
-                    <p>智慧东大
+                    <p>Mycloud
                     </p>
                     <a href="#">Online</a>
                 </div>
             </div>
             <ul class="sidebar-menu">
                 <li>
-                    <a href="/admin">
-                        <i class="fa fa-desktop"></i> <span>主页</span>
+                    <a href="/user">
+                        <i class="fa fa-user"></i> <span>My Info</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="/adminqueryuser">
-                        <i class="fa fa-user"></i> <span>查询用户</span>
+                    <a href="/user/files">
+                        <i class="fa fa-folder"></i> <span>My Files</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="/admineditor">
-                        <i class="fa fa-envelope"></i> <span>修改邮箱</span>
+                    <a href="/">
+                        <i class="fa fa-home"></i> <span>Back To Homepage</span>
                     </a>
                 </li>
             </ul>
@@ -122,13 +122,13 @@
                         <div class="box-header">
                             <i class="fa fa-bullhorn"></i>
 
-                            <h3 class="box-title">Personal info</h3>
+                            <h3 class="box-title">Personal Info</h3>
                         </div>
                         <div class="box-body">
                             <dl class="dl-horizontal">
                                 <dt>surplus：</dt>
                                 <dd>
-                                    ${user.surplus}
+                                    ${user.surplus}kb
                                 </dd>
                                 <dt>points：</dt>
                                 <dd>
@@ -136,7 +136,7 @@
                                 </dd>
                                 <dt>file count：</dt>
                                 <dd>
-                                    ${filecount}
+                                    ${user.filecount}
                                 </dd>
                             </dl>
                         </div>
@@ -149,7 +149,7 @@
                         <div class="box-header">
                             <i class="fa fa-inbox"></i>
 
-                            <h3 class="box-title">Login info</h3>
+                            <h3 class="box-title">Login Info</h3>
                         </div>
                         <div class="box-body">
                             <dl class="dl-horizontal">
@@ -170,7 +170,6 @@
             </div>
         </section>
     </div>
-</div>
 <footer class="main-footer">
     <div align="center">
 

@@ -1,5 +1,6 @@
 package hyh.controller;
 
+import hyh.action.FileAction;
 import hyh.entity.User;
 import hyh.entity.UserFile;
 import hyh.service.UserFileService;
@@ -37,8 +38,8 @@ public class PageController {
         } catch (Exception ignored) {
         }
 
-        if (type != null){
-
+        if (type != null &&  !type.equals("All") && text != null){
+            userfiles = userfileservice.searchByType(FileAction.getType(type),page * MAX_PAGE_PER_SIZE, MAX_PAGE_PER_SIZE + 1, text);
         } else if (text != null) {
             userfiles = userfileservice.search(page * MAX_PAGE_PER_SIZE, MAX_PAGE_PER_SIZE + 1, text);
         }
@@ -58,7 +59,7 @@ public class PageController {
     }
 
     @RequestMapping("/user")
-    public String getToUserpage() {
+    public String getToUserpage(HttpServletRequest request) {
         return "user";
     }
 
@@ -78,6 +79,34 @@ public class PageController {
         } else {
             return "forward:/";
         }
+    }
+
+    @RequestMapping("/user/files")
+    public String getToUserfiles(HttpServletRequest request, HttpSession session){
+        User user = (User) session.getAttribute("user");
+
+        request.setAttribute("files", userfileservice.getByUserid(user.getId()));
+        return "userfiles";
+    }
+
+    @RequestMapping("/user/file")
+    public String FileDetail(HttpServletRequest request){
+        UserFile userfile;
+
+        try {
+            userfile = userfileservice.getById(Long.valueOf(request.getParameter("fileid")));
+        }catch (Exception e){
+            return "redirect:/user/files";
+        }
+
+        if (userfile == null){
+            return "redirect:/user/files";
+        }
+
+        request.setAttribute("file",userfile);
+        request.setAttribute("filetype", FileAction.fileTypeToString(userfile.getType()));
+
+        return "file";
     }
 
     private final void setLoginBox(HttpSession session, HttpServletRequest request) {

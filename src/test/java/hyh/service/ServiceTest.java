@@ -4,6 +4,7 @@ package hyh.service;
  * Created by 黄宇航 on 2017/9/20.
  */
 
+import hyh.action.FileAction;
 import hyh.entity.User;
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -25,7 +26,7 @@ public class ServiceTest extends AbstractTransactionalTestNGSpringContextTests {
 
     @Test
     public void test() {
-        System.out.println(userfileservice.search(0, 13, "124124").toString());
+        System.out.println(userfileservice.searchByType(FileAction.getType(""),0, 13, "124124").toString());
     }
 
 }

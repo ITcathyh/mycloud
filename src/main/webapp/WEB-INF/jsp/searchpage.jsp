@@ -68,7 +68,7 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right" id="userdiv">
-                        <li><a><strong>${username}</strong></a></li>
+                        <li><a href="/user"><strong>${username}</strong></a></li>
                         <li><a href="/logout">Log out</a></li>
                     </ul>
                 </div>
@@ -119,8 +119,6 @@
                                 Time：2017-11-23 | Size：10M | Type：Book | Downloads：10 </p> -->
                             <%
                                 List<UserFile> userfiles = (List<UserFile>) request.getAttribute("files");
-
-                                System.out.println(userfiles);
 
                                 if (userfiles == null || userfiles.size() == 0) {
                                     out.println("<h1 class=\"searchh1\">\n" +

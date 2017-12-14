@@ -124,4 +124,11 @@ public class UserFile {
     public String toString() {
         return "Size:" + (size / 1024) + "kb | Type:" + FileAction.fileTypeToString(type) + " | Tag:" + tag + " | Downloads:" + downloads;
     }
+
+    public String getTb(){
+        return "<th>" + filename + "</th>\n" +
+                "<th>" + FileAction.fileTypeToString(type) + "</th>\n" +
+                "<th>" + tag + "</th>\n" +
+                "<th>" + downloads + "</th>\n";
+    }
 }
