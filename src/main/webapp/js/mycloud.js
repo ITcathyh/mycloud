@@ -67,9 +67,9 @@ function checkUploadFile() {
 
     if (originname == "") {
         showerror("The file must not be empty");
-    } else if (originname.length > 50){
+    } else if (originname.length > 50) {
         showerror("The origin filename must be less than 50 bits");
-    }else if (!checkLegnth(filename, 0, 31)) {
+    } else if (!checkLegnth(filename, 0, 31)) {
         showerror("The filename must be less than 30 bits")
     } else if (!checkLegnth(filesummary, 0, 151)) {
         showerror("The summary must be less than 150 bits")
@@ -207,3 +207,63 @@ function signup(email, password, name, qq, invitationcode, la) {
 }
 
 /* signup end */
+
+/* user begin */
+function deleteFile(la) {
+    $.ajax({
+        data: {
+            "id": id
+        },
+        type: "post",
+        url: "/user/deletefile",
+        dataType: "json",
+        error: function (data) {
+            la.stop();
+            $("#edit").removeAttr("disabled");
+            showerror("Unknown error");
+        },
+        success: function (response) {
+            la.stop();
+            $("#edit").removeAttr("disabled");
+
+            if (response == 1) {
+                showsuccess("Delete successfully");
+            } else {
+                showsuccess("Delete unsuccessfully");
+            }
+        }
+    });
+}
+
+function editFile(la) {
+    $.ajax({
+        data: {
+            "id": id,
+            "filename":$("#filename").val(),
+            "tag":$("#filetag").val(),
+            "type":$("#filetype").val(),
+            "summary":$("#filesummary").val()
+        },
+        type: "post",
+        url: "/user/editfile",
+        dataType: "json",
+        error: function (data) {
+            la.stop();
+            $("#delete").removeAttr("disabled");
+            showerror("Unknown error");
+        },
+        success: function (response) {
+            la.stop();
+            $("#delete").removeAttr("disabled");
+
+            if (response == "error") {
+                showerror("Unknown error");
+            } else if (response == "done") {
+                showsuccess("Edit successfully")
+            } else if (response == "notfound") {
+                showerror("File is not found")
+            }
+        }
+    });
+}
+/* user end */

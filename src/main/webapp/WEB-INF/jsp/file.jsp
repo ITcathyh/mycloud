@@ -7,7 +7,6 @@
 --%>
 
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
-<%@ page import="hyh.entity.UserFile" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -132,8 +131,12 @@
                                     <label class="col-sm-3 control-label">type</label>
 
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="type" autocomplete="off"
-                                               value="${filetype}">
+                                        <select class="form-control" id="filetype">
+                                            <option>Books</option>
+                                            <option>Courseware</option>
+                                            <option>Pictures</option>
+                                            <option>Other</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -141,7 +144,7 @@
                                     <label class="col-sm-3 control-label">tag</label>
 
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="tag" autocomplete="off"
+                                        <input type="text" class="form-control" id="filetag" autocomplete="off"
                                                value="${file.tag}">
                                     </div>
                                 </div>
@@ -150,7 +153,7 @@
                                     <label class="col-sm-3 control-label">size</label>
 
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="size" autocomplete="off"
+                                        <input type="text" class="form-control" id="filesize" autocomplete="off"
                                                value="${file.size}kb">
                                     </div>
                                 </div>
@@ -184,7 +187,7 @@
                                     <label class="col-sm-3 control-label">summary</label>
 
                                     <div class="col-sm-9">
-                                                            <textarea type="text" class="form-control" id="summary"
+                                                            <textarea type="text" class="form-control" id="filesummary"
                                                                       autocomplete="off"
                                                                       style="height:76px;">${file.summary}</textarea>
                                     </div>
@@ -218,20 +221,35 @@
 </div>
 
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/spin.min.js"></script>
+<script type="text/javascript" src="js/ladda.min.js"></script>
+<script type="text/javascript" src="js/mycloud.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript">
-    var page = ${page};
-    var nextdisabled = ${nextdisabled};
+    var id = ${file.id}
+    var downloads = ${file.downloads};
+    var size = ${file.size};
 
     $(document).ready(function () {
-        if (nextdisabled == 1) {
-            $("#next").addClass("disabled");
-            $("#nexturl").attr("href", "javascript:void(0)");
-        }
+        $("#filetype").val("${filetype}");
+    });
 
-        if (page == 0) {
-            $("#pre").addClass("disabled");
-            $("#preurl").attr("href", "javascript:void(0)");
+    $(document).on("click", "#edit", function (e) {
+        var la = Ladda.create(document.querySelector("#edit"));
+
+        la.start();
+        $("#delete").attr("disabled", "disabled");
+        editFile(la);
+    });
+
+    $(document).on("click", "#delete", function (e) {
+        if (window.confirm('Confirm deletion？')) {
+            var la = Ladda.create(document.querySelector("#delete"));
+
+            la.start();
+            $("#edit").attr("disabled", "disabled");
+            deleteFile(la);
         }
     });
 </script>

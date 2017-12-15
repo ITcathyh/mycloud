@@ -6,6 +6,7 @@ package hyh.service;
 
 import hyh.action.FileAction;
 import hyh.entity.User;
+import hyh.entity.UserFile;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +27,10 @@ public class ServiceTest extends AbstractTransactionalTestNGSpringContextTests {
 
     @Test
     public void test() {
-        System.out.println(userfileservice.searchByType(FileAction.getType(""),0, 13, "124124").toString());
+        UserFile a = userfileservice.getById(1);
+        a.setTag("123");
+
+        System.out.println(userfileservice.update(a));
     }
 
 }
