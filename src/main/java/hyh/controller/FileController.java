@@ -1,5 +1,6 @@
 package hyh.controller;
 
+import hyh.action.DownloadAction;
 import hyh.global.Variable;
 import hyh.action.FileAction;
 import hyh.action.UserAction;
@@ -29,6 +30,8 @@ public class FileController {
     private UserService userservice;
     @Autowired
     private UserFileService userfileservice;
+    @Autowired
+    private DownloadAction downloadaction;
 
     @RequestMapping("/user/uploadfile")
     public String uploadFile(@RequestParam("file") CommonsMultipartFile uploadfile,
@@ -58,7 +61,7 @@ public class FileController {
         try {
             String path = FileAction.getFilePath() + type + "/";
             long userid = (long) session.getAttribute("userid");
-            int size = (int)uploadfile.getSize();
+            int size = (int) uploadfile.getSize();
 
             userfile.setFilename(name);
             userfile.setSize(size);
@@ -69,10 +72,10 @@ public class FileController {
             userfile.setPath(path + uploadfile.getOriginalFilename());
             userfile.setOriginname(uploadfile.getOriginalFilename());
 
-            synchronized (Long.toString(userid)){
+            synchronized (Long.toString(userid)) {
                 User user = userservice.getById(userid);
 
-                if (user == null){
+                if (user == null) {
                     return "error";
                 } else if (size > user.getSurplus()) {
                     return "full";
@@ -104,12 +107,12 @@ public class FileController {
 
     @RequestMapping("/download/{id}")
     public String download(@PathVariable("id") String fileid,
-                           HttpServletResponse response) {
+                           HttpServletResponse response, HttpSession session) {
         long id;
 
-        try{
+        try {
             id = Long.valueOf(fileid);
-        }catch (Exception e){
+        } catch (Exception e) {
             return "error";
         }
 
@@ -148,17 +151,18 @@ public class FileController {
             return "error";
         } finally {
             try {
-                if (is != null){
+                if (is != null) {
                     is.close();
                 }
 
-                if (os != null){
+                if (os != null) {
                     os.close();
                 }
-            }catch (Exception ignored){
+            } catch (Exception ignored) {
             }
         }
 
+        downloadaction.updateDownloadInfo(userfile, userfileservice, userservice, session);
         return "done";
     }
 }

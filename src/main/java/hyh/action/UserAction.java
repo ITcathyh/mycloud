@@ -60,8 +60,13 @@ public class UserAction {
 
     public static boolean checkUserInfo(User user) {
         return Pattern.matches(EMAIL_PAT, user.getEmail()) &&
-                Pattern.matches(PWD_PAT, user.getPassword()) &&
+                checkPwd(user.getPassword()) &&
                 Pattern.matches(QQ_PAT, user.getQq()) &&
                 Pattern.matches(NAME_PAT, user.getName());
     }
+
+    public static boolean checkPwd(String pwd){
+        return Pattern.matches(PWD_PAT, pwd);
+    }
+
 }

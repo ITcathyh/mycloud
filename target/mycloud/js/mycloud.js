@@ -226,18 +226,18 @@ function deleteFile(la) {
             la.stop();
             $("#edit").removeAttr("disabled");
 
-            if (response == 1) {
+            if (response == "done") {
                 showsuccess("Delete successfully");
+            } else if(response == "error"){
+                showerror("Delete unsuccessfully");
             } else {
-                showsuccess("Delete unsuccessfully");
+                showerror("File is non-existent");
             }
         }
     });
 }
 
 function editFile(la) {
-    alert($("#filetag").val() + " " + $("#filesummary").val());
-
     $.ajax({
         data: {
             "id": id,

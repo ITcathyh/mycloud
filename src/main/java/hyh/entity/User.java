@@ -21,7 +21,7 @@ public class User {
 
     private int filecount;
 
-    private short points;
+    private int points;
 
     private Timestamp logintime;
 
@@ -81,11 +81,11 @@ public class User {
         this.surplus = surplus;
     }
 
-    public short getPoints() {
+    public int getPoints() {
         return points;
     }
 
-    public void setPoints(short points) {
+    public void setPoints(int points) {
         this.points = points;
     }
 

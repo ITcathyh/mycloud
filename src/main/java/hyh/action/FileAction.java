@@ -1,6 +1,10 @@
 package hyh.action;
 
+import hyh.entity.User;
+import hyh.entity.UserFile;
 import hyh.global.Variable;
+import hyh.service.UserFileService;
+import hyh.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
@@ -74,4 +78,5 @@ public final class FileAction {
 
         return true;
     }
+
 }

@@ -154,9 +154,7 @@
     </column>
     <column id="39" parent="16" name="points">
       <Position>8</Position>
-      <Comment>积分</Comment>
-      <DataType>tinyint(4)|0</DataType>
-      <DefaultExpression>&apos;100&apos;</DefaultExpression>
+      <DataType>int(11)|0</DataType>
     </column>
     <column id="40" parent="16" name="ip">
       <Position>9</Position>

@@ -9,7 +9,7 @@
         <result column="path" jdbcType="VARCHAR" property="path"/>
         <result column="summary" jdbcType="VARCHAR" property="summary"/>
         <result column="downloads" jdbcType="INTEGER" property="downloads"/>
-        <result column="size" jdbcType="TINYINT" property="size"/>
+        <result column="size" jdbcType="INTEGER" property="size"/>
         <result column="type" jdbcType="TINYINT" property="type"/>
         <result column="tag" jdbcType="VARCHAR" property="tag"/>
     </resultMap>
@@ -62,7 +62,7 @@
     insert into file (id, userid, filename, originname, summary,
       downloads, size, type,path, tag )
     values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{filename,jdbcType=VARCHAR}, #{originname,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR},
-      #{downloads,jdbcType=INTEGER}, #{size,jdbcType=TINYINT}, #{type,jdbcType=TINYINT}, #{path,jdbcType=TINYINT}, #{tag}
+      #{downloads,jdbcType=INTEGER}, #{size}, #{type,jdbcType=TINYINT}, #{path,jdbcType=TINYINT}, #{tag}
       )
   </insert>
 
@@ -70,10 +70,8 @@
     update file
     set userid = #{userid,jdbcType=BIGINT},
       filename = #{filename,jdbcType=VARCHAR},
-      originname = #{filename,jdbcType=VARCHAR},
       downloads = #{downloads,jdbcType=INTEGER},
-      size = #{size,jdbcType=TINYINT},
-      type = #{type,jdbcType=TINYINT}
+      type = #{type,jdbcType=TINYINT},
       tag = #{tag}
     where id = #{id,jdbcType=BIGINT}
   </update>

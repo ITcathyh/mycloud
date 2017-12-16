@@ -16,6 +16,8 @@ public interface UserDao {
 
     User login(@Param("email") String email, @Param("password") String password);
 
+    int editPwd(User record);
+
     int update(User record);
 
     int updateLoginInfor(@Param("logintime") Timestamp logintime, @Param("ip") String ip);

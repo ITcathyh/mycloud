@@ -9,7 +9,7 @@
     <result column="qq" property="qq" jdbcType="VARCHAR" />
     <result column="invitationid" property="invitationid" jdbcType="BIGINT" />
     <result column="surplus" property="surplus" jdbcType="TINYINT" />
-    <result column="points" property="points" jdbcType="TINYINT" />
+    <result column="points" property="points" jdbcType="INTEGER" />
     <result column="ip" property="ip" jdbcType="VARCHAR"/>
     <result column="logintime" property="logintime" jdbcType="TIMESTAMP"/>
   </resultMap>
@@ -63,13 +63,19 @@
      points,logintime, ip)
     values (#{id,jdbcType=BIGINT}, #{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{name,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{invitationid,jdbcType=BIGINT},
-       #{points,jdbcType=TINYINT},#{logintime}, #{ip})
+       #{points},#{logintime}, #{ip})
   </insert>
+
+  <update id="editPwd" parameterType="hyh.entity.User" >
+    update user
+    set password = #{password}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
 
   <update id="update" parameterType="hyh.entity.User" >
     update user
     set surplus = #{surplus,jdbcType=TINYINT},
-      points = #{points,jdbcType=TINYINT}
+      points = #{points}
     where id = #{id,jdbcType=BIGINT}
   </update>
 

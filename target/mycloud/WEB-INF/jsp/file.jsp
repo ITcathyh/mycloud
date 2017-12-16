@@ -7,7 +7,6 @@
 --%>
 
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
-<%@ page import="hyh.entity.UserFile" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -230,7 +229,7 @@
 <script type="text/javascript">
     var id = ${file.id}
     var downloads = ${file.downloads};
-    var size = ${file.size};
+    var size = "${file.size}kb";
 
     $(document).ready(function () {
         $("#filetype").val("${filetype}");
@@ -252,6 +251,14 @@
             $("#edit").attr("disabled", "disabled");
             deleteFile(la);
         }
+    });
+
+    $(document).on("blur", "#downloads", function (e) {
+        $("#downloads").val(downloads);
+    });
+
+    $(document).on("blur", "#filesize", function (e) {
+        $("#filesize").val(size);
     });
 </script>
 </body>

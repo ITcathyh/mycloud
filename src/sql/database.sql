@@ -16,7 +16,7 @@ CREATE TABLE user (
   COMMENT '邀请码对应id',
   surplus      INT                  DEFAULT 32505856
   COMMENT '剩余上传空间(单位kb)',
-  points       TINYINT              DEFAULT 100
+  points       INT              DEFAULT 100
   COMMENT '积分',
   ip           VARCHAR(15) NOT NULL
   COMMENT 'IP地址',
@@ -66,4 +66,3 @@ CREATE TABLE file (
 
 INSERT INTO file (userid, filename, downloads, size, type, summary, path)
 VALUES (123, "test", 1, 2144, 1, "asdbb", "books/java");
-

@@ -34,6 +34,11 @@ public final class UserService {
         return dao.login(email, password);
     }
 
+    public int editPwd(User record){
+        log.info("修改密码");
+        return dao.editPwd(record);
+    }
+
     public int update(User record){
         log.info("更新用户");
         return dao.update(record);
