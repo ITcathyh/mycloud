@@ -56,68 +56,6 @@ function login(email, password, la) {
     });
 }
 
-function checkLegnth(obj, low, high) {
-    return obj.length > low && obj.length < high;
-}
-
-function checkUploadFile() {
-    var filename = $("#filename").val();
-    var filesummary = $("#filesummary").val();
-    var originname = $("#file").val();
-
-    if (originname == "") {
-        showerror("The file must not be empty");
-    } else if (originname.length > 50) {
-        showerror("The origin filename must be less than 50 bits");
-    } else if (!checkLegnth(filename, 0, 31)) {
-        showerror("The filename must be less than 30 bits")
-    } else if (!checkLegnth(filesummary, 0, 151)) {
-        showerror("The summary must be less than 150 bits")
-    } else {
-        la.start();
-        $("#myform").ajaxSubmit(options);
-    }
-}
-
-var options = {
-    type: 'POST',
-    url: "/user/uploadfile",
-    dataType: 'json',
-    success: function (response) {
-        la.stop();
-
-        if (response == "error") {
-            showerror("Unknown error");
-        } else if (response == "full") {
-            showerror("Balance is not enough");
-        } else if (response == "lockupload") {
-            showerror("Lock the function for a while");
-            $("#submitauthentication").addClass("disabled");
-        } else if (response == "done") {
-            $("#filename").val("");
-            $("#filetag").val("");
-            $("#filesummary").val("");
-            showsuccess("Upload successfully");
-        }
-    }, error: function (data) {
-        la.stop();
-        showerror("出现异常，请稍候重试");
-    }
-};
-
-$(".file").fileinput({
-    showPreview: false,
-    showUpload: false,
-    showRemove: false,
-    language: 'zh',
-    maxFileSize: 30720
-})
-
-$(document).on("click", "#submitupload", function (e) {
-    checkUploadFile();
-});
-
-
 function checkLogin() {
     var email = $("#email").val();
     var password = $("#password").val();
@@ -207,6 +145,90 @@ function signup(email, password, name, qq, invitationcode, la) {
 }
 
 /* signup end */
+
+/* homepage begin */
+function checkLegnth(obj, low, high) {
+    return obj.length > low && obj.length < high;
+}
+
+function checkUploadFile() {
+    var filename = $("#filename").val();
+    var filesummary = $("#filesummary").val();
+    var originname = $("#file").val();
+
+    if (originname == "") {
+        showerror("The file must not be empty");
+    } else if (originname.length > 50) {
+        showerror("The origin filename must be less than 50 bits");
+    } else if (!checkLegnth(filename, 0, 31)) {
+        showerror("The filename must be less than 30 bits")
+    } else if (!checkLegnth(filesummary, 0, 151)) {
+        showerror("The summary must be less than 150 bits")
+    } else {
+        la.start();
+        $("#myform").ajaxSubmit(options);
+    }
+}
+
+var options = {
+    type: 'POST',
+    url: "/user/uploadfile",
+    dataType: 'json',
+    success: function (response) {
+        la.stop();
+
+        if (response == "error") {
+            showerror("Unknown error");
+        } else if (response == "full") {
+            showerror("Balance is not enough");
+        } else if (response == "lockupload") {
+            showerror("Lock the function for a while");
+            $("#submitauthentication").addClass("disabled");
+        } else if (response == "done") {
+            $("#filename").val("");
+            $("#filetag").val("");
+            $("#filesummary").val("");
+            showsuccess("Upload successfully");
+        }
+    }, error: function (data) {
+        la.stop();
+        showerror("出现异常，请稍候重试");
+    }
+};
+
+$(".file").fileinput({
+    showPreview: false,
+    showUpload: false,
+    showRemove: false,
+    language: 'zh',
+    maxFileSize: 30720
+})
+
+$(document).on("click", "#submitupload", function (e) {
+    checkUploadFile();
+});
+
+$(document).on("click", "#homebody", function (e) {
+    var precontent = $("#pushcontent").text();
+    var prehref = $("#pushcontent").attr("href");
+    $("#pushcontent").text("loading...");
+
+    $.ajax({
+        data: {},
+        type: "post",
+        url: "/push/getnewRecommend",
+        dataType: "json",
+        error: function (data) {
+            $("#pushcontent").text(precontent);
+            $("#pushcontent").attr("href", prehref);
+        },
+        success: function (response) {
+            $("#pushcontent").text(response.content);
+            $("#pushcontent").attr("href", response.href);
+        }
+    });
+});
+/* homepage end */
 
 /* user begin */
 function deleteFile(la) {

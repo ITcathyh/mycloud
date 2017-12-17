@@ -20,18 +20,19 @@
     <link href="css/all-skins.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/ladda-themeless.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/fileinput.min.css" media="all" rel="stylesheet" type="text/css"/>
-    <link href="image/logo.ico" rel="bookmark"  type="img/x-icon"  />
-    <link href="img/logo.ico" rel="shortcut icon" >
+    <link href="image/logo.ico" rel="bookmark" type="img/x-icon"/>
+    <link href="img/logo.ico" rel="shortcut icon">
     <style>
-        .alert-warning{
+        .alert-warning {
             background-color: #f39c12;
         }
+
         .alert-success {
             background-color: #00a65a;
         }
     </style>
 </head>
-<body>
+<body id="homebody">
 <div id="wapper">
     <div id="main-content">
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -90,7 +91,7 @@
                     <p class="lead">Share with the world</p>
                     <br/>
                     <p id="yan">
-                        <a href="#" class="pushcontent">Here is the push content</a>
+                        <a href="#" class="pushcontent" id="pushcontent">Click anywhere to get new</a>
                     </p>
                     <div class="col-lg-12" style="margin-top:10px">
                         <div class="input-group input-group-lg col-sm-offset-4 col-sm-4">
@@ -231,7 +232,7 @@
 
                 <div class="modal-footer">
                     </button>
-                    <button type="button" class="btn btn-primary  ladda-button" id="submitupload"  data-style="zoom-in">
+                    <button type="button" class="btn btn-primary  ladda-button" id="submitupload" data-style="zoom-in">
                         <span class="ladda-label">Submit</span>
                     </button>
                 </div>
@@ -288,8 +289,9 @@
     });
 
     $("#mainsearch").click(function () {
-       location.href="/search?text=" + $("#searchtext").val() + "&type=" + $("#showselect").text();
-    })
+        location.href = "/search?text=" + $("#searchtext").val() + "&type=" + $("#showselect").text();
+    });
+
 </script>
 </body>
 </html>
