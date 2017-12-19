@@ -9,6 +9,11 @@ public class PushContent {
         href = null;
     }
 
+    public PushContent(String content, String href) {
+        this.content = content;
+        this.href = href;
+    }
+
     public String getContent() {
         return content;
     }

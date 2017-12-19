@@ -98,7 +98,7 @@
                     <div id="msg-info" class="alert alert-info alert-dismissable">
                         <h4>
                             <i class="icon fa fa-info"></i>
-                            Push content
+                            <a href="${notice.href}" style="text-decoration: none">${notice.content}</a>
                         </h4>
                     </div>
                 </div>

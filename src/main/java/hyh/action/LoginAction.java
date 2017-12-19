@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 
-public class LoginAction {
+public final class LoginAction {
     private static Logger log = Logger.getLogger(LoginAction.class);
 
     public static void updateLoginInfor(User user, UserService userservice, HttpServletRequest request) {

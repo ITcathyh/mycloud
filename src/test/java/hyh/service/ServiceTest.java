@@ -31,13 +31,9 @@ public class ServiceTest extends AbstractTransactionalTestNGSpringContextTests {
 
     @Test
     public void test() {
-        Admin a = adminService.getById(1);
-
-        a.setIp("123213");
-
-        adminService.updateLoginInfor(a);
-
-        System.out.println(adminService.getById(1).getIp());
+        System.out.println(userfileservice.getCount());
+        System.out.println(userservice.getCount());
+        System.out.println(userfileservice.getDownloads());
     }
 
 }

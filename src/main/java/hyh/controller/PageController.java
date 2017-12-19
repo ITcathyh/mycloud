@@ -60,11 +60,6 @@ public class PageController {
         return "searchpage";
     }
 
-    @RequestMapping("/user")
-    public String getToUserpage(HttpServletRequest request) {
-        return "user";
-    }
-
     @RequestMapping("/signup")
     public String getToSignup(HttpSession session) {
         if (session.getAttribute("user") != null) {
@@ -92,6 +87,14 @@ public class PageController {
         session.removeAttribute("admin");
 
         return "redirect:/login";
+    }
+
+
+    @RequestMapping("/user")
+    public String getToUserpage(HttpServletRequest request) {
+        request.setAttribute("notice", PushAction.getNotice());
+
+        return "user";
     }
 
     @RequestMapping("/user/files")

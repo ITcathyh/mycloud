@@ -64,13 +64,13 @@
             <ul class="sidebar-menu">
                 <li>
                     <a href="/admin">
-                        <i class="fa fa-user"></i> <span>Website Info</span>
+                        <i class="fa fa-desktop"></i> <span>Website Info</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="/admin/setad">
-                        <i class="fa fa-folder"></i> <span>Advertisements</span>
+                        <i class="fa fa-money"></i> <span>Advertisements</span>
                     </a>
                 </li>
 
@@ -135,7 +135,7 @@
                 <div class="col-md-6">
                     <div class="box box-primary">
                         <div class="box-header">
-                            <i class="fa fa-bullhorn"></i>
+                            <i class="fa fa-user"></i>
 
                             <h3 class="box-title">User Info</h3>
                         </div>
@@ -161,7 +161,7 @@
                 <div class="col-md-6">
                     <div class="box box-primary">
                         <div class="box-header">
-                            <i class="fa fa-bullhorn"></i>
+                            <i class="fa fa-folder"></i>
 
                             <h3 class="box-title">Files Info</h3>
                         </div>
@@ -267,7 +267,18 @@
 <script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript" src="js/spin.min.js"></script>
 <script type="text/javascript" src="js/ladda.min.js"></script>
+<script type="text/javascript" src="js/mycloud.js"></script>
 <script type="text/javascript">
+    $(document).on("click", "#setnotice", function (e) {
+        var content = $("#noticecontent").val();
+        var href = $("#noticehref").val();
+
+        if (content.length == 0 || href.length == 0) {
+            showerror("Please input correctly")
+        } else {
+       setNotice(content, href);
+        }
+    });
 </script>
 </body>
 </html>

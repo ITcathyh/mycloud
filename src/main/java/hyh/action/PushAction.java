@@ -8,9 +8,9 @@ import hyh.service.UserService;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PushAction {
+public final class PushAction {
     private static final List<Advertise> advertises = new ArrayList<>();
-    private static PushContent notice = null;
+    private static PushContent notice = new PushContent("Hello, I am the push content", "/");
     private static int hotsize = 10;
 
     public static List<Advertise> getAdvertise() {

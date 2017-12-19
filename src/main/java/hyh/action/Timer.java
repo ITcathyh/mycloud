@@ -8,11 +8,9 @@ import org.springframework.stereotype.Component;
 public class Timer {
     @Scheduled(cron = "50 59 23 * * ?")
     public void clearDailyInfo() {
-        DailyInfo dailyinfo = AdminAction.getDailyifo();
-
-        dailyinfo.setActive(0);
-        dailyinfo.setNewdownloads(0);
-        dailyinfo.setNewfiles(0);
-        dailyinfo.setNewusers(0);
+        DailyInfoAction.setActive(0);
+        DailyInfoAction.setNewdownloads(0);
+        DailyInfoAction.setNewfiles(0);
+        DailyInfoAction.setNewusers(0);
     }
 }

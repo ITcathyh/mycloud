@@ -27,4 +27,8 @@ public interface UserFileDao {
     List<UserFile> searchByType(@Param("type") short type, @Param("index") int index, @Param("count") int count, @Param("key") String key);
 
     int update(UserFile record);
+
+    Integer getCount();
+
+    Integer getDownloads();
 }

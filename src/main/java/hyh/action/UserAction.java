@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class UserAction {
+public final class UserAction {
     private static final String EMAIL_PAT = "^[A-Za-z0-9\\u4e00-\\u9fa5]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$";
     private static final String PWD_PAT = "^[a-zA-z][a-zA-Z0-9.-]{5,16}";
     private static final String QQ_PAT = "^[1-9][0-9]{4,}";

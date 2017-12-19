@@ -64,4 +64,18 @@ public class UserFileService {
         log.info("更新文件");
         return dao.update(record);
     }
+
+    public int getCount(){
+        log.info("获得资源数量");
+        Integer tmp = dao.getCount();
+
+        return tmp == null ? 0 : tmp;
+    }
+
+    public int getDownloads(){
+        log.info("获得总下载量");
+        Integer tmp = dao.getDownloads();
+
+        return tmp == null ? 0 : tmp;
+    }
 }

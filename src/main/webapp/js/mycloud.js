@@ -296,3 +296,34 @@ function editFile(la) {
     });
 }
 /* user end */
+
+/* admin begin */
+function setNotice(content, href) {
+    var la = Ladda.create(document.querySelector("#setnotice"));
+
+    la.start();
+
+    $.ajax({
+        data: {
+            "content": content,
+            "href": href
+        },
+        type: "post",
+        url: "/admin/setnotice",
+        dataType: "json",
+        error: function (data) {
+            la.stop();
+            showerror("Unknown error");
+        },
+        success: function (response) {
+            la.stop();
+
+            if (response == false) {
+                showerror("Unknown error");
+            } else {
+                showsuccess("Edit successfully")
+            }
+        }
+    });
+}
+/* admin end */

@@ -17,7 +17,7 @@
     id, userid, filename, originname, downloads, size, type, tag
   </sql>
 
-    <select id="getCountByUserid" resultMap="BaseResultMap">
+    <select id="getCountByUserid" resultType="java.lang.Integer">
         select count(*) from file
         where userid = #{userid}
     </select>
@@ -33,7 +33,15 @@
     </select>
 
     <select id="getAll" resultMap="BaseResultMap">
- select * from file
+        select * from file
+    </select>
+
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(*) from file
+    </select>
+
+    <select id="getDownloads" resultType="java.lang.Integer">
+        select sum(downloads) from file
     </select>
 
     <select id="search" resultMap="BaseResultMap">

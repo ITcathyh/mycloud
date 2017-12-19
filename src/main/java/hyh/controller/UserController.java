@@ -56,12 +56,12 @@ public class UserController {
     }
 
     @RequestMapping("/deletefile")
-    public String deleteFile(String id) {
+    public String deleteFile(long id, HttpSession session) {
         UserFile userfile;
 
-        synchronized (this) {
+        synchronized (Long.toString(id)) {
             try {
-                userfile = userfileservice.getById(Long.valueOf(id));
+                userfile = userfileservice.getById(id);
             } catch (Exception e) {
                 return "error";
             }
@@ -76,9 +76,10 @@ public class UserController {
         User user = userservice.getById(userfile.getUserid());
 
         if (user != null) {
-            user.setSurplus(user.getSurplus() - userfile.getSize());
+            user.setSurplus(user.getSurplus() + userfile.getSize());
 
             if (userservice.update(user) == 1) {
+                session.setAttribute("user", user);
                 return "done";
             }
         }

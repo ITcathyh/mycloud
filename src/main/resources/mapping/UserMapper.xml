@@ -27,8 +27,9 @@
     <select id="getAll" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from user
+        from user limit #{index}, #{count}
     </select>
+
 
     <select id="getByInvitid" resultMap="BaseResultMap">
         select
@@ -43,6 +44,10 @@
         from user
         where email = #{email} and password = #{password}
         limit 1
+    </select>
+
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(*) from user
     </select>
 
     <select id="isExist" resultMap="BaseResultMap">
