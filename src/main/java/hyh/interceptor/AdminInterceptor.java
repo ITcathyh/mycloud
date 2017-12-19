@@ -13,8 +13,8 @@ import java.net.URLEncoder;
 public class AdminInterceptor implements HandlerInterceptor  {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
                              Object handler) throws Exception {
-        if (request.getSession().getAttribute("islogin") == null) {
-            response.sendRedirect("/login");
+        if (request.getSession().getAttribute("admin") == null) {
+            response.sendRedirect("/admin/login");
             return false;
         }
 

@@ -37,8 +37,13 @@
 
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/user/**"/>
+            <mvc:mapping path="/user**"/>
             <bean class="hyh.interceptor.UserActionInterceptor"/>
+        </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/admin**"/>
+            <bean class="hyh.interceptor.AdminInterceptor"/>
         </mvc:interceptor>
 
         <mvc:interceptor>
@@ -73,41 +78,6 @@
         <property name="defaultEncoding" value="UTF-8"/>
         <property name="maxUploadSize" value="32505856"/>
         <property name="maxInMemorySize" value="4096"/>
-    </bean>
-
-
-    <bean id="mailSender2" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="host" value="smtp.ym.163.com"/>
-        <property name="username" value=""/>
-        <property name="password" value=""/>
-        <property name="port" value="465"/>
-        <property name="protocol" value="smtp"/>
-        <property name="defaultEncoding" value="UTF-8"/>
-        <property name="javaMailProperties">
-            <props>
-                <prop key="mail.smtp.auth">true</prop>
-                <prop key="mail.smtp.ssl.enable">true</prop>
-                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
-                <prop key="mail.smtp.timeout">25000</prop>
-            </props>
-        </property>
-    </bean>
-
-    <bean id="mailSender1" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="host" value="smtp.stu.neu.edu.cn"/>
-        <property name="username" value=""/>
-        <property name="password" value=""/>
-        <property name="port" value="465"/>
-        <property name="protocol" value="smtp"/>
-        <property name="defaultEncoding" value="UTF-8"/>
-        <property name="javaMailProperties">
-            <props>
-                <prop key="mail.smtp.auth">true</prop>
-                <prop key="mail.smtp.ssl.enable">true</prop>
-                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
-                <prop key="mail.smtp.timeout">25000</prop>
-            </props>
-        </property>
     </bean>
 
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">

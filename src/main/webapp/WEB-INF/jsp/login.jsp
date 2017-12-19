@@ -9,6 +9,10 @@
 
 <html>
 <head>
+    <%
+        String basepath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/";
+    %>
+    <base href=" <%=basepath%>">
     <meta charset="UTF-8">
     <title>My Cloud - Log In</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
@@ -16,8 +20,8 @@
     <link href="css/AdminLTE.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/all-skins.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/ladda-themeless.min.css" rel="stylesheet" type="text/css"/>
-    <link href="image/logo.ico" rel="bookmark"  type="img/x-icon"  />
-    <link href="img/logo.ico" rel="shortcut icon" >
+    <link href="image/logo.ico" rel="bookmark" type="img/x-icon"/>
+    <link href="img/logo.ico" rel="shortcut icon">
 </head>
 <body class="login-page">
 <div class="login-box">
@@ -40,7 +44,8 @@
         </form>
         <div class="row">
             <div class="col-xs-4">
-                <button id="login" type="submit" class="btn btn-primary btn-block btn-flat ladda-button" data-style="zoom-in">
+                <button id="login" type="submit" class="btn btn-primary btn-block btn-flat ladda-button"
+                        data-style="zoom-in">
                     <span class="ladda-label">Log In</span>
                 </button>
             </div>
@@ -64,17 +69,19 @@
 <script type="text/javascript" src="js/ladda.min.js"></script>
 <script type="text/javascript" src="js/mycloud.js"></script>
 <script type="text/javascript">
-    var lock = 0;
+    var lock = "${loginlock}";
+    var loginurl = "${loginurl}";
+    var successurl = "${successurl}";
 
     $(document).ready(function () {
-        if (lock == 1) {
+        if (lock == "1") {
             $("#login").addClass("disabled");
         }
     });
 
     $("#login").click(function () {
         checkLogin();
-    })
+    });
 
     $("#password").keydown(function (event) {
         if (event.keyCode == 13) {

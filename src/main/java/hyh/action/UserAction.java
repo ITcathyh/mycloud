@@ -4,11 +4,8 @@ import hyh.entity.Invitationcode;
 import hyh.entity.User;
 import hyh.service.InvitationcodeService;
 import hyh.service.UserService;
-import hyh.util.Ip;
-import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 

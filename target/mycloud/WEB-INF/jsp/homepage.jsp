@@ -91,7 +91,7 @@
                     <p class="lead">Share with the world</p>
                     <br/>
                     <p id="yan">
-                        <a href="#" class="pushcontent" id="pushcontent">Click anywhere to get new</a>
+                        <a href="#" class="pushcontent" id="pushcontent">Here is the push content</a>
                     </p>
                     <div class="col-lg-12" style="margin-top:10px">
                         <div class="input-group input-group-lg col-sm-offset-4 col-sm-4">
@@ -266,6 +266,8 @@
         } else {
             $("#logindiv").hide();
         }
+
+        getRecommend();
     });
 
     $("#all").click(function () {

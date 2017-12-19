@@ -1,5 +1,6 @@
 package hyh.controller;
 
+import hyh.action.LoginAction;
 import hyh.entity.User;
 import hyh.service.UserFileService;
 import hyh.service.UserService;
@@ -9,28 +10,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-@Controller
+@RestController
 public class LoginController {
     @Autowired
     private UserService userservice;
     @Autowired
     private UserFileService userfileservice;
 
-    @RequestMapping("/logout")
-    public String logout(HttpSession session) {
-        session.removeAttribute("user");
-
-        return "redirect:/login";
-    }
-
     @RequestMapping("/checklogin")
-    @ResponseBody
     public String checkLogin(@RequestParam("email") String email,
                              @RequestParam("password") String password,
-                             HttpSession session) {
+                             HttpSession session, HttpServletRequest request) {
         if (session.getAttribute("user") == null ) {
             if ( session.getAttribute("loginlock") != null){
                 return "lock";
@@ -57,6 +52,8 @@ public class LoginController {
 
                 return "error";
             } else {
+                LoginAction.updateLoginInfor(user, userservice, request);
+
                 user.setFilecount(userfileservice.getCountByUserid(user.getId()));
                 session.setAttribute("user", user);
                 session.setAttribute("userid", user.getId());

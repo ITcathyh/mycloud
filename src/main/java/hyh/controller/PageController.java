@@ -1,6 +1,7 @@
 package hyh.controller;
 
 import hyh.action.FileAction;
+import hyh.action.PushAction;
 import hyh.entity.User;
 import hyh.entity.UserFile;
 import hyh.service.UserFileService;
@@ -23,6 +24,7 @@ public class PageController {
     @RequestMapping("/")
     public String getToHomepage(HttpSession session, HttpServletRequest request) {
         setLoginBox(session, request);
+        request.setAttribute("hots", PushAction.getHot());
 
         return "homepage";
     }
@@ -73,12 +75,23 @@ public class PageController {
     }
 
     @RequestMapping("/login")
-    public String getToLogin(HttpSession session) {
+    public String getToLoginPage(HttpServletRequest request, HttpSession session) {
         if (session.getAttribute("user") == null) {
+            request.setAttribute("loginurl", "/checklogin");
+            request.setAttribute("successurl", "/");
             return "login";
         } else {
             return "forward:/";
         }
+    }
+
+    @RequestMapping("/logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("user");
+        session.removeAttribute("userid");
+        session.removeAttribute("admin");
+
+        return "redirect:/login";
     }
 
     @RequestMapping("/user/files")

@@ -20,7 +20,7 @@ public class PushContentController {
     @Autowired
     private UserFileService userfileservice;
 
-    @RequestMapping("/getnewRecommend")
+    @RequestMapping("/getnewrecommend")
     public PushContent getNewRecommend(HttpSession session) {
         Object obj = session.getAttribute("user");
         PushContent newcon;

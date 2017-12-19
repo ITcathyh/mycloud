@@ -34,7 +34,7 @@ function login(email, password, la) {
             "password": password
         },
         type: "post",
-        url: "/checklogin",
+        url: loginurl,
         dataType: "json",
         error: function (data) {
             la.stop();
@@ -47,9 +47,10 @@ function login(email, password, la) {
                 showLoginError("Email or password is wrong");
             } else if (response == "loginlock") {
                 showLoginError("Prohibit landing");
+                $("#login").addClass("disabled");
             } else {
                 showLoginSuccess("Success");
-                window.setTimeout("location.href='/'", 1000);
+                window.setTimeout("location.href='" + successurl +"'", 1000);
                 return true;
             }
         }
@@ -208,7 +209,7 @@ $(document).on("click", "#submitupload", function (e) {
     checkUploadFile();
 });
 
-$(document).on("click", "#homebody", function (e) {
+function getRecommend() {
     var precontent = $("#pushcontent").text();
     var prehref = $("#pushcontent").attr("href");
     $("#pushcontent").text("loading...");
@@ -223,12 +224,15 @@ $(document).on("click", "#homebody", function (e) {
             $("#pushcontent").attr("href", prehref);
         },
         success: function (response) {
-            alert(response.content.length);
             $("#pushcontent").text(response.content);
             $("#pushcontent").attr("href", response.href);
         }
     });
-});
+
+    setTimeout(function () {
+        getRecommend();
+    }, 10000);
+}
 /* homepage end */
 
 /* user begin */

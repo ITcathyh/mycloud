@@ -8,11 +8,8 @@ import hyh.entity.User;
 import hyh.entity.UserFile;
 import hyh.service.UserFileService;
 import hyh.service.UserService;
-import hyh.util.TimeUtil;
-import hyh.util.Zip;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -21,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
-import java.util.ArrayList;
 
 @RestController
 public class FileController {

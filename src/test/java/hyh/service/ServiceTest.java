@@ -5,12 +5,14 @@ package hyh.service;
  */
 
 import hyh.action.FileAction;
+import hyh.entity.Admin;
 import hyh.entity.User;
 import hyh.entity.UserFile;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.springframework.test.context.ContextConfiguration;
@@ -23,14 +25,19 @@ public class ServiceTest extends AbstractTransactionalTestNGSpringContextTests {
     private UserService userservice;
     @Autowired
     private UserFileService userfileservice;
+    @Autowired
+    private AdminService adminService;
 
 
     @Test
     public void test() {
-        UserFile a = userfileservice.getById(1);
-        a.setTag("123");
+        Admin a = adminService.getById(1);
 
-        System.out.println(userfileservice.update(a));
+        a.setIp("123213");
+
+        adminService.updateLoginInfor(a);
+
+        System.out.println(adminService.getById(1).getIp());
     }
 
 }

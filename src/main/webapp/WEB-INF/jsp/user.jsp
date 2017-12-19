@@ -9,7 +9,11 @@
 
 <html>
 <head>
-    <title>后台管理</title>
+    <%
+        String basepath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/";
+    %>
+    <base href=" <%=basepath%>">
+    <title>User Centry</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -32,7 +36,6 @@
             </a>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="/logout">
                             <img src="img/logo.jpg"
@@ -104,12 +107,12 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div id="msgerror" class="alert alert-warning alert-dismissable" style="display:none">
-                        <h4><i class="icon fa fa-warning" id="errormsg"></i> 出错了!</h4>
+                        <h4><i class="icon fa fa-warning" id="errormsg"></i>Wrong</h4>
 
                         <p id="msg-error-p"></p>
                     </div>
                     <div id="msgsuccess" class="alert alert-success alert-dismissable" style="display:none">
-                        <h4><i class="icon fa fa-info"></i>提交成功</h4>
+                        <h4><i class="icon fa fa-info"></i>Success</h4>
 
                         <p id="ss-msg-success-p"></p>
                     </div>

@@ -11,6 +11,7 @@ import java.util.List;
 public class PushAction {
     private static final List<Advertise> advertises = new ArrayList<>();
     private static PushContent notice = null;
+    private static int hotsize = 10;
 
     public static List<Advertise> getAdvertise() {
         return advertises;
@@ -20,15 +21,19 @@ public class PushAction {
         return notice;
     }
 
-    public static void setNotice(PushContent snotice){
-        notice = snotice;
+    public static void setNotice(PushContent tmp){
+        notice = tmp;
+    }
+
+    public static void saetHotSize(int tmp){
+        hotsize = tmp;
     }
 
     public static PushContent getRecommend(User user, UserService userservice){
         return null;
     }
 
-    public static List<PushContent> getHot(int size){
+    public static List<PushContent> getHot(){
         return null;
     }
 
