@@ -95,14 +95,6 @@
         <section class="content">
             <div class="row">
                 <div class="col-xs-12">
-                    <div>
-                        <button id="addteacher" class="btn btn-primary"
-                                onclick="javascrtpt:window.location.href='/applyteacher'">成为辅学者
-                        </button>
-                        <button id="needteacher" class="btn btn-primary"
-                                onclick="javascrtpt:window.location.href='/self-studying'">约自习（无辅学要求）
-                        </button>
-                    </div>
                     <div class=" box
                         ">
                         <div class="box-body table-responsive no-padding">

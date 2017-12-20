@@ -1,32 +1,32 @@
 <%--
   Created by IntelliJ IDEA.
   User: 黄宇航
-  Date: 2017/12/19
-  Time: 13:51
+  Date: 2017/12/14
+  Time: 20:38
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
     <%
         String basepath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/";
     %>
     <base href=" <%=basepath%>">
-    <title>System management daemon</title>
+    <title>My Files</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="css/ionicons.min.css" rel="stylesheet">
     <link href="css/AdminLTE.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/all-skins.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/ladda-themeless.min.css" rel="stylesheet" type="text/css"/>
     <link href="image/logo.ico" rel="bookmark" type="img/x-icon"/>
     <link href="img/logo.ico" rel="shortcut icon">
+
 </head>
 <body class="skin-blue">
 <div class="wrapper">
-
     <header class="main-header">
         <a class="logo">ITcat</a>
         <nav class="navbar navbar-static-top" role="navigation">
@@ -36,6 +36,7 @@
             </a>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
+                    <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="/logout">
                             <img src="img/logo.jpg"
@@ -99,23 +100,10 @@
     <div class="content-wrapper">
         <section class="content-header">
             <h1>
-                System management daemon
-                <small>Hello ${admin.username}</small>
+                View User
             </h1>
         </section>
-
         <section class="content">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div id="msg-info" class="alert alert-info alert-dismissable">
-                        <h4>
-                            <i class="icon fa fa-info"></i>
-                            Push content
-                        </h4>
-                    </div>
-                </div>
-            </div>
-
             <div class="row">
                 <div class="col-xs-12">
                     <div id="msgerror" class="alert alert-warning alert-dismissable" style="display:none">
@@ -135,25 +123,50 @@
                 <div class="col-md-6">
                     <div class="box box-primary">
                         <div class="box-header">
-                            <i class="fa fa-user"></i>
+                            <i class="fa fa-edit"></i>
 
-                            <h3 class="box-title">User Info</h3>
+                            <h3 class="box-title">Base Info</h3>
                         </div>
+
                         <div class="box-body">
-                            <dl class="dl-horizontal">
-                                <dt>number of users</dt>
-                                <dd>
-                                    ${userscount}
-                                </dd>
-                                <dt>new users today</dt>
-                                <dd>
-                                    ${newusers}
-                                </dd>
-                                <dt>active</dt>
-                                <dd>
-                                    ${active}
-                                </dd>
-                            </dl>
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">ID</label>
+
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="id" autocomplete="off"
+                                               value="${suser.id}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">name</label>
+
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="name" autocomplete="off"
+                                               value="${suser.name}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">QQ</label>
+
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="qq" autocomplete="off"
+                                               value="${suser.qq}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">invitationid</label>
+
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="invitationid" autocomplete="off"
+                                               value="${suser.invitationid}">
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -161,95 +174,55 @@
                 <div class="col-md-6">
                     <div class="box box-primary">
                         <div class="box-header">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-edit"></i>
 
-                            <h3 class="box-title">Files Info</h3>
-                        </div>
-                        <div class="box-body">
-                            <dl class="dl-horizontal">
-                                <dt>number of files</dt>
-                                <dd>
-                                    ${filescount}
-                                </dd>
-                                <dt>new files today</dt>
-                                <dd>
-                                    ${newfiles}
-                                </dd>
-                                <dt>total downloads</dt>
-                                <dd>
-                                    ${downloads}
-                                </dd>
-                                <dt>downloads today</dt>
-                                <dd>
-                                    ${newdownload}
-                                </dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="box box-primary">
-                        <div class="box-header">
-                            <i class="fa fa-bullhorn"></i>
-
-                            <h3 class="box-title">Login Info</h3>
-                        </div>
-                        <div class="box-body">
-                            <dl class="dl-horizontal">
-                                <dt>last IP:</dt>
-                                <dd>
-                                    ${admin.ip}
-                                </dd>
-                                <dt>last time</dt>
-                                <dd>
-                                    ${admin.logintime}
-                                </dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="box box-primary">
-                        <div class="box-header">
-                            <i class="fa fa-inbox"></i>
-
-                            <h3 class="box-title">Notice</h3>
+                            <h3 class="box-title">Other Info</h3>
                         </div>
 
                         <div class="box-body">
                             <div class="form-horizontal">
 
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">notice content</label>
+                                    <label class="col-sm-3 control-label">surplus</label>
 
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="noticecontent" autocomplete="off"
-                                               value="${notice.content}">
+                                        <input type="text" class="form-control" id="surplus" autocomplete="off"
+                                               value="${suser.surplus}">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">notice href</label>
+                                    <label class="col-sm-3 control-label">points</label>
 
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="noticehref" autocomplete="off"
-                                               value="${notice.href}">
+                                        <input type="text" class="form-control" id="points" autocomplete="off"
+                                               value="${suser.points}">
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">filecount</label>
+
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="filecount" autocomplete="off"
+                                               value="${suser.filecount}">
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
-
                         <div class="box-footer">
-                            <button id="setnotice" class="btn btn-primary ladda-button" data-style="zoom-in">
-                                <span class="ladda-label">set notice</span>
+                            <button id="edit" class="btn btn-primary ladda-button" data-style="zoom-in">
+                                <span class="ladda-label">Edit</span>
+                            </button>
+                            <button id="delete" class="btn btn-primary ladda-button" data-style="zoom-in">
+                                <span class="ladda-label">Delete</span>
                             </button>
                         </div>
                     </div>
                 </div>
-
             </div>
+
         </section>
     </div>
     <footer class="main-footer">
@@ -262,24 +235,49 @@
         <strong>Powered by <a href="javascript:void(0)">ITcathyh</a> </strong>
     </footer>
 </div>
+
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript" src="js/spin.min.js"></script>
 <script type="text/javascript" src="js/ladda.min.js"></script>
 <script type="text/javascript" src="js/mycloud.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript">
-    $(document).on("click", "#setnotice", function (e) {
-        var content = $("#noticecontent").val();
-        var href = $("#noticehref").val();
+    var id = ${suser.id};
+    var surplus = ${suser.surplus};
+    var points = ${suser.points};
+    var filecount = ${suser.filecount};
 
-        if (content.length == 0 || href.length == 0) {
-            showerror("Please input correctly")
-        } else {
-            setNotice(content, href);
+
+    $(document).on("click", "#edit", function (e) {
+        var la = Ladda.create(document.querySelector("#edit"));
+
+        la.start();
+        $("#delete").attr("disabled", "disabled");
+        editUser(la);
+    });
+
+    $(document).on("click", "#delete", function (e) {
+        if (window.confirm('Confirm deletion？')) {
+            var la = Ladda.create(document.querySelector("#delete"));
+
+            la.start();
+            $("#edit").attr("disabled", "disabled");
+            deleteUser(la);
         }
+    });
+
+    $(document).on("blur", "#surplus", function (e) {
+        $("#surplus").val(surplus);
+    });
+
+    $(document).on("blur", "#points", function (e) {
+        $("#points").val(points);
+    });
+
+    $(document).on("blur", "#filecount", function (e) {
+        $("#filecount").val(filecount);
     });
 </script>
 </body>
 </html>
-

@@ -17,6 +17,10 @@
     id, email, password, name, qq, invitationid, surplus, points, logintime, ip
   </sql>
 
+    <sql id="Nor_Column_List">
+        id, email, name, qq, invitationid, surplus, points, logintime, ip
+    </sql>
+
     <select id="getById" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -27,9 +31,15 @@
     <select id="getAll" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from user
+        from user limit #{index}, #{count}
     </select>
 
+    <select id="search" resultMap="BaseResultMap">
+        select
+        <include refid="Nor_Column_List"/>
+        from user
+        where name like "%"#{key}"%" or email like "%"#{key}"%" limit 1
+    </select>
 
     <select id="getByInvitid" resultMap="BaseResultMap">
         select

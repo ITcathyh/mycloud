@@ -99,9 +99,7 @@ public class PageController {
 
     @RequestMapping("/user/files")
     public String getToUserfiles(HttpServletRequest request, HttpSession session){
-        User user = (User) session.getAttribute("user");
-
-        request.setAttribute("files", userfileservice.getByUserid(user.getId()));
+        request.setAttribute("files", userfileservice.getByUserid((long) session.getAttribute("userid")));
         return "userfiles";
     }
 

@@ -235,7 +235,7 @@ function getRecommend() {
 }
 /* homepage end */
 
-/* user begin */
+/* file begin */
 function deleteFile(la) {
     $.ajax({
         data: {
@@ -295,7 +295,7 @@ function editFile(la) {
         }
     });
 }
-/* user end */
+/* file end */
 
 /* admin begin */
 function setNotice(content, href) {
@@ -327,3 +327,65 @@ function setNotice(content, href) {
     });
 }
 /* admin end */
+
+/* userdetail begin */
+function deleteUser(la) {
+    $.ajax({
+        data: {
+            "id": id
+        },
+        type: "post",
+        url: "/admin/deleteuser",
+        dataType: "json",
+        error: function (data) {
+            la.stop();
+            $("#edit").removeAttr("disabled");
+            showerror("Unknown error");
+        },
+        success: function (response) {
+            la.stop();
+            $("#edit").removeAttr("disabled");
+
+            if (response == "done") {
+                showsuccess("Delete successfully");
+            } else if(response == "error"){
+                showerror("Delete unsuccessfully");
+            } else {
+                showerror("File is non-existent");
+            }
+        }
+    });
+}
+
+function editUser(la) {
+    $.ajax({
+        data: {
+            "id": id,
+            "filename":$("#filename").val(),
+            "tag":$("#filetag").val(),
+            "type":$("#filetype").val(),
+            "summary":$("#filesummary").val()
+        },
+        type: "post",
+        url: "/user/edituser",
+        dataType: "json",
+        error: function (data) {
+            la.stop();
+            $("#delete").removeAttr("disabled");
+            showerror("Unknown error");
+        },
+        success: function (response) {
+            la.stop();
+            $("#delete").removeAttr("disabled");
+
+            if (response == "error") {
+                showerror("Unknown error");
+            } else if (response == "done") {
+                showsuccess("Edit successfully")
+            } else if (response == "notfound") {
+                showerror("File is not found")
+            }
+        }
+    });
+}
+/* userdetail end */

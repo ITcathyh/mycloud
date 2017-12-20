@@ -37,12 +37,14 @@
 
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/user**"/>
+            <mvc:mapping path="/user/**"/>
+            <mvc:mapping path="/user"/>
             <bean class="hyh.interceptor.UserActionInterceptor"/>
         </mvc:interceptor>
 
         <mvc:interceptor>
-            <mvc:mapping path="/admin**"/>
+            <mvc:mapping path="/admin/**"/>
+            <mvc:mapping path="/admin"/>
             <bean class="hyh.interceptor.AdminInterceptor"/>
         </mvc:interceptor>
 

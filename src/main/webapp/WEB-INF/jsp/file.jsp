@@ -88,7 +88,7 @@
     <div class="content-wrapper">
         <section class="content-header">
             <h1>
-                Query Files
+                View File
             </h1>
         </section>
         <section class="content">

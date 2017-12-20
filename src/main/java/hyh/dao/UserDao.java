@@ -15,6 +15,8 @@ public interface UserDao {
 
     List<User> getAll(@Param("index") int index, @Param("count") int count);
 
+    User search( String key);
+
     User getById(long id);
 
     User login(@Param("email") String email, @Param("password") String password);

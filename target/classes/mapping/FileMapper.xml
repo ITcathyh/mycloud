@@ -44,6 +44,10 @@
         select sum(downloads) from file
     </select>
 
+    <select id="getDownloadsByUserid" resultType="java.lang.Integer">
+        select sum(downloads) from file where userid = #{userid}
+    </select>
+
     <select id="search" resultMap="BaseResultMap">
           select * from file
         where filename like "%"#{key}"%" or summary like "%"#{key}"%"

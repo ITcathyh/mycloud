@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin")
 public class AdminPageController {
     @Autowired
     private UserService userservice;
@@ -23,7 +23,7 @@ public class AdminPageController {
     private UserFileService userfileservice;
     private static final int MAX_PAGE_PER_SIZE = 12;
 
-    @RequestMapping("/login")
+    @RequestMapping("/adminlogin")
     public String adminLoginPage(HttpServletRequest request, HttpSession session) {
         if (session.getAttribute("admin") == null) {
             request.setAttribute("loginurl", "/checkadminlogin");
@@ -34,7 +34,7 @@ public class AdminPageController {
         }
     }
 
-    @RequestMapping("")
+    @RequestMapping("/admin")
     public String adminPage(HttpServletRequest request) {
         request.setAttribute("userscount", userservice.getCount());
         request.setAttribute("newusers", DailyInfoAction.getNewusers());
@@ -48,21 +48,17 @@ public class AdminPageController {
         return "admin";
     }
 
-    @RequestMapping("/queryusers")
-    public String queryUsers(String email, HttpServletRequest request) {
+    @RequestMapping("/admin/queryusers")
+    public String queryUsers(String spage, HttpServletRequest request) {
         List<User> users = null;
         int page = 0;
 
         try {
-            page = Integer.valueOf(request.getParameter("page"));
+            page = Integer.valueOf(spage);
         } catch (Exception ignored) {
         }
 
-        if (email != null){
-           // userservice.
-        }else {
-            users = userservice.getAll(page * MAX_PAGE_PER_SIZE, MAX_PAGE_PER_SIZE + 1);
-        }
+        users = userservice.getAll(page * MAX_PAGE_PER_SIZE, MAX_PAGE_PER_SIZE + 1);
 
         if (users == null || users.size() < 13) {
             request.setAttribute("nextdisabled", 1);
@@ -74,5 +70,47 @@ public class AdminPageController {
         request.setAttribute("page", page);
 
         return "queryusers";
+    }
+
+    @RequestMapping("/admin/searchuser")
+    public String searchUser(String key, HttpServletRequest request) {
+        if (key != null) {
+            User user = userservice.search(key);
+
+            if (user == null) {
+                request.setAttribute("noresult", 1);
+                request.setAttribute("nextdisabled", 1);
+                return "queryusers";
+            }
+
+            request.setAttribute("suser", user);
+            return "userdetail";
+        } else {
+            return "redirect:/admin/queryusers";
+        }
+    }
+
+    @RequestMapping("/admin/getuserdetail")
+    public String getUserDetail(String userid, HttpServletRequest request) {
+        long id;
+
+        try {
+            id = Long.valueOf(userid);
+        } catch (Exception e) {
+            return "redirect:/admin/queryusers";
+        }
+
+        User user = userservice.getById(id);
+
+        if (user == null) {
+            request.setAttribute("noresult", 1);
+            request.setAttribute("nextdisabled", 1);
+            return "queryusers";
+        }
+
+        user.setFilecount(userfileservice.getCountByUserid(id));
+        request.setAttribute("suser", user);
+        return "userdetail";
+
     }
 }

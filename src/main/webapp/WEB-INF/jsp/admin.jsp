@@ -75,13 +75,13 @@
                 </li>
 
                 <li>
-                    <a href="/admin/queryuser">
+                    <a href="/admin/queryusers">
                         <i class="fa fa-user"></i> <span>Queryusers</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="/admin/queryfiler">
+                    <a href="/admin/queryfiles">
                         <i class="fa fa-folder"></i> <span>QueryFiles</span>
                     </a>
                 </li>
