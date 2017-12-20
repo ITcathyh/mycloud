@@ -62,15 +62,4 @@ public class SignUpController {
 
         return "error";
     }
-
-    @RequestMapping("/makeinvitcode")
-    public String makeInvitcode(int count){
-        String code = GetRandomString.getRandomString(20);
-        Invitationcode invitationcode = new Invitationcode();
-
-        invitationcode.setSurplus((short)count);
-        invitationcode.setInvitationcode(code);
-
-        return invitationcodeservice.add(invitationcode) == 1 ? code : null;
-    }
 }

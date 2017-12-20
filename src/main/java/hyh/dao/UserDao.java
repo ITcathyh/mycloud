@@ -15,7 +15,7 @@ public interface UserDao {
 
     List<User> getAll(@Param("index") int index, @Param("count") int count);
 
-    User search( String key);
+    List<User> search(@Param("index") int index, @Param("count") int count, @Param("key") String key);
 
     User getById(long id);
 
@@ -23,11 +23,15 @@ public interface UserDao {
 
     int editPwd(User record);
 
+    int editInfo(@Param("id") long id, @Param("qq") String qq);
+
     int update(User record);
 
     int updateLoginInfor(@Param("logintime") Timestamp logintime, @Param("ip") String ip);
 
     Integer isExist(@Param("email") String email, @Param("name") String name);
+
+    Integer isExistById(long id);
 
     Integer getCount();
 }

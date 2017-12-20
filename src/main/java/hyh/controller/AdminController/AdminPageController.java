@@ -2,7 +2,6 @@ package hyh.controller.AdminController;
 
 import hyh.action.DailyInfoAction;
 import hyh.action.PushAction;
-import hyh.entity.DailyInfo;
 import hyh.entity.User;
 import hyh.service.UserFileService;
 import hyh.service.UserService;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,7 +28,7 @@ public class AdminPageController {
             request.setAttribute("successurl", "/admin");
             return "login";
         } else {
-            return "forward:/admin";
+            return "admin/admin";
         }
     }
 
@@ -45,11 +43,11 @@ public class AdminPageController {
         request.setAttribute("newdownload", DailyInfoAction.getNewdownloads());
         request.setAttribute("notice", PushAction.getNotice());
 
-        return "admin";
+        return "admin/admin";
     }
 
     @RequestMapping("/admin/queryusers")
-    public String queryUsers(String spage, HttpServletRequest request) {
+    public String queryUsers(String spage, String key, HttpServletRequest request) {
         List<User> users = null;
         int page = 0;
 
@@ -58,7 +56,11 @@ public class AdminPageController {
         } catch (Exception ignored) {
         }
 
-        users = userservice.getAll(page * MAX_PAGE_PER_SIZE, MAX_PAGE_PER_SIZE + 1);
+        if (key == null){
+            users = userservice.getAll(page * MAX_PAGE_PER_SIZE, MAX_PAGE_PER_SIZE + 1);
+        }else {
+            users = userservice.search(page * MAX_PAGE_PER_SIZE, MAX_PAGE_PER_SIZE + 1, key);
+        }
 
         if (users == null || users.size() < 13) {
             request.setAttribute("nextdisabled", 1);
@@ -69,48 +71,36 @@ public class AdminPageController {
         request.setAttribute("users", users);
         request.setAttribute("page", page);
 
-        return "queryusers";
-    }
-
-    @RequestMapping("/admin/searchuser")
-    public String searchUser(String key, HttpServletRequest request) {
-        if (key != null) {
-            User user = userservice.search(key);
-
-            if (user == null) {
-                request.setAttribute("noresult", 1);
-                request.setAttribute("nextdisabled", 1);
-                return "queryusers";
-            }
-
-            request.setAttribute("suser", user);
-            return "userdetail";
-        } else {
-            return "redirect:/admin/queryusers";
-        }
+        return "admin/queryusers";
     }
 
     @RequestMapping("/admin/getuserdetail")
-    public String getUserDetail(String userid, HttpServletRequest request) {
-        long id;
-
-        try {
-            id = Long.valueOf(userid);
-        } catch (Exception e) {
-            return "redirect:/admin/queryusers";
-        }
-
-        User user = userservice.getById(id);
+    public String getUserDetail(long userid, HttpServletRequest request) {
+        User user = userservice.getById(userid);
 
         if (user == null) {
-            request.setAttribute("noresult", 1);
             request.setAttribute("nextdisabled", 1);
-            return "queryusers";
+            return "admin/queryusers";
         }
 
-        user.setFilecount(userfileservice.getCountByUserid(id));
+        user.setFilecount(userfileservice.getCountByUserid(userid));
         request.setAttribute("suser", user);
-        return "userdetail";
+        return "admin/userdetail";
+
+    }
+
+    @RequestMapping("/admin/queryfiles")
+    public String queryFiles(long userid, HttpServletRequest request) {
+        User user = userservice.getById(userid);
+
+        if (user == null) {
+            request.setAttribute("nextdisabled", 1);
+            return "admin/queryusers";
+        }
+
+        user.setFilecount(userfileservice.getCountByUserid(userid));
+        request.setAttribute("suser", user);
+        return "admin/userdetail";
 
     }
 }

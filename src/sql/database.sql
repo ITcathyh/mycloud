@@ -65,7 +65,9 @@ CREATE TABLE file (
   PRIMARY KEY (id),
   INDEX (userid),
   INDEX (size),
-  INDEX (tag)
+  INDEX (tag),
+  INDEX (filename),
+  INDEX (summary)
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8;

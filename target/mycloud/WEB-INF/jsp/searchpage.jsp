@@ -45,26 +45,34 @@
                             <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-search"></i>Classification
                                 <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Books</a></li>
-                                <li><a href="#">Courseware</a></li>
-                                <li><a href="#">Pictures</a></li>
-                                <li><a href="#">Other</a></li>
+                                <li>
+                                    <a id="books" href="/search?type=Books">Books</a>
+                                </li>
+                                <li>
+                                    <a id="courseware" href="/search?type=Courseware">Courseware</a>
+                                </li>
+                                <li>
+                                    <a id="pictures" href="/search?type=Pictures">Pictures</a>
+                                </li>
+                                <li>
+                                    <a id="other" href="/search?type=Other">Other</a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
                     <div class="navbar-form navbar-left">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="">
+                            <input type="text" class="form-control" id="novsearchtext">
                         </div>
-                        <button class="btn btn-primary">Search</button>
+                        <button class="btn btn-primary" id="novsearch">Search</button>
                         <button id="uploadbutton" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                             Upload
                         </button>
                     </div>
 
                     <ul class="nav navbar-nav navbar-right" id="logindiv">
-                        <li><a href="#">Log In</a></li>
-                        <li><a href="#">Sgin Up</a></li>
+                        <li><a href="/login">Log In</a></li>
+                        <li><a href="/signup">Sgin Up</a></li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right" id="userdiv">
@@ -106,17 +114,17 @@
                                 </div>
                             </div>
 
-                          <!--  <h1 class="searchh1">
-                                <a href="#" class="b_title" target="_blank">Effective Java</a>
-                                <a rel="noreferrer" href="#" class="a_url" data-surl="1bpAmKCB"
-                                   target="_blank"> <i class="glyphicon glyphicon-share-alt"></i>
-                                </a>
-                            </h1>
+                            <!--  <h1 class="searchh1">
+                                  <a href="#" class="b_title" target="_blank">Effective Java</a>
+                                  <a rel="noreferrer" href="#" class="a_url" data-surl="1bpAmKCB"
+                                     target="_blank"> <i class="glyphicon glyphicon-share-alt"></i>
+                                  </a>
+                              </h1>
 
-                            <p class="content">
-                                A book about Java </p>
-                            <p class="aw-text-color-green">
-                                Time：2017-11-23 | Size：10M | Type：Book | Downloads：10 </p> -->
+                              <p class="content">
+                                  A book about Java </p>
+                              <p class="aw-text-color-green">
+                                  Time：2017-11-23 | Size：10M | Type：Book | Downloads：10 </p> -->
                             <%
                                 List<UserFile> userfiles = (List<UserFile>) request.getAttribute("files");
 
@@ -149,7 +157,7 @@
                             <div class="page-control" id="pageto" data-page="1">
                                 <ul class="pagination pull-right">
                                     <li class="pagecreater_prev pagecreater_disable" id="pre"><a id="preurl"
-                                                                                                          href="/search?${page}">Previous</a>
+                                                                                                 href="/search?${page}">Previous</a>
                                     </li>
                                     <li class="active" data-click="page" data-pg="${page}"><a>${page + 1}</a></li>
                                     <li data-click="page" id="next"><a id="nexturl" href="/search?${page + 1}">Next</a>
@@ -231,6 +239,7 @@
     </div>
 </div>
 
+
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/spin.min.js"></script>
@@ -243,6 +252,7 @@
     var page = ${page};
     var text = "${text}";
     var nextdisabled = ${nextdisabled};
+    var la = Ladda.create(document.querySelector("#submitupload"));
 
     $(document).ready(function () {
         if (username == "0") {
@@ -267,6 +277,9 @@
         interval: 4000,
     });
 
+    $("#novsearch").click(function () {
+        location.href = "/search?text=" + $("#novsearchtext").val() + "&type=All";
+    });
 </script>
 </body>
 </html>

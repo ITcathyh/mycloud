@@ -28,8 +28,15 @@
     </select>
 
     <select id="getByUserid" resultMap="BaseResultMap">
- select * from file
-        where userid = #{userid,jdbcType=BIGINT}
+        select * from file
+        where userid = #{userid}
+        limit #{index}, #{count}
+    </select>
+
+    <select id="getByType" resultMap="BaseResultMap">
+        select * from file
+        where type = #{type}
+        limit #{index}, #{count}
     </select>
 
     <select id="getAll" resultMap="BaseResultMap">
@@ -60,6 +67,12 @@
         limit #{index}, #{count}
     </select>
 
+    <select id="searchByUserid" resultMap="BaseResultMap">
+        select * from file
+        where userid = #{userid} and (filename like "%"#{key}"%" or summary like "%"#{key}"%")
+        limit #{index}, #{count}
+    </select>
+
     <delete id="deleteById">
     delete from file
     where id = #{id,jdbcType=BIGINT}
@@ -80,11 +93,16 @@
 
     <update id="update" parameterType="hyh.entity.UserFile">
     update file
-    set userid = #{userid,jdbcType=BIGINT},
-      filename = #{filename,jdbcType=VARCHAR},
-      downloads = #{downloads,jdbcType=INTEGER},
-      type = #{type,jdbcType=TINYINT},
-      tag = #{tag}
+    set filename = #{filename},
+      type = #{type},
+      tag = #{tag},
+      summary = #{summary}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+    <update id="addDownloads" parameterType="hyh.entity.UserFile">
+        update file
+        set downloads = #{downloads}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 </mapper>

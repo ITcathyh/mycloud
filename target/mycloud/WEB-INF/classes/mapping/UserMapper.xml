@@ -25,7 +25,7 @@
         select
         <include refid="Base_Column_List"/>
         from user
-        where id = #{id,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT} limit 1
     </select>
 
     <select id="getAll" resultMap="BaseResultMap">
@@ -38,7 +38,8 @@
         select
         <include refid="Nor_Column_List"/>
         from user
-        where name like "%"#{key}"%" or email like "%"#{key}"%" limit 1
+        where name like "%"#{key}"%" or email like "%"#{key}"%"
+        limit #{index}, #{count}
     </select>
 
     <select id="getByInvitid" resultMap="BaseResultMap">
@@ -67,6 +68,13 @@
     limit 1
   </select>
 
+    <select id="isExistById" resultMap="BaseResultMap">
+        select count(*)
+        from user
+        where id = #{id}
+        limit 1
+    </select>
+
     <delete id="deleteById">
     delete from user
     where id = #{id,jdbcType=BIGINT}
@@ -86,6 +94,12 @@
     set password = #{password}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+    <update id="editInfo" parameterType="hyh.entity.User">
+        update user
+        set qq = #{qq}
+        where id = #{id}
+    </update>
 
     <update id="update" parameterType="hyh.entity.User">
     update user

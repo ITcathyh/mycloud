@@ -50,7 +50,7 @@ function login(email, password, la) {
                 $("#login").addClass("disabled");
             } else {
                 showLoginSuccess("Success");
-                window.setTimeout("location.href='" + successurl +"'", 1000);
+                window.setTimeout("location.href='" + successurl + "'", 1000);
                 return true;
             }
         }
@@ -233,6 +233,7 @@ function getRecommend() {
         getRecommend();
     }, 10000);
 }
+
 /* homepage end */
 
 /* file begin */
@@ -255,7 +256,7 @@ function deleteFile(la) {
 
             if (response == "done") {
                 showsuccess("Delete successfully");
-            } else if(response == "error"){
+            } else if (response == "error") {
                 showerror("Delete unsuccessfully");
             } else {
                 showerror("File is non-existent");
@@ -268,10 +269,10 @@ function editFile(la) {
     $.ajax({
         data: {
             "id": id,
-            "filename":$("#filename").val(),
-            "tag":$("#filetag").val(),
-            "type":$("#filetype").val(),
-            "summary":$("#filesummary").val()
+            "filename": $("#filename").val(),
+            "tag": $("#filetag").val(),
+            "type": $("#filetype").val(),
+            "summary": $("#filesummary").val()
         },
         type: "post",
         url: "/user/editfile",
@@ -290,11 +291,12 @@ function editFile(la) {
             } else if (response == "done") {
                 showsuccess("Edit successfully")
             } else if (response == "notfound") {
-                showerror("File is not found")
+                showerror("File is non-existent")
             }
         }
     });
 }
+
 /* file end */
 
 /* admin begin */
@@ -326,6 +328,7 @@ function setNotice(content, href) {
         }
     });
 }
+
 /* admin end */
 
 /* userdetail begin */
@@ -348,10 +351,8 @@ function deleteUser(la) {
 
             if (response == "done") {
                 showsuccess("Delete successfully");
-            } else if(response == "error"){
+            } else if (response == "error") {
                 showerror("Delete unsuccessfully");
-            } else {
-                showerror("File is non-existent");
             }
         }
     });
@@ -361,13 +362,10 @@ function editUser(la) {
     $.ajax({
         data: {
             "id": id,
-            "filename":$("#filename").val(),
-            "tag":$("#filetag").val(),
-            "type":$("#filetype").val(),
-            "summary":$("#filesummary").val()
+            "qq": $("#qq").val()
         },
         type: "post",
-        url: "/user/edituser",
+        url: "/admin/edituser",
         dataType: "json",
         error: function (data) {
             la.stop();
@@ -378,14 +376,13 @@ function editUser(la) {
             la.stop();
             $("#delete").removeAttr("disabled");
 
-            if (response == "error") {
-                showerror("Unknown error");
-            } else if (response == "done") {
+            if (response == "done") {
                 showsuccess("Edit successfully")
-            } else if (response == "notfound") {
-                showerror("File is not found")
+            } else if (response == "error") {
+                showerror("Unknown error");
             }
         }
     });
 }
+
 /* userdetail end */

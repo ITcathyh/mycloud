@@ -5,7 +5,6 @@ import hyh.action.PushAction;
 import hyh.entity.User;
 import hyh.entity.UserFile;
 import hyh.service.UserFileService;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,10 +39,19 @@ public class PageController {
         } catch (Exception ignored) {
         }
 
-        if (type != null &&  !type.equals("All") && text != null){
-            userfiles = userfileservice.searchByType(FileAction.getType(type),page * MAX_PAGE_PER_SIZE, MAX_PAGE_PER_SIZE + 1, text);
-        } else if (text != null) {
-            userfiles = userfileservice.search(page * MAX_PAGE_PER_SIZE, MAX_PAGE_PER_SIZE + 1, text);
+        if (type != null){
+            if (text != null){
+                if (!type.equals("All")){
+                    userfiles = userfileservice.searchByType(FileAction.getType(type),
+                            page * MAX_PAGE_PER_SIZE, MAX_PAGE_PER_SIZE + 1, text);
+                } else {
+                    userfiles = userfileservice.search(page * MAX_PAGE_PER_SIZE,
+                            MAX_PAGE_PER_SIZE + 1, text);
+                }
+            } else {
+                userfiles = userfileservice.getByType(FileAction.getType(type),
+                        page * MAX_PAGE_PER_SIZE, MAX_PAGE_PER_SIZE + 1);
+            }
         }
 
         if (userfiles == null || userfiles.size() < 13) {
@@ -94,33 +102,57 @@ public class PageController {
     public String getToUserpage(HttpServletRequest request) {
         request.setAttribute("notice", PushAction.getNotice());
 
-        return "user";
+        return "user/user";
     }
 
     @RequestMapping("/user/files")
-    public String getToUserfiles(HttpServletRequest request, HttpSession session){
-        request.setAttribute("files", userfileservice.getByUserid((long) session.getAttribute("userid")));
-        return "userfiles";
+    public String getToUserfiles(String key, HttpServletRequest request, HttpSession session) {
+        List<UserFile> userfiles = null;
+        int page = 0;
+        long userid = (long) session.getAttribute("userid");
+
+        try {
+            page = Integer.valueOf(request.getParameter("page"));
+        } catch (Exception ignored) {
+        }
+
+        if (key == null) {
+            userfiles = userfileservice.getByUserid(userid, page * MAX_PAGE_PER_SIZE,
+                    MAX_PAGE_PER_SIZE + 1);
+        } else {
+            userfiles = userfileservice.searchByUserid(userid, page * MAX_PAGE_PER_SIZE,
+                    MAX_PAGE_PER_SIZE + 1, key);
+        }
+
+        if (userfiles == null || userfiles.size() < 13) {
+            request.setAttribute("nextdisabled", 1);
+        } else {
+            request.setAttribute("nextdisabled", 0);
+        }
+
+        request.setAttribute("files", userfiles);
+        request.setAttribute("page", page);
+        return "user/userfiles";
     }
 
     @RequestMapping("/user/file")
-    public String FileDetail(HttpServletRequest request){
+    public String FileDetail(HttpServletRequest request) {
         UserFile userfile;
 
         try {
             userfile = userfileservice.getById(Long.valueOf(request.getParameter("fileid")));
-        }catch (Exception e){
+        } catch (Exception e) {
             return "redirect:/user/files";
         }
 
-        if (userfile == null){
+        if (userfile == null) {
             return "redirect:/user/files";
         }
 
-        request.setAttribute("file",userfile);
+        request.setAttribute("file", userfile);
         request.setAttribute("filetype", FileAction.fileTypeToString(userfile.getType()));
 
-        return "file";
+        return "user/file";
     }
 
     private final void setLoginBox(HttpSession session, HttpServletRequest request) {

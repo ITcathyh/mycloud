@@ -1,29 +1,30 @@
-<%@ page import="hyh.entity.User" %>
-<%@ page import="java.util.List" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: 黄宇航
-  Date: 2017/12/19
-  Time: 13:51
+  Date: 2017/12/14
+  Time: 19:52
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
+<%@ page import="hyh.entity.UserFile" %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
     <%
         String basepath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/";
     %>
     <base href=" <%=basepath%>">
-    <title>Query Users</title>
+    <title>My Files</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="css/ionicons.min.css" rel="stylesheet">
     <link href="css/AdminLTE.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/all-skins.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/ladda-themeless.min.css" rel="stylesheet" type="text/css"/>
-    <link href="image/logo.ico" rel="bookmark" type="img/x-icon"/>
-    <link href="img/logo.ico" rel="shortcut icon">
+    <link href="image/logo.ico" rel="bookmark"  type="img/x-icon"  />
+    <link href="img/logo.ico" rel="shortcut icon" >
+
 </head>
 <body class="skin-blue">
 <div class="wrapper">
@@ -36,6 +37,7 @@
             </a>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
+                    <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="/logout">
                             <img src="img/logo.jpg"
@@ -63,26 +65,14 @@
             </div>
             <ul class="sidebar-menu">
                 <li>
-                    <a href="/admin">
-                        <i class="fa fa-desktop"></i> <span>Website Info</span>
+                    <a href="/user">
+                        <i class="fa fa-user"></i> <span>My Info</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="/admin/setad">
-                        <i class="fa fa-money"></i> <span>Advertisements</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="/admin/queryusers">
-                        <i class="fa fa-user"></i> <span>Queryusers</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="/admin/queryfiles">
-                        <i class="fa fa-folder"></i> <span>QueryFiles</span>
+                    <a href="/user/files">
+                        <i class="fa fa-folder"></i> <span>My Files</span>
                     </a>
                 </li>
 
@@ -106,35 +96,37 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="input-group" style="width: 350px;">
-                        <input type="text" class="form-control" id="searchtext" placeholder="search something" name="stuid"/>
+                        <input type="text" class="form-control" id="searchtext" placeholder="search something"
+                               name="stuid"/>
                         <span class="input-group-btn">
                         <button class="btn btn-default" type="button" id="search">Search</button>
                     </span>
                     </div>
-
-                    <div class="box ">
+                    <div class=" box
+                        ">
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>qq</th>
+                                    <th>Filename</th>
+                                    <th>Type</th>
+                                    <th>Tag</th>
+                                    <th>Downloads</th>
                                 </tr>
                                 <%
-                                    List<User> users = (List<User>) request.getAttribute("users");
+                                    List<UserFile> userfiles = (List<UserFile>) request.getAttribute("files");
 
-                                    if (users == null || users.size() == 0) {
+                                    if (userfiles == null || userfiles.size() == 0) {
                                         out.println("<tr>");
-                                        out.println("<th>Sorry, no such user</th>");
+                                        out.println("<th>No files, Just upload some resource</th>");
                                         out.println("</tr>");
                                     } else {
-                                        User user;
+                                        UserFile file;
 
-                                        for (int i = 0, len = users.size(); i < len; i++) {
-                                            user = users.get(i);
+                                        for (int i = 0, len = userfiles.size(); i < len; i++) {
+                                            file = userfiles.get(i);
 
-                                            out.println("<tr onclick=\"javascrtpt:window.location.href='/admin/getuserdetail?userid=" + user.getId() + "'\">");
-                                            out.println(user);
+                                            out.println("<tr onclick=\"javascrtpt:window.location.href='/user/file?fileid=" + file.getId() + "'\">");
+                                            out.println(file.getTb());
                                             out.println("</tr>");
                                         }
                                     }
@@ -164,12 +156,9 @@
         <strong>Powered by <a href="javascript:void(0)">ITcathyh</a> </strong>
     </footer>
 </div>
+
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
-<script type="text/javascript" src="js/spin.min.js"></script>
-<script type="text/javascript" src="js/ladda.min.js"></script>
-<script type="text/javascript" src="js/mycloud.js"></script>
 <script type="text/javascript">
     var page = ${page};
     var nextdisabled = ${nextdisabled};
@@ -185,7 +174,16 @@
             $("#preurl").attr("href", "javascript:void(0)");
         }
     });
+
+    $(document).on("click", "#search", function (e) {
+        location.href = "/user/files?key=" + $("#searchtext").val();
+    });
+
+    $("#searchtext").keydown(function (event) {
+        if (event.keyCode == 13) {
+            location.href = "/user/files?key=" + $("#searchtext").val();
+        }
+    });
 </script>
 </body>
 </html>
-

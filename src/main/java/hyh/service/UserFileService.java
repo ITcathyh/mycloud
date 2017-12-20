@@ -19,7 +19,7 @@ public class UserFileService {
         return dao.deleteById(id);
     }
 
-    public int deleteByUserid(long id){
+    public int deleteByUserid(long id) {
         log.info("通过用户id删除");
         return dao.deleteByUserid(id);
     }
@@ -40,24 +40,34 @@ public class UserFileService {
         return dao.getById(id);
     }
 
-    public List<UserFile> getByUserid(long id){
-        log.info("通过用户id获取文件");
-        return dao.getByUserid(id);
+    public List<UserFile> getByUserid(long userid, int index, int count) {
+        log.info("通过用户ID获取文件");
+        return dao.getByUserid(userid, index, count);
     }
 
-    public List<UserFile> getAll(){
+    public List<UserFile> getByType(short type, int index, int count) {
+        log.info("通过类型获取文件");
+        return dao.getByType(type, index, count);
+    }
+
+    public List<UserFile> getAll() {
         log.info("获取所有文件");
         return dao.getAll();
     }
 
-    public List<UserFile> search(int index, int count, String key){
+    public List<UserFile> search(int index, int count, String key) {
         log.info("查找文件");
         return dao.search(index, count, key);
     }
 
-    public List<UserFile> searchByType(short type, int index, int count, String key){
-        log.info("通过类型查找文件");
+    public List<UserFile> searchByType(short type, int index, int count, String key) {
+        log.info("通过类型和关键字查找文件");
         return dao.searchByType(type, index, count, key);
+    }
+
+    public List<UserFile> searchByUserid(long userid, int index, int count, String key) {
+        log.info("通过用户和关键字查找文件");
+        return dao.searchByUserid(userid, index, count, key);
     }
 
     public int update(UserFile record) {
@@ -65,14 +75,19 @@ public class UserFileService {
         return dao.update(record);
     }
 
-    public int getCount(){
+    public int addDownloads(UserFile record) {
+        log.info("更新下载量");
+        return dao.addDownloads(record);
+    }
+
+    public int getCount() {
         log.info("获得资源数量");
         Integer tmp = dao.getCount();
 
         return tmp == null ? 0 : tmp;
     }
 
-    public int getDownloads(){
+    public int getDownloads() {
         log.info("获得总下载量");
         Integer tmp = dao.getDownloads();
 

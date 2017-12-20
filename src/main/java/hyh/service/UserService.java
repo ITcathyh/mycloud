@@ -29,9 +29,9 @@ public final class UserService {
         return dao.getAll(index, count);
     }
 
-    public User search(String key) {
+    public List<User> search(int index, int count, String key) {
         log.info("查找用户");
-        return dao.search(key);
+        return dao.search(index, count, key);
     }
 
     public User getById(long id) {
@@ -45,8 +45,13 @@ public final class UserService {
     }
 
     public int editPwd(User record) {
-        log.info("修改密码");
+        log.info("修改用户密码");
         return dao.editPwd(record);
+    }
+
+    public int editInfo(long id, String qq) {
+        log.info("修改用户资料");
+        return dao.editInfo(id, qq);
     }
 
     public int update(User record) {
@@ -57,6 +62,12 @@ public final class UserService {
     public boolean isExist(String email, String name) {
         log.info("判断邮箱是否存在");
         Integer cot = dao.isExist(email, name);
+        return cot != null && cot > 0;
+    }
+
+    public boolean isExistById(long id) {
+        log.info("判断用户是否存在");
+        Integer cot = dao.isExistById(id);
         return cot != null && cot > 0;
     }
 

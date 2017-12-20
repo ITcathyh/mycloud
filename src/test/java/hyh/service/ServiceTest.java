@@ -31,9 +31,12 @@ public class ServiceTest extends AbstractTransactionalTestNGSpringContextTests {
 
     @Test
     public void test() {
-        System.out.println(userfileservice.getCount());
-        System.out.println(userservice.getCount());
-        System.out.println(userfileservice.getDownloads());
+        System.out.println(userfileservice.searchByUserid(2, 0,
+                123, "1555"));
+        System.out.println(userfileservice.searchByUserid(2, 0,
+                123, "124"));
+        System.out.println(userfileservice.searchByUserid(2, 0,
+                123, "124124"));
     }
 
 }

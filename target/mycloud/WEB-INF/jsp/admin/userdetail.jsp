@@ -14,7 +14,7 @@
         String basepath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/";
     %>
     <base href=" <%=basepath%>">
-    <title>My Files</title>
+    <title>User Detail</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -36,7 +36,6 @@
             </a>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="/logout">
                             <img src="img/logo.jpg"
@@ -136,6 +135,15 @@
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" id="id" autocomplete="off"
                                                value="${suser.id}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">email</label>
+
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="email" autocomplete="off"
+                                               value="${suser.email}">
                                     </div>
                                 </div>
 
@@ -247,6 +255,8 @@
     var surplus = ${suser.surplus};
     var points = ${suser.points};
     var filecount = ${suser.filecount};
+    var invitationid = ${suser.invitationid};
+    var email = ${suser.email};
 
 
     $(document).on("click", "#edit", function (e) {
@@ -277,6 +287,18 @@
 
     $(document).on("blur", "#filecount", function (e) {
         $("#filecount").val(filecount);
+    });
+
+    $(document).on("blur", "#invitationid", function (e) {
+        $("#invitationid").val(invitationid);
+    });
+
+    $(document).on("blur", "#id", function (e) {
+        $("#id").val(id);
+    });
+
+    $(document).on("blur", "#email", function (e) {
+        $("#email").val(email);
     });
 </script>
 </body>

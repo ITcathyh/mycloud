@@ -98,4 +98,6 @@
             </props>
         </property>
     </bean>
+
+    <bean class="hyh.resolver.ExcetionResolver"></bean>
 </beans>

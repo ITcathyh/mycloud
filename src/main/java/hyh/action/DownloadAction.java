@@ -30,7 +30,7 @@ public class DownloadAction {
             userfile.setDownloads(userfile.getDownloads() + 1);
 
             if (!addUserPoint(userfile, userservice.getById(userfile.getUserid()), userservice) ||
-                    userfileservice.update(userfile) != 1) {
+                    userfileservice.addDownloads(userfile) != 1) {
                 log.error("update download info error");
                 Variable.errornum++;
             }

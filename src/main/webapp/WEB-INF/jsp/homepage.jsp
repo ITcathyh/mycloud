@@ -62,9 +62,9 @@
                     </ul>
                     <div class="navbar-form navbar-left">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="">
+                            <input type="text" class="form-control" placeholder="" id="novsearchtext">
                         </div>
-                        <button class="btn btn-primary" id="search">Search</button>
+                        <button class="btn btn-primary" id="novsearch">Search</button>
                         <button id="uploadbutton" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                             Upload
                         </button>
@@ -101,19 +101,16 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a id="all">All</a>
+                                        <a id="books" href="/search?type=Books">Books</a>
                                     </li>
                                     <li>
-                                        <a id="books">Books</a>
+                                        <a id="courseware" href="/search?type=Courseware">Courseware</a>
                                     </li>
                                     <li>
-                                        <a id="courseware">Courseware</a>
+                                        <a id="pictures" href="/search?type=Pictures">Pictures</a>
                                     </li>
                                     <li>
-                                        <a id="pictures">Pictures</a>
-                                    </li>
-                                    <li>
-                                        <a id="other">Other</a>
+                                        <a id="other" href="/search?type=Other">Other</a>
                                     </li>
                                 </ul>
                             </div>
@@ -294,6 +291,9 @@
         location.href = "/search?text=" + $("#searchtext").val() + "&type=" + $("#showselect").text();
     });
 
+    $("#novsearch").click(function () {
+        location.href = "/search?text=" + $("#novsearchtext").val() + "&type=All";
+    });
 </script>
 </body>
 </html>
