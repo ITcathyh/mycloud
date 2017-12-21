@@ -40,7 +40,7 @@
     </select>
 
     <select id="getAll" resultMap="BaseResultMap">
-        select * from file
+        select * from file limit #{index}, #{count}
     </select>
 
     <select id="getCount" resultType="java.lang.Integer">
@@ -57,19 +57,25 @@
 
     <select id="search" resultMap="BaseResultMap">
           select * from file
-        where filename like "%"#{key}"%" or summary like "%"#{key}"%"
+        where filename like "%"#{key}"%" or summary like "%"#{key}"%" or tag like "%"#{key}"%"
+        limit #{index}, #{count}
+    </select>
+
+    <select id="searchByUseridOrFiledetail" resultMap="BaseResultMap">
+        select * from file
+        where filename like "%"#{key}"%" or summary like "%"#{key}"%" or tag like "%"#{key}"%" or userid = #{userid]}
         limit #{index}, #{count}
     </select>
 
     <select id="searchByType" resultMap="BaseResultMap">
         select * from file
-        where type = #{type} and (filename like "%"#{key}"%" or summary like "%"#{key}"%")
+        where type = #{type} and (filename like "%"#{key}"%" or summary like "%"#{key}"%" or tag like "%"#{key}"%")
         limit #{index}, #{count}
     </select>
 
     <select id="searchByUserid" resultMap="BaseResultMap">
         select * from file
-        where userid = #{userid} and (filename like "%"#{key}"%" or summary like "%"#{key}"%")
+        where userid = #{userid} and (filename like "%"#{key}"%" or summary like "%"#{key}"%" or tag like "%"#{key}"%")
         limit #{index}, #{count}
     </select>
 

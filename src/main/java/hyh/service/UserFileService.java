@@ -50,14 +50,19 @@ public class UserFileService {
         return dao.getByType(type, index, count);
     }
 
-    public List<UserFile> getAll() {
+    public List<UserFile> getAll(int index, int count) {
         log.info("获取所有文件");
-        return dao.getAll();
+        return dao.getAll(index, count);
     }
 
     public List<UserFile> search(int index, int count, String key) {
         log.info("查找文件");
         return dao.search(index, count, key);
+    }
+
+    public List<UserFile> searchByUseridOrFiledetail(int index, int count, String key, long userid) {
+        log.info("通过ID和文件名查找文件");
+        return dao.searchByUseridOrFiledetail(index, count, key, userid);
     }
 
     public List<UserFile> searchByType(short type, int index, int count, String key) {

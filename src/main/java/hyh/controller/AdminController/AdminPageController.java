@@ -3,6 +3,7 @@ package hyh.controller.AdminController;
 import hyh.action.DailyInfoAction;
 import hyh.action.PushAction;
 import hyh.entity.User;
+import hyh.entity.UserFile;
 import hyh.service.UserFileService;
 import hyh.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Controller
 public class AdminPageController {
@@ -48,7 +50,7 @@ public class AdminPageController {
 
     @RequestMapping("/admin/queryusers")
     public String queryUsers(String spage, String key, HttpServletRequest request) {
-        List<User> users = null;
+        List<User> users;
         int page = 0;
 
         try {
@@ -56,9 +58,9 @@ public class AdminPageController {
         } catch (Exception ignored) {
         }
 
-        if (key == null){
+        if (key == null || key.length() < 1) {
             users = userservice.getAll(page * MAX_PAGE_PER_SIZE, MAX_PAGE_PER_SIZE + 1);
-        }else {
+        } else {
             users = userservice.search(page * MAX_PAGE_PER_SIZE, MAX_PAGE_PER_SIZE + 1, key);
         }
 
@@ -70,6 +72,7 @@ public class AdminPageController {
 
         request.setAttribute("users", users);
         request.setAttribute("page", page);
+        request.setAttribute("key", key);
 
         return "admin/queryusers";
     }
@@ -90,17 +93,40 @@ public class AdminPageController {
     }
 
     @RequestMapping("/admin/queryfiles")
-    public String queryFiles(long userid, HttpServletRequest request) {
-        User user = userservice.getById(userid);
+    public String queryFiles(String spage, String key, HttpServletRequest request) {
+        List<UserFile> files;
+        int page = 0;
 
-        if (user == null) {
-            request.setAttribute("nextdisabled", 1);
-            return "admin/queryusers";
+        try {
+            page = Integer.valueOf(spage);
+        } catch (Exception ignored) {
         }
 
-        user.setFilecount(userfileservice.getCountByUserid(userid));
-        request.setAttribute("suser", user);
-        return "admin/userdetail";
+        if (key == null || key.length() < 1) {
+            files = userfileservice.getAll(page * MAX_PAGE_PER_SIZE,
+                    MAX_PAGE_PER_SIZE + 1);
+        } else {
+            Pattern pattern = Pattern.compile("[0-9]*");
 
+            if (!pattern.matcher(key).matches()) {
+                files = userfileservice.search(page * MAX_PAGE_PER_SIZE,
+                        MAX_PAGE_PER_SIZE + 1, key);
+            } else {
+                files = userfileservice.searchByUseridOrFiledetail(page * MAX_PAGE_PER_SIZE,
+                        MAX_PAGE_PER_SIZE + 1, key, Long.valueOf(key));
+            }
+        }
+
+        if (files == null || files.size() < 13) {
+            request.setAttribute("nextdisabled", 1);
+        } else {
+            request.setAttribute("nextdisabled", 0);
+        }
+
+        request.setAttribute("files", files);
+        request.setAttribute("page", page);
+        request.setAttribute("key", key);
+
+        return "admin/queryfiles";
     }
 }

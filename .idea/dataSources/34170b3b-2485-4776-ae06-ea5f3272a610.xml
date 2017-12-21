@@ -234,7 +234,6 @@
       <Position>2</Position>
       <Comment>标签</Comment>
       <DataType>varchar(20)|0</DataType>
-      <NotNull>1</NotNull>
     </column>
     <column id="56" parent="18" name="type">
       <Position>3</Position>
@@ -244,21 +243,30 @@
     </column>
     <column id="57" parent="18" name="time">
       <Position>4</Position>
-      <Comment>积分</Comment>
+      <Comment>次数</Comment>
       <DataType>int(11)|0</DataType>
-      <DefaultExpression>&apos;100&apos;</DefaultExpression>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
     </column>
-    <column id="58" parent="18" name="lasttime">
-      <Position>5</Position>
-      <Comment>最后记录时间</Comment>
-      <DataType>timestamp|0</DataType>
-      <NotNull>1</NotNull>
-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
-    </column>
-    <key id="59" parent="18" name="PRIMARY">
+    <index id="58" parent="18" name="tag">
+      <ColNames>tag</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="59" parent="18" name="type">
+      <ColNames>type</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="60" parent="18" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>userid</ColNames>
       <Primary>1</Primary>
+    </key>
+    <key id="61" parent="18" name="tag">
+      <ColNames>tag</ColNames>
+      <UnderlyingIndexName>tag</UnderlyingIndexName>
+    </key>
+    <key id="62" parent="18" name="type">
+      <ColNames>type</ColNames>
+      <UnderlyingIndexName>type</UnderlyingIndexName>
     </key>
   </database-model>
 </dataSource>

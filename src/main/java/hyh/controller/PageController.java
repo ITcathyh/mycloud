@@ -2,6 +2,7 @@ package hyh.controller;
 
 import hyh.action.FileAction;
 import hyh.action.PushAction;
+import hyh.action.RecordAction;
 import hyh.entity.User;
 import hyh.entity.UserFile;
 import hyh.service.UserFileService;
@@ -18,6 +19,8 @@ import java.util.List;
 public class PageController {
     @Autowired
     private UserFileService userfileservice;
+    @Autowired
+    private RecordAction recordaction;
     private static final int MAX_PAGE_PER_SIZE = 12;
 
     @RequestMapping("/")
@@ -39,9 +42,9 @@ public class PageController {
         } catch (Exception ignored) {
         }
 
-        if (type != null){
-            if (text != null){
-                if (!type.equals("All")){
+        if (type != null) {
+            if (text != null) {
+                if (!type.equals("All")) {
                     userfiles = userfileservice.searchByType(FileAction.getType(type),
                             page * MAX_PAGE_PER_SIZE, MAX_PAGE_PER_SIZE + 1, text);
                 } else {
@@ -64,6 +67,7 @@ public class PageController {
         request.setAttribute("page", page);
         request.setAttribute("text", text);
         setLoginBox(session, request);
+        recordaction.addRecord(session.getAttribute("userid"), null, FileAction.getType(type));
 
         return "searchpage";
     }
@@ -116,7 +120,7 @@ public class PageController {
         } catch (Exception ignored) {
         }
 
-        if (key == null) {
+        if (key == null || key.length() < 1) {
             userfiles = userfileservice.getByUserid(userid, page * MAX_PAGE_PER_SIZE,
                     MAX_PAGE_PER_SIZE + 1);
         } else {
@@ -132,6 +136,8 @@ public class PageController {
 
         request.setAttribute("files", userfiles);
         request.setAttribute("page", page);
+        request.setAttribute("key", key);
+
         return "user/userfiles";
     }
 

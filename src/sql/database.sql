@@ -95,17 +95,17 @@ CREATE TABLE admin (
 INSERT into admin(username, password) VALUES ("1", "1");
 
 CREATE TABLE userrecord (
-  userid   BIGINT      NOT NULL
-  COMMENT '用户id',
-  tag      VARCHAR(20) NOT NULL
-  COMMENT '标签',
-  type     TINYINT     NOT NULL
-  COMMENT '类别,0其他，1书籍，2课件，3代码',
-  time     INT       DEFAULT 100
-  COMMENT '积分',
-  lasttime TIMESTAMP DEFAULT current_timestamp
-  COMMENT '最后记录时间',
-  PRIMARY KEY (userid)
+userid   BIGINT      NOT NULL
+COMMENT '用户id',
+tag      VARCHAR(20)
+COMMENT '标签',
+type     TINYINT     NOT NULL
+COMMENT '类别,0其他，1书籍，2课件，3代码',
+time     INT       DEFAULT 1
+COMMENT '次数',
+PRIMARY KEY (userid),
+UNIQUE (type),
+UNIQUE (tag)
 )
-  ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+ENGINE = InnoDB
+DEFAULT CHARSET = utf8;

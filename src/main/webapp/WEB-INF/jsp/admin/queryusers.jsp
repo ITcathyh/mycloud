@@ -141,11 +141,10 @@
                                 %>
                             </table>
                             <ul class="pagination">
-                                <li id="pre"><a id="preurl"
-                                                href="/user/files?page=${page}">&laquo;</a>
+                                <li id="pre"><a id="preurl">&laquo;</a>
                                 </li>
                                 <li class="active"><span>${page + 1}</span></li>
-                                <li id="next"><a id="nexturl" href="/user/files?page=${page + 1}">&raquo;</a></li>
+                                <li id="next"><a id="nexturl">&raquo;</a></li>
                             </ul>
                         </div>
                     </div>
@@ -184,6 +183,8 @@
             $("#pre").addClass("disabled");
             $("#preurl").attr("href", "javascript:void(0)");
         }
+
+        $("#searchtext").val("${key}");
     });
 
     $(document).on("click", "#search", function (e) {
@@ -193,6 +194,18 @@
     $("#searchtext").keydown(function (event) {
         if (event.keyCode == 13) {
             location.href = "/admin/queryusers?key=" + $("#searchtext").val();
+        }
+    });
+
+    $(document).on("click", "#next", function (e) {
+        if (nextdisabled != 1){
+            location.href = "/admin/queryusers?key=" + $("#searchtext").val() + "&page=${page + 1}";
+        }
+    });
+
+    $(document).on("click", "#pre", function (e) {
+        if (page > 0) {
+            location.href = "/admin/queryusers?key=" + $("#searchtext").val() + "&page=${page - 1}";
         }
     });
 </script>

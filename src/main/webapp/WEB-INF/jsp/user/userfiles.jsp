@@ -37,7 +37,6 @@
             </a>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="/logout">
                             <img src="img/logo.jpg"
@@ -133,11 +132,10 @@
                                 %>
                             </table>
                             <ul class="pagination">
-                                <li id="pre"><a id="preurl"
-                                                href="/user/files?page=${page}">&laquo;</a>
+                                <li id="pre"><a id="preurl">&laquo;</a>
                                 </li>
                                 <li class="active"><span>${page + 1}</span></li>
-                                <li id="next"><a id="nexturl" href="/user/files?page=${page + 1}">&raquo;</a></li>
+                                <li id="next"><a id="nexturl" >&raquo;</a></li>
                             </ul>
                         </div>
                     </div>
@@ -159,6 +157,7 @@
 
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/mycloud.js"></script>
 <script type="text/javascript">
     var page = ${page};
     var nextdisabled = ${nextdisabled};
@@ -173,6 +172,8 @@
             $("#pre").addClass("disabled");
             $("#preurl").attr("href", "javascript:void(0)");
         }
+
+        $("#searchtext").val("${key}");
     });
 
     $(document).on("click", "#search", function (e) {
@@ -183,6 +184,14 @@
         if (event.keyCode == 13) {
             location.href = "/user/files?key=" + $("#searchtext").val();
         }
+    });
+
+    $(document).on("click", "#next", function (e) {
+        nextpage("/user/files");
+    });
+
+    $(document).on("click", "#pre", function (e) {
+        prepage("/user/files");
     });
 </script>
 </body>

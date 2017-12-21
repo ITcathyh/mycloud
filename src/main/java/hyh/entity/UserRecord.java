@@ -11,8 +11,6 @@ public class UserRecord {
 
     private int time;
 
-    private Timestamp lasttime;
-
     public long getUserid() {
         return userid;
     }
@@ -43,13 +41,5 @@ public class UserRecord {
 
     public void setTime(int time) {
         this.time = time;
-    }
-
-    public Timestamp getLasttime() {
-        return lasttime;
-    }
-
-    public void setLasttime(Timestamp lasttime) {
-        this.lasttime = lasttime;
     }
 }

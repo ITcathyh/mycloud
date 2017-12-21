@@ -18,15 +18,12 @@ public class DownloadAction {
 
     @Async
     public void updateDownloadInfo(UserFile userfile, UserFileService userfileservice,
-                                   UserService userservice, HttpSession session) {
-        synchronized (this){
+                                   UserService userservice, Object obj) {
+        synchronized (this) {
             DailyInfoAction.setNewdownloads(DailyInfoAction.getNewdownloads() + 1);
         }
 
-        Object obj = session.getAttribute("user");
-
-        if (obj == null || ((User)obj).getId() != userfile.getUserid()){
-            obj = null;
+        if (obj == null || ((User) obj).getId() != userfile.getUserid()) {
             userfile.setDownloads(userfile.getDownloads() + 1);
 
             if (!addUserPoint(userfile, userservice.getById(userfile.getUserid()), userservice) ||
@@ -41,8 +38,8 @@ public class DownloadAction {
         return (userfile.getSize() / 1000000 >> 4) + userfile.getSize() % 17;
     }
 
-    final private boolean addUserPoint(UserFile userfile, User user, UserService userservice){
-        if (user == null){
+    final private boolean addUserPoint(UserFile userfile, User user, UserService userservice) {
+        if (user == null) {
             return false;
         }
 

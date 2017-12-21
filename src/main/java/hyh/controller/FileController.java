@@ -1,6 +1,7 @@
 package hyh.controller;
 
 import hyh.action.DownloadAction;
+import hyh.action.RecordAction;
 import hyh.global.Variable;
 import hyh.action.FileAction;
 import hyh.action.UserAction;
@@ -28,6 +29,8 @@ public class FileController {
     private UserFileService userfileservice;
     @Autowired
     private DownloadAction downloadaction;
+    @Autowired
+    private RecordAction recordaction;
 
     @RequestMapping("/user/uploadfile")
     public String uploadFile(@RequestParam("file") CommonsMultipartFile uploadfile,
@@ -158,7 +161,8 @@ public class FileController {
             }
         }
 
-        downloadaction.updateDownloadInfo(userfile, userfileservice, userservice, session);
+        downloadaction.updateDownloadInfo(userfile, userfileservice, userservice, session.getAttribute("user"));
+        recordaction.addRecord(session.getAttribute("userid"), userfile.getTag(), userfile.getType());
         return "done";
     }
 }

@@ -13,6 +13,21 @@ function showsuccess(msg) {
     $('html,body').animate({scrollTop: 0}, 'slow');
 }
 
+function prepage(url) {
+    var nurl = url + "?key=" + $("#searchtext").val() + "&page=" + (page - 1);
+
+    if (page > 0) {
+        location.href = nurl;
+    }
+}
+
+function nextpage(url) {
+    var nurl = url + "?key=" + $("#searchtext").val() + "&page=" + (page + 1);
+
+    if (nextdisabled != 1) {
+        location.href = nurl;
+    }
+}
 
 /* login begin */
 function showLoginError(msg) {

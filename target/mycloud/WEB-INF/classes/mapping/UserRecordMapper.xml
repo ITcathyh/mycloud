@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="hyh.mapper.UserRecordMapper" >
+<mapper namespace="hyh.dao.UserRecordDao" >
   <resultMap id="BaseResultMap" type="hyh.entity.UserRecord" >
     <id column="userid" property="userid" jdbcType="BIGINT" />
     <result column="tag" property="tag" jdbcType="VARCHAR" />
@@ -12,8 +12,20 @@
     userid, tag, type, time, lasttime
   </sql>
 
+
+  <insert id="add" parameterType="hyh.entity.UserRecord" >
+    insert into userrecord (userid, tag, type, 
+      time, lasttime)
+    values (#{userid,jdbcType=BIGINT}, #{tag,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, 
+      #{time,jdbcType=INTEGER}, #{lasttime,jdbcType=TIMESTAMP})
+      ON DUPLICATE KEY UPDATE
+      time = time + 1 and lasttime = #{lasttime}
+  </insert>
+
+  <!--
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from userrecord
     where userid = #{userid,jdbcType=BIGINT}
@@ -24,12 +36,6 @@
     where userid = #{userid,jdbcType=BIGINT}
   </delete>
 
-  <insert id="insert" parameterType="hyh.entity.UserRecord" >
-    insert into userrecord (userid, tag, type, 
-      time, lasttime)
-    values (#{userid,jdbcType=BIGINT}, #{tag,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, 
-      #{time,jdbcType=INTEGER}, #{lasttime,jdbcType=TIMESTAMP})
-  </insert>
 
   <insert id="insertSelective" parameterType="hyh.entity.UserRecord" >
     insert into userrecord
@@ -93,5 +99,5 @@
       time = #{time,jdbcType=INTEGER},
       lasttime = #{lasttime,jdbcType=TIMESTAMP}
     where userid = #{userid,jdbcType=BIGINT}
-  </update>
+  </update> -->
 </mapper>

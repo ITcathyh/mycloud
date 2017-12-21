@@ -24,10 +24,13 @@ public interface UserFileDao {
     List<UserFile> getByType(@Param("type") short type, @Param("index") int index,
                              @Param("count") int count);
 
-    List<UserFile> getAll();
+    List<UserFile> getAll(@Param("index") int index, @Param("count") int count);
 
     List<UserFile> search(@Param("index") int index, @Param("count") int count,
                           @Param("key") String key);
+
+    List<UserFile> searchByUseridOrFiledetail(@Param("index") int index, @Param("count") int count,
+                          @Param("key") String key, @Param("userid") long userid);
 
     List<UserFile> searchByType(@Param("type") short type, @Param("index") int index,
                                 @Param("count") int count, @Param("key") String key);
