@@ -18,11 +18,19 @@ public class RecordAction {
     private UserRecordService service;
 
     @Async
-    public void addRecord(Object obj, String tag, short type) {
-        if (obj == null) {
-            addRecord(tag, type);
+    public void addRecord(Object userid, String tag, short type) {
+        if (type == -1){
+            return;
+        }
+
+        if (tag == null || tag.length() == 0){
+            tag = "-1";
+        }
+
+        if (userid == null) {
+            addRecord(0, tag, type);
         } else {
-            addRecord((long) obj, tag, type);
+            addRecord((long) userid, tag, type);
         }
     }
 
@@ -30,21 +38,21 @@ public class RecordAction {
         addUserRecord(userid, tag, type);
     }
 
-    private void addRecord(String tag, short type) {
-        addUserRecord(0, tag, type);
-    }
-
     private void addUserRecord(long userid, String tag, short type) {
-        UserRecord userrecord = new UserRecord();
-
-        userrecord.setLasttime(new Timestamp(System.currentTimeMillis()));
-        userrecord.setTag(tag);
-        userrecord.setType(type);
-        userrecord.setTime(1);
-        userrecord.setUserid(userid);
-
         try {
-            service.add(userrecord);
+            long id = service.getId(userid, tag, type);
+
+            if (id != 0) {
+                service.update(id, new Timestamp(System.currentTimeMillis()));
+            } else {
+                UserRecord userrecord = new UserRecord();
+
+                userrecord.setTag(tag);
+                userrecord.setType(type);
+                userrecord.setUserid(userid);
+
+                service.add(userrecord);
+            }
         } catch (Exception e) {
             log.error(e);
         }

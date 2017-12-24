@@ -116,7 +116,7 @@
 
                                     if (userfiles == null || userfiles.size() == 0) {
                                         out.println("<tr>");
-                                        out.println("<th>No files, Just upload some resource</th>");
+                                        out.println("<th>No files, just upload some resource</th>");
                                         out.println("</tr>");
                                     } else {
                                         UserFile file;

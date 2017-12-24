@@ -101,16 +101,16 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a id="books" href="/search?type=Books">Books</a>
+                                        <a id="books" >Books</a>
                                     </li>
                                     <li>
-                                        <a id="courseware" href="/search?type=Courseware">Courseware</a>
+                                        <a id="courseware">Courseware</a>
                                     </li>
                                     <li>
-                                        <a id="pictures" href="/search?type=Pictures">Pictures</a>
+                                        <a id="pictures">Pictures</a>
                                     </li>
                                     <li>
-                                        <a id="other" href="/search?type=Other">Other</a>
+                                        <a id="other">Other</a>
                                     </li>
                                 </ul>
                             </div>

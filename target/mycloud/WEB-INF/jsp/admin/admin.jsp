@@ -69,7 +69,7 @@
                 </li>
 
                 <li>
-                    <a href="/admin/setad">
+                    <a href="/admin/queryad">
                         <i class="fa fa-money"></i> <span>Advertisements</span>
                     </a>
                 </li>

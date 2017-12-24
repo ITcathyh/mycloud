@@ -27,16 +27,12 @@ public class ServiceTest extends AbstractTransactionalTestNGSpringContextTests {
     private UserFileService userfileservice;
     @Autowired
     private AdminService adminService;
-
+    @Autowired
+    private UserRecordService service;
 
     @Test
     public void test() {
-        System.out.println(userfileservice.searchByUserid(2, 0,
-                123, "1555"));
-        System.out.println(userfileservice.searchByUserid(2, 0,
-                123, "124"));
-        System.out.println(userfileservice.searchByUserid(2, 0,
-                123, "124124"));
+        System.out.println( service.getId(0, "-1", (short) 1));
     }
 
 }

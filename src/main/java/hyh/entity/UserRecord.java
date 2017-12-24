@@ -11,6 +11,8 @@ public class UserRecord {
 
     private int time;
 
+    private Timestamp lasttime;
+
     public long getUserid() {
         return userid;
     }
@@ -41,5 +43,31 @@ public class UserRecord {
 
     public void setTime(int time) {
         this.time = time;
+    }
+
+    public Timestamp getLasttime() {
+        return lasttime;
+    }
+
+    public void setLasttime(Timestamp lasttime) {
+        this.lasttime = lasttime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserRecord that = (UserRecord) o;
+
+        return userid == that.userid && type == that.type && (tag != null ? tag.equals(that.tag) : that.tag == null);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (userid ^ (userid >>> 32));
+        result = 31 * result + (tag != null ? tag.hashCode() : 0);
+        result = 31 * result + (int) type;
+        return result;
     }
 }

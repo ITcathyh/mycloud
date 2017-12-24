@@ -12,15 +12,23 @@
     userid, tag, type, time, lasttime
   </sql>
 
+  <select id="getId" resultType="java.lang.Long"  >
+    select id
+    from userrecord
+    where userid = #{userid} and tag = #{tag} and type = #{type}
+  </select>
 
   <insert id="add" parameterType="hyh.entity.UserRecord" >
-    insert into userrecord (userid, tag, type, 
-      time, lasttime)
-    values (#{userid,jdbcType=BIGINT}, #{tag,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, 
-      #{time,jdbcType=INTEGER}, #{lasttime,jdbcType=TIMESTAMP})
-      ON DUPLICATE KEY UPDATE
-      time = time + 1 and lasttime = #{lasttime}
+    insert into userrecord (userid, tag, type)
+    values (#{userid,jdbcType=BIGINT}, #{tag,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT})
   </insert>
+
+  <update id="update" parameterType="hyh.entity.UserRecord" >
+    update userrecord
+    set time = time + 1,
+    lasttime = #{lasttime}
+    where id = #{id}
+  </update>
 
   <!--
 

@@ -70,7 +70,7 @@
                 </li>
 
                 <li>
-                    <a href="/admin/setad">
+                    <a href="/admin/queryad">
                         <i class="fa fa-money"></i> <span>Advertisements</span>
                     </a>
                 </li>
@@ -128,7 +128,7 @@
 
                                     if (userfiles == null || userfiles.size() == 0) {
                                         out.println("<tr>");
-                                        out.println("<th>No files, Just upload some resource</th>");
+                                        out.println("<th>No files, just upload some resource</th>");
                                         out.println("</tr>");
                                     } else {
                                         UserFile file;

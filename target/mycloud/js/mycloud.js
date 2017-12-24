@@ -14,7 +14,7 @@ function showsuccess(msg) {
 }
 
 function prepage(url) {
-    var nurl = url + "?key=" + $("#searchtext").val() + "&page=" + (page - 1);
+    var nurl = url + "?key=" + $("#searchtext").val() + "&spage=" + (page - 1);
 
     if (page > 0) {
         location.href = nurl;
@@ -22,7 +22,7 @@ function prepage(url) {
 }
 
 function nextpage(url) {
-    var nurl = url + "?key=" + $("#searchtext").val() + "&page=" + (page + 1);
+    var nurl = url + "?key=" + $("#searchtext").val() + "&spage=" + (page + 1);
 
     if (nextdisabled != 1) {
         location.href = nurl;
@@ -188,7 +188,7 @@ function checkUploadFile() {
 
 var options = {
     type: 'POST',
-    url: "/user/uploadfile",
+    url: "/file/uploadfile",
     dataType: 'json',
     success: function (response) {
         la.stop();
@@ -212,13 +212,13 @@ var options = {
     }
 };
 
-$(".file").fileinput({
+$("#file").fileinput({
     showPreview: false,
     showUpload: false,
     showRemove: false,
     language: 'zh',
     maxFileSize: 30720
-})
+});
 
 $(document).on("click", "#submitupload", function (e) {
     checkUploadFile();
@@ -258,7 +258,7 @@ function deleteFile(la) {
             "id": id
         },
         type: "post",
-        url: "/user/deletefile",
+        url: "/file/deletefile",
         dataType: "json",
         error: function (data) {
             la.stop();
@@ -290,7 +290,7 @@ function editFile(la) {
             "summary": $("#filesummary").val()
         },
         type: "post",
-        url: "/user/editfile",
+        url: "/file/editfile",
         dataType: "json",
         error: function (data) {
             la.stop();

@@ -1,6 +1,6 @@
 package hyh.action;
 
-import hyh.entity.Advertise;
+import hyh.entity.Advertisement;
 import hyh.entity.PushContent;
 import hyh.entity.User;
 import hyh.service.UserService;
@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class PushAction {
-    private static final List<Advertise> advertises = new ArrayList<>();
+    private static final List<Advertisement> advertises = new ArrayList<>();
     private static PushContent notice = new PushContent("Hello, I am the push content", "/");
     private static int hotsize = 10;
 
-    public static List<Advertise> getAdvertise() {
+    public static List<Advertisement> getAdvertise() {
         return advertises;
     }
 

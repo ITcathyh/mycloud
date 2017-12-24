@@ -113,18 +113,6 @@
                                                                                            width="300"/></a></div>
                                 </div>
                             </div>
-
-                            <!--  <h1 class="searchh1">
-                                  <a href="#" class="b_title" target="_blank">Effective Java</a>
-                                  <a rel="noreferrer" href="#" class="a_url" data-surl="1bpAmKCB"
-                                     target="_blank"> <i class="glyphicon glyphicon-share-alt"></i>
-                                  </a>
-                              </h1>
-
-                              <p class="content">
-                                  A book about Java </p>
-                              <p class="aw-text-color-green">
-                                  Time：2017-11-23 | Size：10M | Type：Book | Downloads：10 </p> -->
                             <%
                                 List<UserFile> userfiles = (List<UserFile>) request.getAttribute("files");
 
@@ -142,7 +130,7 @@
 
                                         out.println("<h1 class=\"searchh1\">\n" +
                                                 "<a href='/download/" + file.getId() + "' target=\"_blank\">" + file.getFilename() + "</a>\n" +
-                                                "<a rel=\"noreferrer\" href='/download/" + file.getId() + "' \n" +
+                                                "<a rel=\"noreferrer\" href='/file/download/" + file.getId() + "' \n" +
                                                 "target=\"_blank\"> <i class=\"glyphicon glyphicon-share-alt\"></i>\n" +
                                                 "</a>\n" +
                                                 "</h1>");

@@ -63,7 +63,7 @@
 
     <select id="searchByUseridOrFiledetail" resultMap="BaseResultMap">
         select * from file
-        where filename like "%"#{key}"%" or summary like "%"#{key}"%" or tag like "%"#{key}"%" or userid = #{userid]}
+        where filename like "%"#{key}"%" or summary like "%"#{key}"%" or tag like "%"#{key}"%" or userid = #{userid}
         limit #{index}, #{count}
     </select>
 

@@ -14,7 +14,7 @@ function showsuccess(msg) {
 }
 
 function prepage(url) {
-    var nurl = url + "?key=" + $("#searchtext").val() + "&page=" + (page - 1);
+    var nurl = url + "?key=" + $("#searchtext").val() + "&spage=" + (page - 1);
 
     if (page > 0) {
         location.href = nurl;
@@ -22,7 +22,7 @@ function prepage(url) {
 }
 
 function nextpage(url) {
-    var nurl = url + "?key=" + $("#searchtext").val() + "&page=" + (page + 1);
+    var nurl = url + "?key=" + $("#searchtext").val() + "&spage=" + (page + 1);
 
     if (nextdisabled != 1) {
         location.href = nurl;
@@ -188,7 +188,7 @@ function checkUploadFile() {
 
 var options = {
     type: 'POST',
-    url: "/user/uploadfile",
+    url: "/file/uploadfile",
     dataType: 'json',
     success: function (response) {
         la.stop();
@@ -208,17 +208,36 @@ var options = {
         }
     }, error: function (data) {
         la.stop();
-        showerror("出现异常，请稍候重试");
+        showerror("Unkown error");
     }
 };
 
-$(".file").fileinput({
+$("#file").fileinput({
     showPreview: false,
     showUpload: false,
     showRemove: false,
     language: 'zh',
     maxFileSize: 30720
-})
+});
+
+$('.form_datetime').datetimepicker({
+    weekStart: 1,
+    todayBtn: 1,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 2,
+    forceParse: 0,
+    showMeridian: 1
+});
+
+$("#adfile").fileinput({
+    showUpload: false,
+    showRemove: false,
+    language: 'zh',
+    maxFileSize: 30720,
+    allowedPreviewTypes: ['image'],
+    allowedFileExtensions: ['jpg', 'png', 'gif', 'bmp']
+});
 
 $(document).on("click", "#submitupload", function (e) {
     checkUploadFile();
@@ -258,7 +277,7 @@ function deleteFile(la) {
             "id": id
         },
         type: "post",
-        url: "/user/deletefile",
+        url: "/file/deletefile",
         dataType: "json",
         error: function (data) {
             la.stop();
@@ -290,7 +309,7 @@ function editFile(la) {
             "summary": $("#filesummary").val()
         },
         type: "post",
-        url: "/user/editfile",
+        url: "/file/editfile",
         dataType: "json",
         error: function (data) {
             la.stop();
@@ -401,3 +420,23 @@ function editUser(la) {
 }
 
 /* userdetail end */
+
+/* setad begin */
+var adoptions = {
+    type: 'POST',
+    url: "/admin/setad",
+    dataType: 'json',
+    success: function (response) {
+        la.stop();
+
+        if (response == "done") {
+            showsuccess("Set ad successfully");
+        } else if (response == "error") {
+            showerror("Unkown error");
+        }
+    }, error: function (data) {
+        la.stop();
+        showerror("Unkown error");
+    }
+};
+/* setad end */

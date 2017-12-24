@@ -1,9 +1,12 @@
 package hyh.controller.AdminController;
 
 import hyh.action.DailyInfoAction;
+import hyh.action.FileAction;
 import hyh.action.PushAction;
+import hyh.entity.Advertisement;
 import hyh.entity.User;
 import hyh.entity.UserFile;
+import hyh.service.AdvertisementService;
 import hyh.service.UserFileService;
 import hyh.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,8 @@ public class AdminPageController {
     private UserService userservice;
     @Autowired
     private UserFileService userfileservice;
+    @Autowired
+    private AdvertisementService advertisementservice;
     private static final int MAX_PAGE_PER_SIZE = 12;
 
     @RequestMapping("/adminlogin")
@@ -128,5 +133,47 @@ public class AdminPageController {
         request.setAttribute("key", key);
 
         return "admin/queryfiles";
+    }
+
+    @RequestMapping("/admin/file")
+    public String FileDetail(String fileid, HttpServletRequest request) {
+        UserFile userfile;
+
+        try {
+            userfile = userfileservice.getById(Long.valueOf(fileid));
+        } catch (Exception e) {
+            return "redirect:/admin/queryfiles";
+        }
+
+        if (userfile == null) {
+            return "redirect:/admin/queryfiles";
+        }
+
+        request.setAttribute("file", userfile);
+        request.setAttribute("filetype", FileAction.fileTypeToString(userfile.getType()));
+
+        return "admin/file";
+    }
+
+    @RequestMapping("/admin/queryad")
+    public String getToSetAd(HttpServletRequest request){
+        request.setAttribute("ads", advertisementservice.getAll());
+
+        return "admin/queryad";
+    }
+
+    @RequestMapping("/admin/setad")
+    public String getToAddAd(String id, HttpServletRequest request){
+        if (id != null){
+            Advertisement ad = advertisementservice.getById(Long.valueOf(id));
+
+            if (ad == null){
+                return "redirect:/admin/queryad";
+            }
+
+            request.setAttribute("ad", ad);
+        }
+
+        return "admin/setad";
     }
 }

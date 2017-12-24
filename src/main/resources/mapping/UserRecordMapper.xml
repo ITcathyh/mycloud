@@ -6,20 +6,29 @@
     <result column="tag" property="tag" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="TINYINT" />
     <result column="time" property="time" jdbcType="INTEGER" />
+    <result column="lasttime" property="lasttime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
     userid, tag, type, time, lasttime
   </sql>
 
+  <select id="getId" resultType="java.lang.Long"  >
+    select id
+    from userrecord
+    where userid = #{userid} and tag = #{tag} and type = #{type}
+  </select>
 
   <insert id="add" parameterType="hyh.entity.UserRecord" >
-    insert into userrecord (userid, tag, type, 
-      time)
-    values (#{userid,jdbcType=BIGINT}, #{tag,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, 
-      #{time,jdbcType=INTEGER})
-      ON DUPLICATE KEY UPDATE
-      time = time + 1
+    insert into userrecord (userid, tag, type)
+    values (#{userid,jdbcType=BIGINT}, #{tag,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT})
   </insert>
+
+  <update id="update" parameterType="hyh.entity.UserRecord" >
+    update userrecord
+    set time = time + 1,
+    lasttime = #{lasttime}
+    where id = #{id}
+  </update>
 
   <!--
 

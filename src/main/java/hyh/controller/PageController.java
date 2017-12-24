@@ -6,6 +6,7 @@ import hyh.action.RecordAction;
 import hyh.entity.User;
 import hyh.entity.UserFile;
 import hyh.service.UserFileService;
+import hyh.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,8 @@ import java.util.List;
 
 @Controller
 public class PageController {
+    @Autowired
+    private UserService userservice;
     @Autowired
     private UserFileService userfileservice;
     @Autowired
@@ -103,20 +106,21 @@ public class PageController {
 
 
     @RequestMapping("/user")
-    public String getToUserpage(HttpServletRequest request) {
+    public String getToUserpage(HttpServletRequest request, HttpSession session) {
+        session.setAttribute("user", userservice.getById((long) session.getAttribute("userid")));
         request.setAttribute("notice", PushAction.getNotice());
 
         return "user/user";
     }
 
     @RequestMapping("/user/files")
-    public String getToUserfiles(String key, HttpServletRequest request, HttpSession session) {
+    public String getToUserfiles(String spage, String key, HttpServletRequest request, HttpSession session) {
         List<UserFile> userfiles = null;
         int page = 0;
         long userid = (long) session.getAttribute("userid");
 
         try {
-            page = Integer.valueOf(request.getParameter("page"));
+            page = Integer.valueOf(spage);
         } catch (Exception ignored) {
         }
 
@@ -142,11 +146,11 @@ public class PageController {
     }
 
     @RequestMapping("/user/file")
-    public String FileDetail(HttpServletRequest request) {
+    public String FileDetail(String fileid, HttpServletRequest request) {
         UserFile userfile;
 
         try {
-            userfile = userfileservice.getById(Long.valueOf(request.getParameter("fileid")));
+            userfile = userfileservice.getById(Long.valueOf(fileid));
         } catch (Exception e) {
             return "redirect:/user/files";
         }

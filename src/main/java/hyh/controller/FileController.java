@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import java.io.*;
 
 @RestController
+@RequestMapping("/file")
 public class FileController {
     private Logger log = Logger.getLogger(this.getClass());
     @Autowired
@@ -32,7 +33,7 @@ public class FileController {
     @Autowired
     private RecordAction recordaction;
 
-    @RequestMapping("/user/uploadfile")
+    @RequestMapping("/uploadfile")
     public String uploadFile(@RequestParam("file") CommonsMultipartFile uploadfile,
                              HttpServletRequest request, HttpSession session) {
         MultipartHttpServletRequest mRequest = (MultipartHttpServletRequest) request;
@@ -165,4 +166,75 @@ public class FileController {
         recordaction.addRecord(session.getAttribute("userid"), userfile.getTag(), userfile.getType());
         return "done";
     }
+
+    @RequestMapping("/editfile")
+    public String EditFile(String filename, String tag,
+                           String type, String summary,
+                           String id, HttpSession session) {
+        if (!UserAction.checkNull(filename, tag, type, summary, id)) {
+            return "error";
+        }
+
+        UserFile userfile;
+
+        try {
+            userfile = userfileservice.getById(Long.valueOf(id));
+        } catch (Exception e) {
+            return "error";
+        }
+
+        if (userfile == null) {
+            log.error("Excetional update");
+            return "notfound";
+        } else if ((session.getAttribute("userid") == null ||
+                userfile.getUserid() != (long) session.getAttribute("userid")) &&
+                session.getAttribute("admin") == null) {
+            return "error";
+        }
+
+        userfile.setFilename(filename);
+        userfile.setTag(tag);
+        userfile.setType(FileAction.getType(type));
+        userfile.setSummary(summary);
+
+        if (userfileservice.update(userfile) == 1) {
+            return "done";
+        }
+
+        return "error";
+    }
+
+    @RequestMapping("/deletefile")
+    public String deleteFile(long id, HttpSession session) {
+        UserFile userfile;
+
+        synchronized (Long.toString(id)) {
+            try {
+                userfile = userfileservice.getById(id);
+            } catch (Exception e) {
+                return "error";
+            }
+
+            if (userfile == null) {
+                return "notfound";
+            } else if ((session.getAttribute("userid") == null ||
+                    userfile.getUserid() != (long) session.getAttribute("userid")) &&
+                    session.getAttribute("admin") == null) {
+                return "error";
+            } else if (userfileservice.deleteById(userfile.getId()) != 1) {
+                return "error";
+            }
+        }
+
+
+        User user = userservice.getById(userfile.getUserid());
+
+        if (user != null) {
+            user.setSurplus(user.getSurplus() + userfile.getSize());
+        }
+
+        return "done";
+    }
+
+
 }
