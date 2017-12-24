@@ -6,7 +6,7 @@ public class Advertisement {
     private short id;
     private String imgpath;
     private String href;
-    private Timestamp deadline;
+    private long deadline;
 
     public String getHref() {
         return href;
@@ -32,17 +32,17 @@ public class Advertisement {
         this.imgpath = imgpath;
     }
 
-    public Timestamp getDeadline() {
+    public long getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Timestamp deadline) {
+    public void setDeadline(long deadline) {
         this.deadline = deadline;
     }
 
     @Override
     public String toString() {
         return "<th>" + href + "</th>\n" +
-                "<th>" + deadline + "</th>\n";
+                "<th>" + new Timestamp(deadline) + "</th>\n";
     }
 }

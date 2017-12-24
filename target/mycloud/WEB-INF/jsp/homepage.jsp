@@ -101,16 +101,16 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a id="books" >Books</a>
+                                        <a id="books" href="/search?type=Books">Books</a>
                                     </li>
                                     <li>
-                                        <a id="courseware">Courseware</a>
+                                        <a id="courseware" href="/search?type=Courseware">Courseware</a>
                                     </li>
                                     <li>
-                                        <a id="pictures">Pictures</a>
+                                        <a id="pictures" href="/search?type=Pictures">Pictures</a>
                                     </li>
                                     <li>
-                                        <a id="other">Other</a>
+                                        <a id="other" href="/search?type=Other">Other</a>
                                     </li>
                                 </ul>
                             </div>
@@ -228,7 +228,6 @@
                 </form>
 
                 <div class="modal-footer">
-                    </button>
                     <button type="button" class="btn btn-primary  ladda-button" id="submitupload" data-style="zoom-in">
                         <span class="ladda-label">Submit</span>
                     </button>

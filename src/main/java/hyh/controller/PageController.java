@@ -5,6 +5,7 @@ import hyh.action.PushAction;
 import hyh.action.RecordAction;
 import hyh.entity.User;
 import hyh.entity.UserFile;
+import hyh.service.AdvertisementService;
 import hyh.service.UserFileService;
 import hyh.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Controller
@@ -24,6 +26,8 @@ public class PageController {
     private UserFileService userfileservice;
     @Autowired
     private RecordAction recordaction;
+    @Autowired
+    private AdvertisementService advertisementservice;
     private static final int MAX_PAGE_PER_SIZE = 12;
 
     @RequestMapping("/")
@@ -35,18 +39,22 @@ public class PageController {
     }
 
     @RequestMapping("/search")
-    public String getToSearchpage(String text, String type,
+    public String getToSearchpage(String text, String type, String spage,
                                   HttpSession session, HttpServletRequest request) {
         List<UserFile> userfiles = null;
         int page = 0;
 
         try {
-            page = Integer.valueOf(request.getParameter("page"));
+            page = Integer.valueOf(spage);
         } catch (Exception ignored) {
         }
 
-        if (type != null) {
-            if (text != null) {
+        if (type == null) {
+            type = "All";
+        }
+
+        if (type.length() > 0) {
+            if (text != null && text.length() > 0) {
                 if (!type.equals("All")) {
                     userfiles = userfileservice.searchByType(FileAction.getType(type),
                             page * MAX_PAGE_PER_SIZE, MAX_PAGE_PER_SIZE + 1, text);
@@ -60,15 +68,28 @@ public class PageController {
             }
         }
 
-        if (userfiles == null || userfiles.size() < 13) {
+        if (userfiles == null) {
             request.setAttribute("nextdisabled", 1);
+            request.setAttribute("cot", 0);
         } else {
+            if (userfiles.size() < 13) {
+                request.setAttribute("nextdisabled", 1);
+            }
+
             request.setAttribute("nextdisabled", 0);
+
+            if (userfiles.size() == 13) {
+                userfiles.remove(12);
+            }
+
+            request.setAttribute("cot", userfiles.size());
         }
 
         request.setAttribute("files", userfiles);
         request.setAttribute("page", page);
         request.setAttribute("text", text);
+        request.setAttribute("type", type);
+        request.setAttribute("ads", advertisementservice.getByTime(new Timestamp(System.currentTimeMillis())));
         setLoginBox(session, request);
         recordaction.addRecord(session.getAttribute("userid"), null, FileAction.getType(type));
 

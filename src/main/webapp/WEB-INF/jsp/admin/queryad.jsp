@@ -129,7 +129,7 @@
                                         for (int i = 0, len = ads.size(); i < len; i++) {
                                             ad = ads.get(i);
 
-                                            out.println("<tr onclick=\"javascrtpt:window.location.href='/admin/ad?adid=" + ad.getId() + "'\">");
+                                            out.println("<tr onclick=\"javascrtpt:window.location.href='/admin/setad?id=" + ad.getId() + "'\">");
                                             out.println(ad);
                                             out.println("</tr>");
                                         }

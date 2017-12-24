@@ -118,91 +118,87 @@
                 </div>
             </div>
 
-            <form id="adform">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="box box-primary">
-                        <div class="box-header">
-                            <i class="fa fa-edit"></i>
+            <form id="adform" enctype="multipart/form-data"  action="javascript:void(0)">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box box-primary">
+                            <div class="box-header">
+                                <i class="fa fa-edit"></i>
 
-                            <h3 class="box-title">Base Info</h3>
-                        </div>
+                                <h3 class="box-title">Base Info</h3>
+                            </div>
 
-                        <div class="box-body">
-                            <div class="form-horizontal">
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">href</label>
+                            <div class="box-body">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">href</label>
 
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="adhref" autocomplete="off">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">deadline</label>
-
-                                    <div class="col-sm-9">
-                                        <div class="input-group date form_datetime"
-                                             data-date-format="yyyy-mm-dd HH:ii:mm"
-                                             data-link-field="dtp_input1">
-                                            <input class="form-control" size="16" type="text" value="" readonly
-                                                   id="deadline">
-                                            <span class="input-group-addon"><span
-                                                    class="glyphicon glyphicon-remove"></span></span>
-                                            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="href" id="adhref"
+                                                   autocomplete="off">
                                         </div>
-                                        <input type="hidden" id="dtp_input1" value=""/><br/>
                                     </div>
-                                </div>
 
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">deadline</label>
+
+                                        <div class="col-sm-9">
+                                            <div class="input-group date form_datetime"
+                                                 data-date-format="yyyy-mm-dd HH:ii:mm"
+                                                 data-link-field="dtp_input1">
+                                                <input class="form-control" size="16" type="text" value="" readonly
+                                                       id="addeadline" name="deadline">
+                                                <span class="input-group-addon"><span
+                                                        class="glyphicon glyphicon-remove"></span></span>
+                                                <span class="input-group-addon"><span
+                                                        class="glyphicon glyphicon-th"></span></span>
+                                            </div>
+                                            <input type="hidden" value=""/><br/>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-6">
-                    <div class="box box-primary">
-                        <div class="box-header">
-                            <i class="fa fa-edit"></i>
+                    <div class="col-md-6">
+                        <div class="box box-primary">
+                            <div class="box-header">
+                                <i class="fa fa-edit"></i>
 
-                            <h3 class="box-title">Image Info</h3>
-                        </div>
+                                <h3 class="box-title">Image Info</h3>
+                            </div>
 
-                        <div class="box-body">
-                            <div class="form-horizontal">
+                            <div class="box-body">
+                                <div class="form-horizontal">
 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">Image</label>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Image</label>
 
-                                    <div class="col-sm-9">
-                                        <input type="file" class="file" name="file" id="adfile">
+                                        <div class="col-sm-9">
+                                            <input type="file" class="file" name="file" id="adfile">
+                                        </div>
                                     </div>
+
                                 </div>
-
-                            </div>
-                        </div>
-
-                        <div class="box-footer">
-                            <div class="add">
-                                <button id="add" class="btn btn-primary ladda-button" data-style="zoom-in">
-                                    <span class="ladda-label">Add</span>
-                                </button>
                             </div>
 
-                            <div class="edit">
-                                <button id="edit" class="btn btn-primary ladda-button" data-style="zoom-in">
-                                    <span class="ladda-label">Edit</span>
+                            <div class="box-footer">
+                                <button id="setad" class="btn btn-primary ladda-button"
+                                        data-style="zoom-in">
+                                    <span class="ladda-label">Set ad</span>
                                 </button>
-                                <button id="delete" class="btn btn-primary ladda-button" data-style="zoom-in">
+
+                                <button id="delete" class="btn btn-primary ladda-button"
+                                        data-style="zoom-in">
                                     <span class="ladda-label">Delete</span>
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </form>
-
         </section>
     </div>
     <footer class="main-footer">
@@ -226,36 +222,32 @@
 <script type="text/javascript" src="js/fileinput.min.js"></script>
 <script type="text/javascript" src="js/mycloud.js"></script>
 <script type="text/javascript">
-    var id = "${ad.id}";
-
-    $('.form_datetime').datetimepicker({
-        weekStart: 1,
-        todayBtn: 1,
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: 2,
-        forceParse: 0,
-        showMeridian: 1
-    });
-
-    $("#adfile").fileinput({
-        showUpload: false,
-        showRemove: false,
-        language: 'zh',
-        maxFileSize: 30720,
-        allowedPreviewTypes: ['image'],
-        allowedFileExtensions: ['jpg', 'png', 'gif', 'bmp']
-    });
+    var id = "${id}";
+    var href = "${href}";
+    var deadline = "${deadline}";
+    var la = Ladda.create(document.querySelector("#setad"));
 
     $(document).ready(function () {
-        if (id.length != 0) {
-            $(".add").hide();
+        if (href.length == 0) {
+            $("#delete").hide();
         } else {
-            $(".edit").hide();
+            $("#adhref").val(href);
+            $("#addeadline").val(deadline);
         }
     });
 
-    $("#edit").click(function () {
+    $("#setad").click(function () {
+        checkSetAd();
+    });
+
+    $("#delete").click(function () {
+        if (window.confirm('Confirm deletion？')) {
+            var la = Ladda.create(document.querySelector("#delete"));
+
+            la.start();
+            $("#setad").attr("disabled", "disabled");
+            deleteAd(la);
+        }
     });
 </script>
 </body>

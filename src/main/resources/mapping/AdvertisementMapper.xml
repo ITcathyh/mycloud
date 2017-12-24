@@ -5,7 +5,7 @@
     <result column="id" property="id" jdbcType="TINYINT" />
     <result column="href" property="href" jdbcType="VARCHAR" />
     <result column="imgpath" property="imgpath" jdbcType="VARCHAR" />
-    <result column="deadline" property="deadline" jdbcType="TIMESTAMP"/>
+    <result column="deadline" property="deadline" jdbcType="BIGINT"/>
   </resultMap>
 
   <insert id="add" parameterType="hyh.entity.Advertisement" >
@@ -17,6 +17,12 @@
 
   <select id="getAll" resultMap="BaseResultMap">
     select * from advertisement
+    order by deadline
+  </select>
+
+  <select id="getByTime" resultMap="BaseResultMap">
+    select * from advertisement
+    where #{time} &lt; deadline
   </select>
 
   <select id="getById" resultMap="BaseResultMap">

@@ -2,19 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="hyh.dao.AdvertisementDao" >
   <resultMap id="BaseResultMap" type="hyh.entity.Advertisement" >
-    <result column="id" property="id" jdbcType="BIGINT" />
+    <result column="id" property="id" jdbcType="TINYINT" />
     <result column="href" property="href" jdbcType="VARCHAR" />
     <result column="imgpath" property="imgpath" jdbcType="VARCHAR" />
-    <result column="deadline" property="deadline" jdbcType="TIMESTAMP"/>
+    <result column="deadline" property="deadline" jdbcType="BIGINT"/>
   </resultMap>
 
-  <insert id="insert" parameterType="hyh.entity.Advertisement" >
+  <insert id="add" parameterType="hyh.entity.Advertisement" >
     insert into advertisement (href, imgpath, deadline)
     values (#{href}, #{imgpath}, #{deadline})
+    ON DUPLICATE KEY UPDATE
+    href = #{href} and imgpath = #{imgpath} and deadline = #{deadline}
   </insert>
 
   <select id="getAll" resultMap="BaseResultMap">
     select * from advertisement
+    order by deadline
+  </select>
+
+  <select id="getByTime" resultMap="BaseResultMap">
+    select * from advertisement
+    where #{time} &lt; deadline
   </select>
 
   <select id="getById" resultMap="BaseResultMap">

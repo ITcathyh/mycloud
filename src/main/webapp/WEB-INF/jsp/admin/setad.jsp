@@ -118,7 +118,7 @@
                 </div>
             </div>
 
-            <form id="adform">
+            <form id="adform" enctype="multipart/form-data"  action="javascript:void(0)">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="box box-primary">
@@ -134,7 +134,8 @@
                                         <label class="col-sm-3 control-label">href</label>
 
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="adhref" autocomplete="off">
+                                            <input type="text" class="form-control" name="href" id="adhref"
+                                                   autocomplete="off">
                                         </div>
                                     </div>
 
@@ -146,13 +147,13 @@
                                                  data-date-format="yyyy-mm-dd HH:ii:mm"
                                                  data-link-field="dtp_input1">
                                                 <input class="form-control" size="16" type="text" value="" readonly
-                                                       id="deadline">
+                                                       id="addeadline" name="deadline">
                                                 <span class="input-group-addon"><span
                                                         class="glyphicon glyphicon-remove"></span></span>
                                                 <span class="input-group-addon"><span
                                                         class="glyphicon glyphicon-th"></span></span>
                                             </div>
-                                            <input type="hidden" id="dtp_input1" value=""/><br/>
+                                            <input type="hidden" value=""/><br/>
                                         </div>
                                     </div>
 
@@ -184,10 +185,13 @@
                             </div>
 
                             <div class="box-footer">
-                                <button id="setad" class="btn btn-primary ladda-button" data-style="zoom-in">
+                                <button id="setad" class="btn btn-primary ladda-button"
+                                        data-style="zoom-in">
                                     <span class="ladda-label">Set ad</span>
                                 </button>
-                                <button id="delete" class="btn btn-primary ladda-button" data-style="zoom-in">
+
+                                <button id="delete" class="btn btn-primary ladda-button"
+                                        data-style="zoom-in">
                                     <span class="ladda-label">Delete</span>
                                 </button>
                             </div>
@@ -195,7 +199,6 @@
                     </div>
                 </div>
             </form>
-
         </section>
     </div>
     <footer class="main-footer">
@@ -219,16 +222,32 @@
 <script type="text/javascript" src="js/fileinput.min.js"></script>
 <script type="text/javascript" src="js/mycloud.js"></script>
 <script type="text/javascript">
-    var id = "${ad.id}";
+    var id = "${id}";
+    var href = "${href}";
+    var deadline = "${deadline}";
     var la = Ladda.create(document.querySelector("#setad"));
 
     $(document).ready(function () {
-        if (id.length == 0) {
+        if (href.length == 0) {
             $("#delete").hide();
+        } else {
+            $("#adhref").val(href);
+            $("#addeadline").val(deadline);
         }
     });
 
-    $("#add").click(function () {
+    $("#setad").click(function () {
+        checkSetAd();
+    });
+
+    $("#delete").click(function () {
+        if (window.confirm('Confirm deletion？')) {
+            var la = Ladda.create(document.querySelector("#delete"));
+
+            la.start();
+            $("#setad").attr("disabled", "disabled");
+            deleteAd(la);
+        }
     });
 </script>
 </body>

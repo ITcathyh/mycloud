@@ -198,15 +198,11 @@
     });
 
     $(document).on("click", "#next", function (e) {
-        if (nextdisabled != 1){
-            location.href = "/admin/queryusers?key=" + $("#searchtext").val() + "&page=${page + 1}";
-        }
+        nextpage("/admin/queryusers");
     });
 
     $(document).on("click", "#pre", function (e) {
-        if (page > 0) {
-            location.href = "/admin/queryusers?key=" + $("#searchtext").val() + "&page=${page - 1}";
-        }
+        prepage("/admin/queryusers");
     });
 </script>
 </body>

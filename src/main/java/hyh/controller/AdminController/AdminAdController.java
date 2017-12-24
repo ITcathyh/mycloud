@@ -20,11 +20,16 @@ import java.sql.Timestamp;
 public class AdminAdController {
     @Autowired
     private AdvertisementService advertisementservice;
-    private static final String IMAMG_PATH = "/adimag/";
+    private static String IMAMG_PATH = null;
 
-    @RequestMapping("/setad")
-    public String setAd(@RequestParam("file") CommonsMultipartFile image,
+
+    @RequestMapping("/checksetad")
+    public String checkSetAd(@RequestParam("file") CommonsMultipartFile image,
                         HttpServletRequest request) {
+        if (IMAMG_PATH == null){
+            IMAMG_PATH = request.getServletContext().getRealPath("/adimage/");
+        }
+
         Advertisement ad = dealAd(image, request);
 
         if (ad != null && advertisementservice.add(ad) == 1) {
@@ -54,9 +59,9 @@ public class AdminAdController {
         mRequest = null;
         Advertisement ad = new Advertisement();
 
-        ad.setDeadline(Timestamp.valueOf(deadline));
+        ad.setDeadline(Timestamp.valueOf(deadline).getTime());
         ad.setHref(href);
-        ad.setImgpath(IMAMG_PATH + image.getOriginalFilename());
+        ad.setImgpath("/adimage/" + image.getOriginalFilename());
 
         if (FileAction.transferFile(IMAMG_PATH, image)) {
             return ad;
@@ -64,4 +69,5 @@ public class AdminAdController {
 
         return null;
     }
+
 }

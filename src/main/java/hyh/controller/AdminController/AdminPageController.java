@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -165,13 +166,15 @@ public class AdminPageController {
     @RequestMapping("/admin/setad")
     public String getToAddAd(String id, HttpServletRequest request){
         if (id != null){
-            Advertisement ad = advertisementservice.getById(Long.valueOf(id));
+            Advertisement ad = advertisementservice.getById(Short.valueOf(id));
 
             if (ad == null){
                 return "redirect:/admin/queryad";
             }
 
-            request.setAttribute("ad", ad);
+            request.setAttribute("href", ad.getHref());
+            request.setAttribute("deadline", new Timestamp(ad.getDeadline()));
+            request.setAttribute("id", ad.getId());
         }
 
         return "admin/setad";

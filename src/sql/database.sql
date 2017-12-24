@@ -122,7 +122,7 @@ CREATE TABLE advertisement (
   COMMENT '跳转页',
   imgpath    VARCHAR(100) NOT NULL
   COMMENT '图片路径',
-  deadline TIMESTAMP NOT NULL
+  deadline BIGINT NOT NULL
   COMMENT '截止时间',
   INDEX (id)
 )

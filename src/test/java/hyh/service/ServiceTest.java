@@ -17,6 +17,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
 import org.springframework.test.context.ContextConfiguration;
 
+import java.sql.Timestamp;
+
 import static org.testng.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath*:/spring-mvc.xml", "classpath*:/spring-mybatis.xml"})
@@ -29,10 +31,12 @@ public class ServiceTest extends AbstractTransactionalTestNGSpringContextTests {
     private AdminService adminService;
     @Autowired
     private UserRecordService service;
+    @Autowired
+    private AdvertisementService advertisementservice;
 
     @Test
     public void test() {
-        System.out.println( service.getId(0, "-1", (short) 1));
+        System.out.println(advertisementservice.getByTime(new Timestamp(System.currentTimeMillis())));
     }
 
 }

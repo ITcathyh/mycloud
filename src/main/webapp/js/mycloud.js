@@ -424,7 +424,7 @@ function editUser(la) {
 /* setad begin */
 var adoptions = {
     type: 'POST',
-    url: "/admin/setad",
+    url: "/admin/checksetad",
     dataType: 'json',
     success: function (response) {
         la.stop();
@@ -439,4 +439,46 @@ var adoptions = {
         showerror("Unkown error");
     }
 };
+
+function checkSetAd() {
+    var href = $("#adhref").val();
+    var deadline = $("#addeadline").val();
+
+    if (href.length > 100 || href.length == 0){
+        showerror("Length of href must be less than 100 bits");
+    } else if (deadline.length == 0){
+        showerror("Please chose the deadline");
+    } else if ($("#adfile").val().length == 0 ){
+        showerror("Please chose an image");
+    }else {
+        la.start();
+        $("#adform").ajaxSubmit(adoptions);
+    }
+}
+
+function deleteAd(la) {
+    $.ajax({
+        data: {
+            "id": id
+        },
+        type: "post",
+        url: "/admin/deletead",
+        dataType: "json",
+        error: function (data) {
+            la.stop();
+            $("#edit").removeAttr("disabled");
+            showerror("Unknown error");
+        },
+        success: function (response) {
+            la.stop();
+            $("#edit").removeAttr("disabled");
+
+            if (response == 1) {
+                showsuccess("Delete successfully");
+            } else if (response == 0) {
+                showerror("Delete unsuccessfully");
+            }
+        }
+    });
+}
 /* setad end */

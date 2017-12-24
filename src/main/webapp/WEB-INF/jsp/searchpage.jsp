@@ -1,5 +1,6 @@
 <%@ page import="hyh.entity.UserFile" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="hyh.entity.Advertisement" %><%--
   Created by IntelliJ IDEA.
   User: 黄宇航
   Date: 2017/11/24
@@ -62,7 +63,7 @@
                     </ul>
                     <div class="navbar-form navbar-left">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="novsearchtext">
+                            <input type="text" class="form-control" id="searchtext">
                         </div>
                         <button class="btn btn-primary" id="novsearch">Search</button>
                         <button id="uploadbutton" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -89,7 +90,7 @@
                     <div class="tabbable">
                         <ul class="nav nav-tabs aw-nav-tabs active" id="list_nav">
                             <h2 class="hidden-xs">
-                                <p>Search - <span id="aw-search-type">Effective Java</span></p>
+                                <p>Search - <span id="aw-search-type">${text}</span></p>
                             </h2>
                         </ul>
                     </div>
@@ -99,21 +100,31 @@
                     <div class="tab-content">
                         <div class="tab-pane active" style="word-break:break-all;">
                             <div style="display: flex;">
-                                <p id="pageinfo" class="pxc">Search result : 1 item </p>
+                                <p id="pageinfo" class="pxc">Search result : ${cot} item </p>
                             </div>
 
-                            <div id="myCarousel" class="carousel slide" style="height:150px;width:300px">
-                                <div class="carousel-inner">
-                                    <div class="active item"><a href="https://www.baidu.com"><img src="img/ad.bmp"
-                                                                                                  height="150"
-                                                                                                  width="300"/></a>
-                                    </div>
-                                    <div class="item"><a href="https://www.baidu.com"><img src="img/bg1.jpg"
-                                                                                           height="150"
-                                                                                           width="300"/></a></div>
-                                </div>
-                            </div>
                             <%
+                                List<Advertisement> ads = (List<Advertisement>) request.getAttribute("ads");
+
+                                if (ads != null && ads.size() != 0) {
+                                    Advertisement ad = ads.get(0);
+
+                                    out.println("<div id=\"myCarousel\" class=\"carousel slide\" style=\"height:150px;width:300px\">");
+                                    out.println("<div class=\"carousel-inner\">");
+                                    out.println("<div class=\"active item\"><a href=\"" + ad.getHref() + "\">");
+                                    out.println("<img class=\"adimg\" src=\"" + ad.getImgpath() + "\" height=\"150\" width=\"300\"/></a></div>");
+
+                                    for (int i = 1, len = ads.size(); i < len; i++) {
+                                        ad = ads.get(i);
+
+                                        out.println("<div class=\"item\"><a href=\"" + ad.getHref() + "\">");
+                                        out.println("<img class=\"adimg\" src=\"" + ad.getImgpath() + "\" height=\"150\" width=\"300\"/></a></div>");
+                                    }
+
+                                    out.println("</div></div>");
+                                }
+
+                                ads = null;
                                 List<UserFile> userfiles = (List<UserFile>) request.getAttribute("files");
 
                                 if (userfiles == null || userfiles.size() == 0) {
@@ -144,12 +155,10 @@
                             %>
                             <div class="page-control" id="pageto" data-page="1">
                                 <ul class="pagination pull-right">
-                                    <li class="pagecreater_prev pagecreater_disable" id="pre"><a id="preurl"
-                                                                                                 href="/search?${page}">Previous</a>
+                                    <li id="pre"><a id="preurl">&laquo;</a>
                                     </li>
-                                    <li class="active" data-click="page" data-pg="${page}"><a>${page + 1}</a></li>
-                                    <li data-click="page" id="next"><a id="nexturl" href="/search?${page + 1}">Next</a>
-                                    </li>
+                                    <li class="active"><span>${page + 1}</span></li>
+                                    <li id="next"><a id="nexturl">&raquo;</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -238,7 +247,7 @@
 <script>
     var username = "${username}";
     var page = ${page};
-    var text = "${text}";
+    var type = "${type}";
     var nextdisabled = ${nextdisabled};
     var la = Ladda.create(document.querySelector("#submitupload"));
 
@@ -266,7 +275,19 @@
     });
 
     $("#novsearch").click(function () {
-        location.href = "/search?text=" + $("#novsearchtext").val() + "&type=All";
+        location.href = "/search?text=" + $("#searchtext").val() + "&type=All";
+    });
+
+    $(document).on("click", "#next", function (e) {
+        if (nextdisabled != 1) {
+            location.href = "/search?key=" + $("#searchtext").val() + "&spage=" + (page + 1) + "&type=" + type;
+        }
+    });
+
+    $(document).on("click", "#pre", function (e) {
+        if (page > 0) {
+            location.href = "/search?key=" + $("#searchtext").val() + "&spage=" + (page - 1) + "&type=" + type;
+        }
     });
 </script>
 </body>

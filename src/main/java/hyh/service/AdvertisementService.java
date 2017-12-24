@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -27,6 +28,11 @@ public class AdvertisementService {
     public List<Advertisement> getAll(){
         log.info("获取所有广告");
         return dao.getAll();
+    }
+
+    public List<Advertisement> getByTime(Timestamp time){
+        log.info("获取有效广告");
+        return dao.getByTime(time.getTime());
     }
 
     public Advertisement getById(short id){
