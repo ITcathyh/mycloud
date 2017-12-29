@@ -12,10 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -122,13 +124,21 @@ public class PageController {
         session.removeAttribute("userid");
         session.removeAttribute("admin");
 
-        return "redirect:/login";
+        return "redirect:/";
     }
 
 
     @RequestMapping("/user")
     public String getToUserpage(HttpServletRequest request, HttpSession session) {
-        session.setAttribute("user", userservice.getById((long) session.getAttribute("userid")));
+        User user = userservice.getById((long) session.getAttribute("userid"));
+
+        if (user == null){
+            return "redirect:logout";
+        }
+
+        user.setFilecount(userfileservice.getCountByUserid(user.getId()));
+
+        session.setAttribute("user", user);
         request.setAttribute("notice", PushAction.getNotice());
 
         return "user/user";
@@ -195,4 +205,5 @@ public class PageController {
             request.setAttribute("username", ((User) obj).getName());
         }
     }
+
 }

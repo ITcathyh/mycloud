@@ -19,9 +19,7 @@ public class DownloadAction {
     @Async
     public void updateDownloadInfo(UserFile userfile, UserFileService userfileservice,
                                    UserService userservice, Object obj) {
-        synchronized (this) {
             DailyInfoAction.setNewdownloads(DailyInfoAction.getNewdownloads() + 1);
-        }
 
         if (obj == null || ((User) obj).getId() != userfile.getUserid()) {
             userfile.setDownloads(userfile.getDownloads() + 1);

@@ -140,7 +140,7 @@
                                         file = userfiles.get(i);
 
                                         out.println("<h1 class=\"searchh1\">\n" +
-                                                "<a href='/download/" + file.getId() + "' target=\"_blank\">" + file.getFilename() + "</a>\n" +
+                                                "<a href='/file/download/" + file.getId() + "' target=\"_blank\">" + file.getFilename() + "</a>\n" +
                                                 "<a rel=\"noreferrer\" href='/file/download/" + file.getId() + "' \n" +
                                                 "target=\"_blank\"> <i class=\"glyphicon glyphicon-share-alt\"></i>\n" +
                                                 "</a>\n" +
@@ -288,6 +288,10 @@
         if (page > 0) {
             location.href = "/search?key=" + $("#searchtext").val() + "&spage=" + (page - 1) + "&type=" + type;
         }
+    });
+
+    $(document).on("click", "#submitupload", function (e) {
+        checkUploadFile();
     });
 </script>
 </body>

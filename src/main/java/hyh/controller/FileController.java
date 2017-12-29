@@ -1,10 +1,7 @@
 package hyh.controller;
 
-import hyh.action.DownloadAction;
-import hyh.action.RecordAction;
+import hyh.action.*;
 import hyh.global.Variable;
-import hyh.action.FileAction;
-import hyh.action.UserAction;
 import hyh.entity.User;
 import hyh.entity.UserFile;
 import hyh.service.UserFileService;
@@ -86,6 +83,7 @@ public class FileController {
                     user.setSurplus(user.getSurplus() - size);
 
                     if (userservice.update(user) == 1) {
+                        DailyInfoAction.setNewfiles(DailyInfoAction.getNewfiles() + 1);
                         return "done";
                     } else {
                         userfileservice.deleteById(userfile.getId());

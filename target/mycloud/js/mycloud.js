@@ -240,6 +240,7 @@ $("#adfile").fileinput({
 });
 
 $(document).on("click", "#submitupload", function (e) {
+    alert(1);
     checkUploadFile();
 });
 

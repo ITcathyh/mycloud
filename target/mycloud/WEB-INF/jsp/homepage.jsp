@@ -53,10 +53,18 @@
                             <a class="dropdown-toggle" data-toggle="dropdown">Classification
                                 <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Books</a></li>
-                                <li><a href="#">Courseware</a></li>
-                                <li><a href="#">Pictures</a></li>
-                                <li><a href="#">Other</a></li>
+                                <li>
+                                    <a href="/search?type=Books">Books</a>
+                                </li>
+                                <li>
+                                    <a href="/search?type=Courseware">Courseware</a>
+                                </li>
+                                <li>
+                                    <a href="/search?type=Pictures">Pictures</a>
+                                </li>
+                                <li>
+                                    <a href="/search?type=Other">Other</a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -101,16 +109,16 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a id="books" href="/search?type=Books">Books</a>
+                                        <a id="books">Books</a>
                                     </li>
                                     <li>
-                                        <a id="courseware" href="/search?type=Courseware">Courseware</a>
+                                        <a id="courseware">Courseware</a>
                                     </li>
                                     <li>
-                                        <a id="pictures" href="/search?type=Pictures">Pictures</a>
+                                        <a id="pictures">Pictures</a>
                                     </li>
                                     <li>
-                                        <a id="other" href="/search?type=Other">Other</a>
+                                        <a id="other">Other</a>
                                     </li>
                                 </ul>
                             </div>
@@ -292,6 +300,10 @@
 
     $("#novsearch").click(function () {
         location.href = "/search?text=" + $("#novsearchtext").val() + "&type=All";
+    });
+
+    $(document).on("click", "#submitupload", function (e) {
+        checkUploadFile();
     });
 </script>
 </body>

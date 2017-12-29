@@ -1,6 +1,8 @@
 package hyh.controller;
 
+import hyh.action.DailyInfoAction;
 import hyh.action.LoginAction;
+import hyh.entity.DailyInfo;
 import hyh.entity.User;
 import hyh.service.UserFileService;
 import hyh.service.UserService;
@@ -26,8 +28,8 @@ public class LoginController {
     public String checkLogin(@RequestParam("email") String email,
                              @RequestParam("password") String password,
                              HttpSession session, HttpServletRequest request) {
-        if (session.getAttribute("user") == null ) {
-            if ( session.getAttribute("loginlock") != null){
+        if (session.getAttribute("user") == null) {
+            if (session.getAttribute("loginlock") != null) {
                 return "lock";
             }
 
@@ -57,6 +59,7 @@ public class LoginController {
                 user.setFilecount(userfileservice.getCountByUserid(user.getId()));
                 session.setAttribute("user", user);
                 session.setAttribute("userid", user.getId());
+                DailyInfoAction.setActive(DailyInfoAction.getActive() + 1);
                 return "done";
             }
         } else {
