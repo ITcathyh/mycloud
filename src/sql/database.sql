@@ -95,15 +95,15 @@ CREATE TABLE admin (
 INSERT INTO admin (username, password) VALUES ("1", "1");
 
 CREATE TABLE userrecord (
-  id     BIGINT AUTO_INCREMENT
+  id       BIGINT    AUTO_INCREMENT
   COMMENT '动态的id',
-  userid BIGINT  NOT NULL
+  userid   BIGINT  NOT NULL
   COMMENT '用户id',
-  tag    VARCHAR(20)
+  tag      VARCHAR(20)
   COMMENT '标签',
-  type   TINYINT NOT NULL
+  type     TINYINT NOT NULL
   COMMENT '类别,0其他，1书籍，2课件，3代码',
-  time   INT    DEFAULT 1
+  time     INT       DEFAULT 1
   COMMENT '次数',
   lasttime TIMESTAMP DEFAULT current_timestamp
   COMMENT '最后记录时间',
@@ -116,15 +116,26 @@ CREATE TABLE userrecord (
   DEFAULT CHARSET = utf8;
 
 CREATE TABLE advertisement (
-  id     TINYINT AUTO_INCREMENT
+  id       TINYINT AUTO_INCREMENT
   COMMENT '动态的id',
-  href    VARCHAR(100) NOT NULL
+  href     VARCHAR(100) NOT NULL
   COMMENT '跳转页',
-  imgpath    VARCHAR(100) NOT NULL
+  imgpath  VARCHAR(100) NOT NULL
   COMMENT '图片路径',
-  deadline BIGINT NOT NULL
+  deadline BIGINT       NOT NULL
   COMMENT '截止时间',
   INDEX (id)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+CREATE TABLE userfile (
+  userid BIGINT
+  COMMENT '用户id',
+  fileid BIGINT
+  COMMENT '文件id',
+  INDEX (userid),
+  INDEX (fileid)
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8;

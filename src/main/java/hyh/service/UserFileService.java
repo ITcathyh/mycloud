@@ -1,6 +1,7 @@
 package hyh.service;
 
 import hyh.dao.UserFileDao;
+import hyh.entity.PushContent;
 import hyh.entity.UserFile;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,11 @@ public class UserFileService {
     public List<UserFile> searchByUserid(long userid, int index, int count, String key) {
         log.info("通过用户和关键字查找文件");
         return dao.searchByUserid(userid, index, count, key);
+    }
+
+    public List<UserFile> getHot(int hotsize){
+        log.info("获取热门资源");
+        return dao.getHot(hotsize);
     }
 
     public int update(UserFile record) {

@@ -19,8 +19,8 @@
     <link href="css/AdminLTE.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/all-skins.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/ladda-themeless.min.css" rel="stylesheet" type="text/css"/>
-    <link href="image/logo.ico" rel="bookmark"  type="img/x-icon"  />
-    <link href="img/logo.ico" rel="shortcut icon" >
+    <link href="image/logo.ico" rel="bookmark" type="img/x-icon"/>
+    <link href="img/logo.ico" rel="shortcut icon">
 </head>
 <body class="login-page">
 <div class="login-box">
@@ -55,16 +55,26 @@
                 <span class="glyphicon glyphicon-info-sign form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input id="invitationcode" name="invitationcode" type="text" class="form-control" placeholder="Invitationcode"
+                <input id="invitationcode" name="invitationcode" type="text" class="form-control"
+                       placeholder="Invitationcode"
                        autocomplete="off"/>
                 <span class="glyphicon glyphicon-info-sign form-control-feedback"></span>
             </div>
         </form>
         <div class="row">
             <div class="col-xs-4">
-                <button id="signup" type="submit" class="btn btn-primary btn-block btn-flat ladda-button" data-style="zoom-in">
+                <button id="signup" type="submit" class="btn btn-primary btn-block btn-flat ladda-button"
+                        data-style="zoom-in">
                     <span class="ladda-label">Sign Up</span>
                 </button>
+            </div>
+            <div class="col-xs-4">
+                <a href="/login">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat ladda-button"
+                            data-style="zoom-in">
+                        <span class="ladda-label">Log In</span>
+                    </button>
+                </a>
             </div>
         </div>
         <div id="msg-success" class="alert alert-info alert-dismissable" style="display: none;">

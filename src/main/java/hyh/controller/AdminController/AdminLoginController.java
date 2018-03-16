@@ -1,13 +1,11 @@
 package hyh.controller.AdminController;
 
-import hyh.action.LoginAction;
 import hyh.action.UserAction;
 import hyh.entity.Admin;
 import hyh.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sun.rmi.runtime.Log;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -50,7 +48,7 @@ public class AdminLoginController {
 
                 return "error";
             } else {
-                LoginAction.updateLoginInfor(user, adminservice, request);
+                UserAction.updateLoginInfor(user, adminservice, request);
 
                 session.setAttribute("admin", user);
                 return "done";

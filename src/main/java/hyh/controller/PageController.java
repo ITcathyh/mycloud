@@ -35,7 +35,7 @@ public class PageController {
     @RequestMapping("/")
     public String getToHomepage(HttpSession session, HttpServletRequest request) {
         setLoginBox(session, request);
-        request.setAttribute("hots", PushAction.getHot());
+        request.setAttribute("hots", PushAction.getHots(userfileservice));
 
         return "homepage";
     }
@@ -65,8 +65,12 @@ public class PageController {
                             MAX_PAGE_PER_SIZE + 1, text);
                 }
             } else {
-                userfiles = userfileservice.getByType(FileAction.getType(type),
-                        page * MAX_PAGE_PER_SIZE, MAX_PAGE_PER_SIZE + 1);
+                if (!type.equals("All")) {
+                    userfiles = userfileservice.getByType(FileAction.getType(type),
+                            page * MAX_PAGE_PER_SIZE, MAX_PAGE_PER_SIZE + 1);
+                } else {
+                    userfiles = userfileservice.getAll(page * MAX_PAGE_PER_SIZE, MAX_PAGE_PER_SIZE + 1);
+                }
             }
         }
 
@@ -132,7 +136,7 @@ public class PageController {
     public String getToUserpage(HttpServletRequest request, HttpSession session) {
         User user = userservice.getById((long) session.getAttribute("userid"));
 
-        if (user == null){
+        if (user == null) {
             return "redirect:logout";
         }
 

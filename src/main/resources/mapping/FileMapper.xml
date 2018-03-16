@@ -16,6 +16,9 @@
     <sql id="Base_Column_List">
     id, userid, filename, originname, downloads, size, type, tag
   </sql>
+    <sql id="PushContentList">
+        filename, type
+    </sql>
 
     <select id="getCountByUserid" resultType="java.lang.Integer">
         select count(*) from file
@@ -77,6 +80,13 @@
         select * from file
         where userid = #{userid} and (filename like "%"#{key}"%" or summary like "%"#{key}"%" or tag like "%"#{key}"%")
         limit #{index}, #{count}
+    </select>
+
+    <select id="getHot" resultMap="BaseResultMap">
+        select
+        <include refid="PushContentList"/>
+        from file order by downloads
+        limit #{hotsize}
     </select>
 
     <delete id="deleteById">

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
+import java.net.URLEncoder;
 
 @RestController
 @RequestMapping("/file")
@@ -126,15 +127,15 @@ public class FileController {
             return "notexist";
         }
 
-        response.setCharacterEncoding("utf-8");
-        response.setContentType("multipart/form-data");
-        response.setHeader("Content-Disposition", "attachment;fileName="
-                + userfile.getOriginname());
-
         InputStream is = null;
         OutputStream os = null;
 
         try {
+            response.setCharacterEncoding("utf-8");
+            response.setContentType("multipart/form-data");
+            response.setHeader("Content-Disposition", "attachment;filename="
+                    + URLEncoder.encode(userfile.getOriginname(), "utf-8"));
+
             is = new FileInputStream(file);
             os = response.getOutputStream();
             byte[] b = new byte[2048];

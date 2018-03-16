@@ -1,5 +1,6 @@
 package hyh.dao;
 
+import hyh.entity.PushContent;
 import hyh.entity.UserFile;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -37,6 +38,8 @@ public interface UserFileDao {
 
     List<UserFile> searchByUserid(@Param("userid") long userid, @Param("index") int index,
                                   @Param("count") int count, @Param("key") String key);
+
+    List<UserFile> getHot(int hotsize);
 
     int update(UserFile record);
 

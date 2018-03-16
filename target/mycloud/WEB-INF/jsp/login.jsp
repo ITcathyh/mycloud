@@ -35,7 +35,7 @@
             <div class="form-group has-feedback">
                 <input id="email" name="email" type="text" class="form-control" placeholder="email"
                        autocomplete="off"/>
-                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                <span class="glyphicon glyphicon-envelope  form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
                 <input id="password" name="password" type="password" class="form-control" placeholder="password"/>
@@ -48,6 +48,14 @@
                         data-style="zoom-in">
                     <span class="ladda-label">Log In</span>
                 </button>
+            </div>
+            <div class="col-xs-4">
+                <a href="/signup">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat ladda-button"
+                            data-style="zoom-in">
+                        <span class="ladda-label">Sign Up</span>
+                    </button>
+                </a>
             </div>
         </div>
         <div id="msg-success" class="alert alert-info alert-dismissable" style="display: none;">

@@ -22,7 +22,6 @@ public class AdminAdController {
     private AdvertisementService advertisementservice;
     private static String IMAMG_PATH = null;
 
-
     @RequestMapping("/checksetad")
     public String checkSetAd(@RequestParam("file") CommonsMultipartFile image,
                         HttpServletRequest request) {

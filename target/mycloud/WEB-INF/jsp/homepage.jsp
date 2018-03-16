@@ -1,4 +1,6 @@
-<%--
+<%@ page import="hyh.entity.PushContent" %>
+<%@ page import="java.util.List" %>
+<%@ page import="hyh.action.PushAction" %><%--
   Created by IntelliJ IDEA.
   User: 黄宇航
   Date: 2017/11/24
@@ -137,39 +139,61 @@
                 <div class="row" style="font-size:36px">
                     <div id="hotresource" style="text-align:center;margin-top:25px;">
                         <p>
-                            <a class="btn btn-primary btn-sm" role="button" href="#">
-                                Thinkint in Java
-                            </a>
-                            <a class="btn btn-primary btn-sm" role="button" href="#">
-                                Effective Java
-                            </a>
-                            <a class="btn btn-primary btn-sm" role="button" href="#">
-                                C Primer Plus
-                            </a>
-                            <a class="btn btn-primary btn-sm" role="button" href="#">
-                                C++ Primer Plus
-                            </a>
-                            <a class="btn btn-primary btn-sm" role="button" href="#">
-                                Assembly Language
-                            </a>
-                        </p>
-                        <p>
-                            <a class="btn btn-primary btn-sm" role="button" href="#">
-                                Data Structures
-                            </a>
-                            <a class="btn btn-primary btn-sm" role="button" href="#">
-                                Alogirthm
-                            </a>
-                            <a class="btn btn-primary btn-sm" role="button" href="#">
-                                Computer Networking
-                            </a>
-                            <a class="btn btn-primary btn-sm" role="button" href="#">
-                                Digital Design
-                            </a>
-                            <a class="btn btn-primary btn-sm" role="button" href="#">
-                                Refactoring To Patterns
-                            </a>
-                        </p>
+                                <%
+                                List<PushContent> hots = (List<PushContent>) request.getAttribute("hots");
+
+                                if (hots != null){
+                                        System.out.println(hots.toString());
+                                PushContent hot;
+
+                                for (int i = 0;i < hots.size();i++){
+                                    if (i == 5){
+                                        out.println( "</p> <p>");
+                                    }
+
+                                    hot = hots.get(i);
+                                    out.println("<a class=\"btn btn-primary btn-sm\" role=\"button\" href=\"" + hot.getHref() +"\">");
+                                    out.println(hot.getContent() + " </a>");
+
+
+                                }
+
+                                out.println("</p>");
+                                }
+                            %>
+                            <!--  <a class="btn btn-primary btn-sm" role="button" href="#">
+                                  Thinkint in Java
+                              </a>
+                              <a class="btn btn-primary btn-sm" role="button" href="#">
+                                  Effective Java
+                              </a>
+                              <a class="btn btn-primary btn-sm" role="button" href="#">
+                                  C Primer Plus
+                              </a>
+                              <a class="btn btn-primary btn-sm" role="button" href="#">
+                                  C++ Primer Plus
+                              </a>
+                              <a class="btn btn-primary btn-sm" role="button" href="#">
+                                  Assembly Language
+                              </a>
+                          </p>
+                          <p>
+                              <a class="btn btn-primary btn-sm" role="button" href="#">
+                                  Data Structures
+                              </a>
+                              <a class="btn btn-primary btn-sm" role="button" href="#">
+                                  Alogirthm
+                              </a>
+                              <a class="btn btn-primary btn-sm" role="button" href="#">
+                                  Computer Networking
+                              </a>
+                              <a class="btn btn-primary btn-sm" role="button" href="#">
+                                  Digital Design
+                              </a>
+                              <a class="btn btn-primary btn-sm" role="button" href="#">
+                                  Refactoring To Patterns
+                              </a>
+                          </p>-->
                     </div>
 
 

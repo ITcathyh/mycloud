@@ -1,17 +1,13 @@
 package hyh.controller;
 
 import hyh.action.DailyInfoAction;
-import hyh.action.LoginAction;
-import hyh.entity.DailyInfo;
+import hyh.action.UserAction;
 import hyh.entity.User;
 import hyh.service.UserFileService;
 import hyh.service.UserService;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -54,7 +50,7 @@ public class LoginController {
 
                 return "error";
             } else {
-                LoginAction.updateLoginInfor(user, userservice, request);
+                UserAction.updateLoginInfor(user, userservice, request);
 
                 user.setFilecount(userfileservice.getCountByUserid(user.getId()));
                 session.setAttribute("user", user);
