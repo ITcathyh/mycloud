@@ -8,7 +8,11 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+/**
+ * 重置每日记录
+ * @author ITcathyh
+ * @version 1.0
+ */
 @Component
 public class Timer {
 

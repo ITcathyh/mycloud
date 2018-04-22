@@ -10,7 +10,11 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
-
+/**
+ * 记录用户行为
+ * @author ITcathyh
+ * @version 1.0
+ */
 @Component
 public class RecordAction {
     private Logger log = Logger.getLogger(this.getClass());

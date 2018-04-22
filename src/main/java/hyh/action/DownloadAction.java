@@ -1,17 +1,18 @@
 package hyh.action;
 
-import hyh.entity.DailyInfo;
 import hyh.entity.User;
 import hyh.entity.UserFile;
-import hyh.global.Variable;
+import hyh.Info.Variable;
 import hyh.service.UserFileService;
 import hyh.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-
-import javax.servlet.http.HttpSession;
-
+/**
+ * 用户积分计算
+ * @author ITcathyh
+ * @version 1.0
+ */
 @Component
 public class DownloadAction {
     private Logger log = Logger.getLogger(this.getClass());

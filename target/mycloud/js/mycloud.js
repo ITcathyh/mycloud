@@ -233,6 +233,8 @@ $('.form_datetime').datetimepicker({
 $("#adfile").fileinput({
     showUpload: false,
     showRemove: false,
+    showCaption: false,
+    browseClass:"btn btn_1 non-padding",
     language: 'zh',
     maxFileSize: 30720,
     allowedPreviewTypes: ['image'],

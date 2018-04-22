@@ -1,7 +1,11 @@
 package hyh.action;
 
 import hyh.entity.DailyInfo;
-
+/**
+ * 每日信息管理。如当日新增用户、新增文件量
+ * @author ITcathyh
+ * @version 1.0
+ */
 public final class DailyInfoAction {
     private static final DailyInfo dailyifo = new DailyInfo();
 

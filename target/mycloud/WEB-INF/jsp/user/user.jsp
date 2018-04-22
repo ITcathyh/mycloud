@@ -9,6 +9,7 @@
 
 <html>
 <head>
+
     <%
         String basepath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/";
     %>
@@ -21,16 +22,17 @@
     <link href="css/AdminLTE.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/all-skins.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/ladda-themeless.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/admin.css" rel="stylesheet" type="text/css"/>
     <link href="image/logo.ico" rel="bookmark"  type="img/x-icon"  />
     <link href="img/logo.ico" rel="shortcut icon" >
 </head>
 <body class="skin-blue">
-<div class="wrapper">
+<div class="wrapper aside-bg">
 
     <header class="main-header">
-        <a class="logo">ITcat</a>
+        <a class="logo text_big">ITcat</a>
         <nav class="navbar navbar-static-top" role="navigation">
-            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" id="menu">
+            <a href="#" class="sidebar-toggle text_small" data-toggle="offcanvas" role="button" id="menu">
                 <span class="sr-only">Toggle navigation</span>
                 Menu
             </a>
@@ -40,7 +42,7 @@
                         <a href="/logout">
                             <img src="img/logo.jpg"
                                  class="user-image" alt="User Image"/>
-                            <span class="hidden-xs">Log out</span>
+                            <span class="hidden-xs text_small">Log out</span>
                         </a>
 
                     </li>
@@ -48,8 +50,9 @@
             </div>
         </nav>
     </header>
-    <aside class="main-sidebar">
-        <section class="sidebar">
+
+    <aside class="main-sidebar aside-bg">
+        <section class="sidebar aside-text">
             <div class="user-panel">
                 <div class="pull-left image">
                     <img src="img/logo.jpg" class="img-circle"
@@ -63,19 +66,19 @@
             </div>
             <ul class="sidebar-menu">
                 <li>
-                    <a href="/user">
+                    <a href="/user" class="sidebar-hover">
                         <i class="fa fa-user"></i> <span>My Info</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="/user/files">
+                    <a href="/user/files" class="sidebar-hover">
                         <i class="fa fa-folder"></i> <span>My Files</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="/">
+                    <a href="/" class="sidebar-hover">
                         <i class="fa fa-home"></i> <span>Back To Homepage</span>
                     </a>
                 </li>
@@ -83,12 +86,11 @@
         </section>
     </aside>
 
-
-    <div class="content-wrapper">
+    <div class="content-wrapper content-bg">
         <section class="content-header">
-            <h1>
+            <h1 class="text_bigger">
                 System management daemon
-                <small>Hello ${user.name}</small>
+                <small class="text_small">Hello ${user.name}</small>
             </h1>
         </section>
 
@@ -121,24 +123,24 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <div class="box box-primary">
-                        <div class="box-header">
+                    <div class="box box-primary non-padding">
+                        <div class="box-header text_big border_1">
                             <i class="fa fa-bullhorn"></i>
 
                             <h3 class="box-title">Personal Info</h3>
                         </div>
-                        <div class="box-body">
+                        <div class="box-body border_2 text_small">
                             <dl class="dl-horizontal">
                                 <dt>surplus：</dt>
-                                <dd>
+                                <dd class="border_3">
                                     ${user.surplus}kb
                                 </dd>
                                 <dt>points：</dt>
-                                <dd>
+                                <dd class="border_3">
                                     ${user.points}
                                 </dd>
                                 <dt>file count：</dt>
-                                <dd>
+                                <dd class="border_3">
                                     ${user.filecount}
                                 </dd>
                             </dl>
@@ -148,20 +150,20 @@
 
                 <div class="col-md-6">
 
-                    <div class="box box-primary">
-                        <div class="box-header">
+                    <div class="box box-primary non-padding">
+                        <div class="box-header text_big border_1">
                             <i class="fa fa-inbox"></i>
 
                             <h3 class="box-title">Login Info</h3>
                         </div>
-                        <div class="box-body">
+                        <div class="box-body border_2 text_small">
                             <dl class="dl-horizontal">
                                 <dt>last IP:</dt>
-                                <dd>
+                                <dd class="border_3">
                                     ${user.ip}
                                 </dd>
                                 <dt>last time</dt>
-                                <dd>
+                                <dd class="border_3">
                                     ${user.logintime}
                                 </dd>
                             </dl>
@@ -173,22 +175,21 @@
             </div>
         </section>
     </div>
-<footer class="main-footer">
-    <div align="center">
+    <footer class="main-footer footer">
+        <div align="center">
 
-    </div>
-    <div class="pull-right hidden-xs">
-        Code is beautiful
-    </div>
-    <strong>Powered by <a href="javascript:void(0)">ITcathyh</a> </strong>
-</footer>
+        </div>
+        <div class="pull-right hidden-xs">
+            Code is beautiful
+        </div>
+        <strong>Powered by <a href="javascript:void(0)">ITcathyh</a> </strong>
+    </footer>
 </div>
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript" src="js/spin.min.js"></script>
 <script type="text/javascript" src="js/ladda.min.js"></script>
-<script type="text/javascript">
-</script>
 </body>
 </html>
+

@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
+/**
+ * 用户行为controller
+ * @author ITcathyh
+ * @version 1.0
+ */
 @RestController
 @RequestMapping("/user")
 public class UserController {

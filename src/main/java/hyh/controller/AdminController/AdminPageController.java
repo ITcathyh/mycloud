@@ -18,7 +18,11 @@ import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.regex.Pattern;
-
+/**
+ * 管理界面映射controller
+ * @author ITcathyh
+ * @version 1.0
+ */
 @Controller
 public class AdminPageController {
     @Autowired

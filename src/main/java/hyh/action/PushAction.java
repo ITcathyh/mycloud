@@ -11,7 +11,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * 推送相关算法
+ * @author ITcathyh
+ * @version 1.0
+ */
 public final class PushAction {
     private static final List<Advertisement> advertises = new ArrayList<>();
     private static PushContent notice = new PushContent("Hello, I am the push content", "/");

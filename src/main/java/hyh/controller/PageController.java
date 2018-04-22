@@ -12,14 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * 页面映射controller
+ * @author ITcathyh
+ * @version 1.0
+ */
 @Controller
 public class PageController {
     @Autowired

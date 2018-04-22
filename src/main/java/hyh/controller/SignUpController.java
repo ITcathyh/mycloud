@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
+/**
+ * 用户注册相关操作controller
+ * @author ITcathyh
+ * @version 1.0
+ */
 @RestController
 public class SignUpController {
     @Autowired

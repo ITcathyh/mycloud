@@ -1,14 +1,7 @@
 <%@ page import="hyh.entity.PushContent" %>
 <%@ page import="java.util.List" %>
-<%@ page import="hyh.action.PushAction" %><%--
-  Created by IntelliJ IDEA.
-  User: 黄宇航
-  Date: 2017/11/24
-  Time: 10:11
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="hyh.action.PushAction" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
 <html>
 <head>
     <%
@@ -26,20 +19,20 @@
     <link href="img/logo.ico" rel="shortcut icon">
     <style>
         .alert-warning {
-            background-color: #f39c12;
+            background-color: rgba(134, 116, 93, 0.82);
         }
 
         .alert-success {
-            background-color: #00a65a;
+            background-color: rgba(46, 108, 75, 0.59);
         }
     </style>
 </head>
-<body id="homebody">
+<body id="homebody" >
 <div id="wapper">
     <div id="main-content">
         <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
+            <div class="container containerNew">
+                <div class="navbar-header" >
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
@@ -72,7 +65,7 @@
                     </ul>
                     <div class="navbar-form navbar-left">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="" id="novsearchtext">
+                            <input type="text" class="form-control controlNew" placeholder="" id="novsearchtext">
                         </div>
                         <button class="btn btn-primary" id="novsearch">Search</button>
                         <button id="uploadbutton" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -93,18 +86,18 @@
             </div>
         </nav>
 
-        <div class="container-full">
-            <div class="row">
 
+        <div class="container-full">
+            <div class="row rowNew">
                 <div class="col-lg-12 text-center v-center">
                     <h1>My Cloud</h1>
-                    <p class="lead">Share with the world</p>
+                    <p class="lead subtitle">Share with the world</p>
                     <br/>
                     <p id="yan">
                         <a href="#" class="pushcontent" id="pushcontent">Here is the push content</a>
                     </p>
                     <div class="col-lg-12" style="margin-top:10px">
-                        <div class="input-group input-group-lg col-sm-offset-4 col-sm-4">
+                        <div class="input-group input-group-lg col-sm-offset-4 col-sm-4 input-div">
                             <div class="input-group-btn">
                                 <button type="button" class="btn btn-default
                         dropdown-toggle" data-toggle="dropdown" id="showselect">All<span class="caret"></span>
@@ -127,8 +120,8 @@
 
                             <input type="text" class="form-control" id="searchtext" placeholder="search something"/>
                             <span class="input-group-btn">
-						                <span class="input-group-btn"><button class="btn btn-lg btn-primary"
-                                                                              id="mainsearch">search</button></span>
+						                <span class="input-group-btn"><button class="btn btn-lg btn-primary main-search"
+                                                                              id="mainsearch"><span>search</span></button></span>
                                 </span>
                         </div>
                     </div>
@@ -139,11 +132,8 @@
                 <div class="row" style="font-size:36px">
                     <div id="hotresource" style="text-align:center;margin-top:25px;">
                         <p>
-                                <%
+                             <%
                                 List<PushContent> hots = (List<PushContent>) request.getAttribute("hots");
-
-                                if (hots != null){
-                                        System.out.println(hots.toString());
                                 PushContent hot;
 
                                 for (int i = 0;i < hots.size();i++){
@@ -159,41 +149,40 @@
                                 }
 
                                 out.println("</p>");
-                                }
                             %>
-                            <!--  <a class="btn btn-primary btn-sm" role="button" href="#">
-                                  Thinkint in Java
-                              </a>
-                              <a class="btn btn-primary btn-sm" role="button" href="#">
-                                  Effective Java
-                              </a>
-                              <a class="btn btn-primary btn-sm" role="button" href="#">
-                                  C Primer Plus
-                              </a>
-                              <a class="btn btn-primary btn-sm" role="button" href="#">
-                                  C++ Primer Plus
-                              </a>
-                              <a class="btn btn-primary btn-sm" role="button" href="#">
-                                  Assembly Language
-                              </a>
-                          </p>
-                          <p>
-                              <a class="btn btn-primary btn-sm" role="button" href="#">
-                                  Data Structures
-                              </a>
-                              <a class="btn btn-primary btn-sm" role="button" href="#">
-                                  Alogirthm
-                              </a>
-                              <a class="btn btn-primary btn-sm" role="button" href="#">
-                                  Computer Networking
-                              </a>
-                              <a class="btn btn-primary btn-sm" role="button" href="#">
-                                  Digital Design
-                              </a>
-                              <a class="btn btn-primary btn-sm" role="button" href="#">
-                                  Refactoring To Patterns
-                              </a>
-                          </p>-->
+                                 <!--   <a class="btn btn-primary btn-sm" role="button" href="#">
+                                Thinkint in Java
+                            </a>
+                            <a class="btn btn-primary btn-sm" role="button" href="#">
+                                Effective Java
+                            </a>
+                            <a class="btn btn-primary btn-sm" role="button" href="#">
+                                C Primer Plus
+                            </a>
+                            <a class="btn btn-primary btn-sm" role="button" href="#">
+                                C++ Primer Plus
+                            </a>
+                            <a class="btn btn-primary btn-sm" role="button" href="#">
+                                Assembly Language
+                            </a>
+                        </p>
+                        <p>
+                            <a class="btn btn-primary btn-sm" role="button" href="#">
+                                Data Structures
+                            </a>
+                            <a class="btn btn-primary btn-sm" role="button" href="#">
+                                Alogirthm
+                            </a>
+                            <a class="btn btn-primary btn-sm" role="button" href="#">
+                                Computer Networking
+                            </a>
+                            <a class="btn btn-primary btn-sm" role="button" href="#">
+                                Digital Design
+                            </a>
+                            <a class="btn btn-primary btn-sm" role="button" href="#">
+                                Refactoring To Patterns
+                            </a>-->
+                        </p>
                     </div>
 
 
@@ -269,8 +258,8 @@
     </div>
 
 
-    <div id="footer" class="container navbar navbar-fixed-bottom">
-        <div class="container">
+    <div id="footer" class="container navbar navbar-fixed-bottom footer">
+        <div class="container" style="margin-left: 0px">
             <p class="text-muted credit">Pwoered by <a
                     href="https://www.github.com/itcathyh">Itcathyh</a></p>
         </div>

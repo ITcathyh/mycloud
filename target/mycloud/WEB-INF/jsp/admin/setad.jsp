@@ -1,13 +1,11 @@
 <%--
   Created by IntelliJ IDEA.
   User: 黄宇航
-  Date: 2017/12/14
-  Time: 20:38
+  Date: 2018/4/6
+  Time: 21:04
   To change this template use File | Settings | File Templates.
 --%>
-
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <%
@@ -16,21 +14,22 @@
     <base href=" <%=basepath%>">
     <title>Set Ad</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="css/ionicons.min.css" rel="stylesheet">
-    <link href="css/AdminLTE.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/all-skins.min.css" rel="stylesheet" type="text/css"/>
-    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css"/>
-    <link href="img/logo.ico" rel="bookmark" type="img/x-icon"/>
-    <link href="img/logo.ico" rel="shortcut icon">
+    <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../css/ionicons.min.css" rel="stylesheet">
+    <link href="../css/AdminLTE.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/all-skins.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/admin.css" rel="stylesheet" type="text/css"/>
+    <link href="../img/logo.ico" rel="bookmark" type="img/x-icon"/>
+    <link href="../img/logo.ico" rel="shortcut icon">
 </head>
 <body class="skin-blue">
-<div class="wrapper">
+<div class="wrapper aside-bg">
     <header class="main-header">
-        <a class="logo">ITcat</a>
+        <a class="logo text_big">ITcat</a>
         <nav class="navbar navbar-static-top" role="navigation">
-            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" id="menu">
+            <a href="#" class="sidebar-toggle text_small" data-toggle="offcanvas" role="button" id="menu">
                 <span class="sr-only">Toggle navigation</span>
                 Menu
             </a>
@@ -38,9 +37,9 @@
                 <ul class="nav navbar-nav">
                     <li class="dropdown user user-menu">
                         <a href="/logout">
-                            <img src="img/logo.jpg"
+                            <img src="../img/logo.jpg"
                                  class="user-image" alt="User Image"/>
-                            <span class="hidden-xs">Log out</span>
+                            <span class="hidden-xs text_small">Log out</span>
                         </a>
 
                     </li>
@@ -48,11 +47,11 @@
             </div>
         </nav>
     </header>
-    <aside class="main-sidebar">
-        <section class="sidebar">
+    <aside class="main-sidebar aside-bg aside-text">
+        <section class="sidebar text_small">
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="img/logo.jpg" class="img-circle"
+                    <img src="../img/logo.jpg" class="img-circle"
                          alt="User Image"/>
                 </div>
                 <div class="pull-left info">
@@ -63,31 +62,31 @@
             </div>
             <ul class="sidebar-menu">
                 <li>
-                    <a href="/admin">
+                    <a href="/admin" class="sidebar-hover">
                         <i class="fa fa-desktop"></i> <span>Website Info</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="/admin/queryad">
+                    <a href="/admin/queryad" class="sidebar-hover">
                         <i class="fa fa-money"></i> <span>Advertisements</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="/admin/queryusers">
+                    <a href="/admin/queryusers" class="sidebar-hover">
                         <i class="fa fa-user"></i> <span>Queryusers</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="/admin/queryfiles">
+                    <a href="/admin/queryfiles" class="sidebar-hover">
                         <i class="fa fa-folder"></i> <span>QueryFiles</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="/">
+                    <a href="/" class="sidebar-hover">
                         <i class="fa fa-home"></i> <span>Back To Homepage</span>
                     </a>
                 </li>
@@ -96,12 +95,13 @@
     </aside>
 
 
-    <div class="content-wrapper">
+    <div class="content-wrapper content-bg">
         <section class="content-header">
-            <h1>
+            <h1 class="text_bigger">
                 Set ad
             </h1>
         </section>
+        <hr class="line">
         <section class="content">
             <div class="row">
                 <div class="col-xs-12">
@@ -121,20 +121,20 @@
             <form id="adform" enctype="multipart/form-data"  action="javascript:void(0)">
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="box box-primary">
-                            <div class="box-header">
+                        <div class="box box-primary non-padding">
+                            <div class="box-header text_big border_1">
                                 <i class="fa fa-edit"></i>
 
                                 <h3 class="box-title">Base Info</h3>
                             </div>
 
-                            <div class="box-body">
+                            <div class="box-body text_small border_2">
                                 <div class="form-horizontal">
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">href</label>
 
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="href" id="adhref"
+                                            <input type="text" class="form-control non-padding border_3 text_small" name="href" id="adhref"
                                                    autocomplete="off">
                                         </div>
                                     </div>
@@ -146,11 +146,11 @@
                                             <div class="input-group date form_datetime"
                                                  data-date-format="yyyy-mm-dd HH:ii:mm"
                                                  data-link-field="dtp_input1">
-                                                <input class="form-control" size="16" type="text" value="" readonly
+                                                <input class="form-control non-padding border_3 text_small" size="16" type="text" value="" readonly
                                                        id="addeadline" name="deadline">
-                                                <span class="input-group-addon"><span
+                                                <span class="input-group-addon non-padding text_small"><span
                                                         class="glyphicon glyphicon-remove"></span></span>
-                                                <span class="input-group-addon"><span
+                                                <span class="input-group-addon non-padding text_small"><span
                                                         class="glyphicon glyphicon-th"></span></span>
                                             </div>
                                             <input type="hidden" value=""/><br/>
@@ -163,36 +163,36 @@
                     </div>
 
                     <div class="col-md-6">
-                        <div class="box box-primary">
-                            <div class="box-header">
+                        <div class="box box-primary non-padding">
+                            <div class="box-header text_big border_1">
                                 <i class="fa fa-edit"></i>
 
                                 <h3 class="box-title">Image Info</h3>
                             </div>
 
-                            <div class="box-body">
+                            <div class="box-body border_2 text_small">
                                 <div class="form-horizontal">
 
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Image</label>
 
                                         <div class="col-sm-9">
-                                            <input type="file" class="file" name="file" id="adfile">
+                                            <input type="file" name="file" id="adfile"> </span>
+
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
 
-                            <div class="box-footer">
-                                <button id="setad" class="btn btn-primary ladda-button"
+                            <div class="box-footer non-padding btn_align">
+                                <button id="setad" class="btn ladda-button btn_1"
                                         data-style="zoom-in">
-                                    <span class="ladda-label">Set ad</span>
+                                    <span class="ladda-label text_small">Set ad</span>
                                 </button>
-
-                                <button id="delete" class="btn btn-primary ladda-button"
+                                &nbsp;&nbsp; &nbsp;&nbsp;
+                                <button id="delete" class="btn ladda-button btn_1"
                                         data-style="zoom-in">
-                                    <span class="ladda-label">Delete</span>
+                                    <span class="ladda-label text_small">Delete</span>
                                 </button>
                             </div>
                         </div>
@@ -201,7 +201,7 @@
             </form>
         </section>
     </div>
-    <footer class="main-footer">
+    <footer class="main-footer footer">
         <div align="center">
 
         </div>
@@ -212,15 +212,15 @@
     </footer>
 </div>
 
-<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/spin.min.js"></script>
-<script type="text/javascript" src="js/ladda.min.js"></script>
-<script type="text/javascript" src="js/app.js"></script>
-<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript" src="js/jquery.form.min.js"></script>
-<script type="text/javascript" src="js/fileinput.min.js"></script>
-<script type="text/javascript" src="js/mycloud.js"></script>
+<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/spin.min.js"></script>
+<script type="text/javascript" src="../js/ladda.min.js"></script>
+<script type="text/javascript" src="../js/app.js"></script>
+<script type="text/javascript" src="../js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="../js/jquery.form.min.js"></script>
+<script type="text/javascript" src="../js/fileinput.min.js"></script>
+<script type="text/javascript" src="../js/mycloud.js"></script>
 <script type="text/javascript">
     var id = "${id}";
     var href = "${href}";
@@ -252,3 +252,4 @@
 </script>
 </body>
 </html>
+

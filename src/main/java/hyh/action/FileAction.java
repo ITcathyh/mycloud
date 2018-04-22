@@ -1,18 +1,15 @@
 package hyh.action;
 
-import hyh.entity.User;
-import hyh.entity.UserFile;
-import hyh.global.Variable;
-import hyh.service.UserFileService;
-import hyh.service.UserService;
+import hyh.Info.Variable;
 import org.apache.log4j.Logger;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-
+/**
+ * 资源在服务端的操作
+ * @author ITcathyh
+ * @version 1.0
+ */
 public final class FileAction {
     private static final Logger log = Logger.getLogger("hyh.Action.FileAction");
     private static final String FILE_PATH = "file/";

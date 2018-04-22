@@ -1,7 +1,7 @@
 package hyh.controller;
 
 import hyh.action.*;
-import hyh.global.Variable;
+import hyh.Info.Variable;
 import hyh.entity.User;
 import hyh.entity.UserFile;
 import hyh.service.UserFileService;
@@ -17,7 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.net.URLEncoder;
-
+/**
+ * 文件相关操作controller
+ * @author ITcathyh
+ * @version 1.0
+ */
 @RestController
 @RequestMapping("/file")
 public class FileController {

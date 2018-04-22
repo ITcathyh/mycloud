@@ -1,12 +1,6 @@
 <%@ page import="hyh.entity.UserFile" %>
 <%@ page import="java.util.List" %>
-<%@ page import="hyh.entity.Advertisement" %><%--
-  Created by IntelliJ IDEA.
-  User: 黄宇航
-  Date: 2017/11/24
-  Time: 10:19
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="hyh.entity.Advertisement" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -29,7 +23,7 @@
 <div id="wapper">
     <div id="main-content">
         <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
+            <div class="container containerNew">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
                         <span class="sr-only">Toggle navigation</span>

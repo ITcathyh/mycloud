@@ -22,15 +22,16 @@
     <link href="css/AdminLTE.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/all-skins.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/ladda-themeless.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/admin.css" rel="stylesheet" type="text/css"/>
     <link href="image/logo.ico" rel="bookmark" type="img/x-icon"/>
     <link href="img/logo.ico" rel="shortcut icon">
 </head>
 <body class="skin-blue">
-<div class="wrapper">
+<div class="wrapper aside-bg">
     <header class="main-header">
-        <a class="logo">ITcat</a>
+        <a class="logo text_big">ITcat</a>
         <nav class="navbar navbar-static-top" role="navigation">
-            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" id="menu">
+            <a href="#" class="sidebar-toggle text_small" data-toggle="offcanvas" role="button" id="menu">
                 <span class="sr-only">Toggle navigation</span>
                 Menu
             </a>
@@ -38,9 +39,9 @@
                 <ul class="nav navbar-nav">
                     <li class="dropdown user user-menu">
                         <a href="/logout">
-                            <img src="img/logo.jpg"
+                            <img src="../img/logo.jpg"
                                  class="user-image" alt="User Image"/>
-                            <span class="hidden-xs">Log out</span>
+                            <span class="hidden-xs text_small">Log out</span>
                         </a>
 
                     </li>
@@ -48,11 +49,11 @@
             </div>
         </nav>
     </header>
-    <aside class="main-sidebar">
-        <section class="sidebar">
+    <aside class="main-sidebar aside-bg aside-text">
+        <section class="sidebar text_small">
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="img/logo.jpg" class="img-circle"
+                    <img src="../img/logo.jpg" class="img-circle"
                          alt="User Image"/>
                 </div>
                 <div class="pull-left info">
@@ -63,31 +64,31 @@
             </div>
             <ul class="sidebar-menu">
                 <li>
-                    <a href="/admin">
+                    <a href="/admin" class="sidebar-hover">
                         <i class="fa fa-desktop"></i> <span>Website Info</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="/admin/queryad">
+                    <a href="/admin/queryad" class="sidebar-hover">
                         <i class="fa fa-money"></i> <span>Advertisements</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="/admin/queryusers">
+                    <a href="/admin/queryusers" class="sidebar-hover">
                         <i class="fa fa-user"></i> <span>Queryusers</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="/admin/queryfiles">
+                    <a href="/admin/queryfiles" class="sidebar-hover">
                         <i class="fa fa-folder"></i> <span>QueryFiles</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="/">
+                    <a href="/" class="sidebar-hover">
                         <i class="fa fa-home"></i> <span>Back To Homepage</span>
                     </a>
                 </li>
@@ -96,54 +97,53 @@
     </aside>
 
 
-    <div class="content-wrapper">
+    <div class="content-wrapper content-bg">
         <section class="content-header">
-            <h1>
+            <h1 class="text_bigger">
                 Query Users
             </h1>
         </section>
+        <hr class="line">
         <section class="content">
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="input-group" style="width: 350px;">
-                        <input type="text" class="form-control" id="searchtext" placeholder="search something"
+                    <div class="input-group set_center" style="width: 350px;">
+                        <input type="text" class="form-control non-padding border_1 text_small" id="searchtext" placeholder="search something"
                                name="stuid"/>
                         <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" id="search">Search</button>
+                        <button class="btn text_small btn_1 border_1" type="button" id="search">Search</button>
                     </span>
                     </div>
-                    <div class="box ">
-                        <div class="box-body table-responsive no-padding">
-                            <table class="table table-hover">
+                    <br>
+                    <div class="box non-padding">
+                        <div class="box-body table-responsive border_1">
+                            <table class="table">
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>qq</th>
+                                    <th class="text_small border_1">Name</th>
+                                    <th class="text_small border_1">Email</th>
+                                    <th class="text_small border_1">qq</th>
                                 </tr>
                                 <%
                                     List<User> users = (List<User>) request.getAttribute("users");
-
                                     if (users == null || users.size() == 0) {
                                         out.println("<tr>");
-                                        out.println("<th>Sorry, no such user</th>");
+                                        out.println("<th  class=\"text_small border_1\">Sorry, no such user</th>");
                                         out.println("</tr>");
                                     } else {
                                         User user;
-
                                         for (int i = 0, len = users.size(); i < len; i++) {
                                             user = users.get(i);
-
-                                            out.println("<tr onclick=\"javascrtpt:window.location.href='/admin/getuserdetail?userid=" + user.getId() + "'\">");
+                                            out.println("<tr  class=\"text_small border_1\" onclick=\"javascrtpt:window.location.href='/admin/getuserdetail?userid=" + user.getId() + "'\">");
                                             out.println(user);
                                             out.println("</tr>");
                                         }
                                     }
                                 %>
                             </table>
-                            <ul class="pagination">
+                            <ul class="pagination btn_align">
                                 <li id="pre"><a id="preurl">&laquo;</a>
                                 </li>
-                                <li class="active"><span>${page + 1}</span></li>
+                                <li class="active"><span class="non-padding"><span class="text_small">${page + 1}</span></span></li>
                                 <li id="next"><a id="nexturl">&raquo;</a></li>
                             </ul>
                         </div>
@@ -153,7 +153,7 @@
 
         </section>
     </div>
-    <footer class="main-footer">
+    <footer class="main-footer footer">
         <div align="center">
 
         </div>

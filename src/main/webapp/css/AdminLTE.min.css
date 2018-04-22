@@ -909,9 +909,9 @@ a:hover, a:active, a:focus {
     box-shadow: none;
     border-color: #d2d6de
 }
-
+/*input:focus*/
 .form-control:focus {
-    border-color: #3c8dbc !important;
+    border-color: rgba(65, 52, 29, 0.7) !important;
     box-shadow: none
 }
 

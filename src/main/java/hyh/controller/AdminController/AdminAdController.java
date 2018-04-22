@@ -14,7 +14,11 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
-
+/**
+ * 广告设置相关操作controller
+ * @author ITcathyh
+ * @version 1.0
+ */
 @RestController
 @RequestMapping("/admin")
 public class AdminAdController {

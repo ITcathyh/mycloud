@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpSession;
 
 import static hyh.action.PushAction.*;
-
+/**
+ * 内容推送相关操作controller
+ * @author ITcathyh
+ * @version 1.0
+ */
 @RestController
 @RequestMapping("/push")
 public class PushContentController {
