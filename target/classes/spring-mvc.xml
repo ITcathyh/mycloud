@@ -37,6 +37,11 @@
 
     <mvc:interceptors>
         <mvc:interceptor>
+            <mvc:mapping path="/test/**"/>
+            <bean class="hyh.interceptor.Test"/>
+        </mvc:interceptor>
+
+        <mvc:interceptor>
             <mvc:mapping path="/user/**"/>
             <mvc:mapping path="/user"/>
             <bean class="hyh.interceptor.UserActionInterceptor"/>

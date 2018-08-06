@@ -24,6 +24,8 @@ CREATE TABLE user (
   COMMENT '上次登录时间',
   PRIMARY KEY (id),
   INDEX (email),
+  -+``+
+
   INDEX (password)
 )
   ENGINE = InnoDB
