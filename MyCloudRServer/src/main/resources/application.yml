@@ -1,0 +1,62 @@
+server:
+  port: 8081
+
+spring:
+  dubbo:
+    application:
+      name: productor
+    registry:
+      address: zookeeper://127.0.0.1:2181
+    protocol:
+      name: dubbo
+      port: 20880
+    scan: hyh.service
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/mycloud?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+    username: mycloud
+    password: kk28288
+    druid:
+      initial-size: 8
+      min-idle: 5
+      max-active: 10
+      query-timeout: 6000
+      remove-abandoned-timeout: 1800
+      filters: stat,config
+  mail:
+    host: smtp.stu.neu.edu.cn
+    username:
+    password:
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+redis:
+  host: localhost
+  port: 6379
+  password: kk28288
+  jedis:
+    pool:
+      max-idle: 8
+      min-idle: 0
+      max-active: 8
+      max-wait: -1ms
+
+mybatis:
+  type-aliases-package: hyh.entity
+  mapper-locations: classpath:mapping/**/*.xml
+  configuration:
+    cache-enabled: true
+
+logging:
+  level.hyh: debug
+  level.hyh.dao: debug
+  file: logs/mycloud.log
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+

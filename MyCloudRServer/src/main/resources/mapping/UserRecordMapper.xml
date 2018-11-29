@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hyh.dao.UserRecordDao" >
+  <resultMap id="BaseResultMap" type="hyh.entity.UserRecord" >
+    <id column="userid" property="userid" jdbcType="BIGINT" />
+    <result column="tag" property="tag" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="time" property="time" jdbcType="INTEGER" />
+    <result column="lasttime" property="lasttime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    userid, tag, type, time, lasttime
+  </sql>
+
+  <cache type="hyh.redis.RedisCache"/>
+
+  <select id="getId" resultType="java.lang.Long"  >
+    select id
+    from userrecord
+    where userid = #{userid} and tag = #{tag} and type = #{type}
+  </select>
+
+  <insert id="add" parameterType="hyh.entity.UserRecord" >
+    insert into userrecord (userid, tag, type)
+    values (#{userid,jdbcType=BIGINT}, #{tag,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT})
+  </insert>
+
+  <update id="update" parameterType="hyh.entity.UserRecord" >
+    update userrecord
+    set time = time + 1,
+    lasttime = #{lasttime}
+    where id = #{id}
+  </update>
+
+  <!--
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from userrecord
+    where userid = #{userid,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from userrecord
+    where userid = #{userid,jdbcType=BIGINT}
+  </delete>
+
+
+  <insert id="insertSelective" parameterType="hyh.entity.UserRecord" >
+    insert into userrecord
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="tag != null" >
+        tag,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="lasttime != null" >
+        lasttime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="tag != null" >
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=INTEGER},
+      </if>
+      <if test="lasttime != null" >
+        #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="hyh.entity.UserRecord" >
+    update userrecord
+    <set >
+      <if test="tag != null" >
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=INTEGER},
+      </if>
+      <if test="lasttime != null" >
+        lasttime = #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="hyh.entity.UserRecord" >
+    update userrecord
+    set tag = #{tag,jdbcType=VARCHAR},
+      type = #{type,jdbcType=TINYINT},
+      time = #{time,jdbcType=INTEGER},
+      lasttime = #{lasttime,jdbcType=TIMESTAMP}
+    where userid = #{userid,jdbcType=BIGINT}
+  </update> -->
+</mapper>

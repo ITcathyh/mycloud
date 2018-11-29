@@ -1,0 +1,49 @@
+server:
+  port: 8080
+
+spring:
+  dubbo:
+    application:
+      name: Consumer
+    registry:
+      address: zookeeper://127.0.0.1:2181
+    protocol:
+      name: dubbo
+      port: 20880
+    scan: hyh.service
+  mail:
+    host: smtp.stu.neu.edu.cn
+    username:
+    password:
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+  mvc:
+    view:
+      suffix: .jsp
+      prefix: /WEB-INF/jsp/
+  thymeleaf:
+    cache: false
+    enabled: false
+#redis:
+  #    host: localhost
+  #    port: 6379
+  #    password: kk28288
+  #    jedis:
+  #      pool:
+  #        max-idle: 8
+  #        min-idle: 0
+  #        max-active: 8
+  #        max-wait: -1ms
+
+phoneutil:
+  uidstr: ITcathyh
+  keystr: d41d8cd98f00b204e980
+  codeLen: 6
+  content: 验证码：%s
+
+logging:
+  level.hyh: debug
+  level.hyh.dao: debug
+  file: logs/bry.log

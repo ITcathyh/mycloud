@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hyh.dao.AdminDao">
+    <resultMap id="BaseResultMap" type="hyh.entity.Admin">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="authority" property="authority" jdbcType="TINYINT"/>
+        <result column="ip" property="ip" jdbcType="VARCHAR"/>
+        <result column="logintime" property="logintime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, username, authority, ip, logintime
+  </sql>
+
+    <cache type="hyh.redis.RedisCache"/>
+
+    <select id="getById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from admin
+        where id = #{id,jdbcType=BIGINT} limit 1
+    </select>
+
+    <select id="login" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from admin
+        where username = #{username} and password = #{password} limit 1
+    </select>
+
+    <insert id="add" parameterType="hyh.entity.Admin">
+    insert into admin (id, password, username,
+      authority, ip, logintime
+      )
+    values (#{id,jdbcType=BIGINT}, #{password,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR},
+      #{authority,jdbcType=TINYINT}, #{ip,jdbcType=VARCHAR}, #{logintime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+
+    <update id="update" parameterType="hyh.entity.Admin">
+    update admin
+    set password = #{password,jdbcType=VARCHAR},
+      authority = #{authority,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+    <update id="updateLoginInfor" parameterType="hyh.entity.Admin">
+    update admin
+    set logintime = #{logintime},
+    ip = #{ip}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hyh.dao.UserFileDao">
+    <resultMap id="BaseResultMap" type="hyh.entity.UserFile">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="userid" jdbcType="BIGINT" property="userid"/>
+        <result column="filename" jdbcType="VARCHAR" property="filename"/>
+        <result column="originname" jdbcType="VARCHAR" property="originname"/>
+        <result column="path" jdbcType="VARCHAR" property="path"/>
+        <result column="summary" jdbcType="VARCHAR" property="summary"/>
+        <result column="downloads" jdbcType="INTEGER" property="downloads"/>
+        <result column="size" jdbcType="INTEGER" property="size"/>
+        <result column="type" jdbcType="TINYINT" property="type"/>
+        <result column="tag" jdbcType="VARCHAR" property="tag"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, userid, filename, originname, downloads, size, type, tag
+  </sql>
+    <sql id="PushContentList">
+        filename, type
+    </sql>
+
+    <cache type="hyh.redis.RedisCache"/>
+
+    <select id="getCountByUserid" resultType="java.lang.Integer">
+        select count(*) from file
+        where userid = #{userid}
+    </select>
+
+    <select id="getById" resultMap="BaseResultMap">
+        select * from file
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="getByUserid" resultMap="BaseResultMap">
+        select * from file
+        where userid = #{userid}
+        limit #{index}, #{count}
+    </select>
+
+    <select id="getByType" resultMap="BaseResultMap">
+        select * from file
+        where type = #{type}
+        limit #{index}, #{count}
+    </select>
+
+    <select id="getAll" resultMap="BaseResultMap">
+        select * from file limit #{index}, #{count}
+    </select>
+
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(*) from file
+    </select>
+
+    <select id="getDownloads" resultType="java.lang.Integer">
+        select sum(downloads) from file
+    </select>
+
+    <select id="getDownloadsByUserid" resultType="java.lang.Integer">
+        select sum(downloads) from file where userid = #{userid}
+    </select>
+
+    <select id="search" resultMap="BaseResultMap">
+          select * from file
+        where filename like "%"#{key}"%" or summary like "%"#{key}"%" or tag like "%"#{key}"%"
+        limit #{index}, #{count}
+    </select>
+
+    <select id="searchByUseridOrFiledetail" resultMap="BaseResultMap">
+        select * from file
+        where filename like "%"#{key}"%" or summary like "%"#{key}"%" or tag like "%"#{key}"%" or userid = #{userid}
+        limit #{index}, #{count}
+    </select>
+
+    <select id="searchByType" resultMap="BaseResultMap">
+        select * from file
+        where type = #{type} and (filename like "%"#{key}"%" or summary like "%"#{key}"%" or tag like "%"#{key}"%")
+        limit #{index}, #{count}
+    </select>
+
+    <select id="searchByUserid" resultMap="BaseResultMap">
+        select * from file
+        where userid = #{userid} and (filename like "%"#{key}"%" or summary like "%"#{key}"%" or tag like "%"#{key}"%")
+        limit #{index}, #{count}
+    </select>
+
+    <select id="getHot" resultMap="BaseResultMap">
+        select
+        <include refid="PushContentList"/>
+        from file order by downloads
+        limit #{hotsize}
+    </select>
+
+    <delete id="deleteById">
+    delete from file
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+    <delete id="deleteByUserid">
+    delete from file
+    where userid = #{userid,jdbcType=BIGINT}
+  </delete>
+
+    <insert id="add" parameterType="hyh.entity.UserFile" useGeneratedKeys="true" keyProperty="id">
+    insert into file (id, userid, filename, originname, summary,
+      downloads, size, type,path, tag )
+    values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{filename,jdbcType=VARCHAR}, #{originname,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR},
+      #{downloads,jdbcType=INTEGER}, #{size}, #{type,jdbcType=TINYINT}, #{path,jdbcType=TINYINT}, #{tag}
+      )
+  </insert>
+
+    <update id="update" parameterType="hyh.entity.UserFile">
+    update file
+    set filename = #{filename},
+      type = #{type},
+      tag = #{tag},
+      summary = #{summary}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+    <update id="addDownloads" parameterType="hyh.entity.UserFile">
+        update file
+        set downloads = #{downloads}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>
